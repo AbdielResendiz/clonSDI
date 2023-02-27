@@ -9,12 +9,15 @@ import {Image, NativeBaseProvider, Box, HStack, Center, Pressable, Icon, Text} f
 import { View, TouchableOpacity, StyleSheet} from 'react-native';
 import { FontAwesome,  AntDesign , MaterialCommunityIcons, Ionicons, FontAwesome5} from '@expo/vector-icons'; 
 import Pedidos from './src/private/Pedidos';
+
 import baseColor from './src/private/api/baseColor';
 import styles from './src/styles/styles';
 import { useState, useEffect } from 'react';
 import Carrito from './src/private/Carrito';
 import Sign from './src/public/Sign';
 import colors from './src/colors';
+import Buscar from "./src/public/Buscar"
+import Favoritos from './src/public/Favoritos';
 
 
 const Stack = createStackNavigator();
@@ -114,6 +117,8 @@ const HeaderLeftCustom = ()=>{
         <Stack.Screen name="Carrito" component={Carrito} />
         <Stack.Screen name="Sign" component={Sign} />
         <Stack.Screen name="Perfil" component={Perfil} />
+        <Stack.Screen name="Buscar" component={Buscar} />
+        <Stack.Screen name="Favoritos" component={Favoritos} />
       </Stack.Navigator>
 
       {showFooter ? (

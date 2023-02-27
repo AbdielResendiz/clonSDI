@@ -1,5 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { NativeBaseProvider, Box } from 'native-base';
+
+import SwiperList from '../components/SwiperList';
 
 export default function Home(props) {
 
@@ -8,15 +11,14 @@ export default function Home(props) {
   };
 
   return (
-    <View style={styles.container}>
-      <Text>Home</Text>
-      <TouchableOpacity style={{backgroundColor:"#ff0000"}}>
-        <Text style={{color:"#ffffff", padding:10}} onPress={()=>navegacion("Perfil")} >BOTON PRUEBA </Text>
-      </TouchableOpacity>
-      <StatusBar style="auto" />
+    <NativeBaseProvider style={styles.container}>
+      <Box h={"100%"}>
+        <SwiperList/>
+
+      </Box>
 
 
-    </View>
+    </NativeBaseProvider>
   );
 }
 
