@@ -5,6 +5,8 @@ const colors={
     amarillo : "#FAEA00",
     gris     : "#6C6C6C",
     blanco   : "#FFFFFF",
+    grisbg : "#fafafa",
+    grisclaro: "#ededed"
 
 
 }

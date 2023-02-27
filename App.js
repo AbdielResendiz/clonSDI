@@ -7,7 +7,7 @@ import Perfil from './src/private/Perfil';
 import Home from './src/public/Home';
 import {Image, NativeBaseProvider, Box, HStack, Center, Pressable, Icon, Text} from 'native-base';
 import { View, TouchableOpacity, StyleSheet} from 'react-native';
-import { FontAwesome,  AntDesign , MaterialCommunityIcons, Ionicons, FontAwesome5} from '@expo/vector-icons'; 
+import { FontAwesome,  AntDesign , MaterialCommunityIcons, Ionicons, Entypo} from '@expo/vector-icons'; 
 import Pedidos from './src/private/Pedidos';
 
 import baseColor from './src/private/api/baseColor';
@@ -23,7 +23,7 @@ import Favoritos from './src/public/Favoritos';
 const Stack = createStackNavigator();
 
 export default function App() {
-  const [selected, setSelected] = useState(6);
+  const [selected, setSelected] = useState(0);
   const [showFooter, setShowFooter] = useState(true);
 
 
@@ -96,14 +96,14 @@ const HeaderLeftCustom = ()=>{
   
   return (
     <NavigationContainer ref={navigationRef} >
-      <Stack.Navigator style={{height:70}}>
+      <Stack.Navigator >
         <Stack.Screen name="Home" component={Home} 
          options={{title: '',
          headerTintColor:colors.blanco,
          headerStyle: {
            backgroundColor: colors.azul,
          },
-         headerShadowVisible: false,
+         headerShadowVisible: true,
          headerRight: () => (
            <HeaderRightCustom/>
          ),
@@ -122,11 +122,11 @@ const HeaderLeftCustom = ()=>{
       </Stack.Navigator>
 
       {showFooter ? (
-        <View style={{height:70}} >
+        <View style={{height:70, marginBottom:8}} >
            <NativeBaseProvider>
-            <Box flex={1} safeAreaTop width="100%"  alignSelf="center" shadow={6}  >
+            <Box flex={1} safeAreaTop width="94%" mx={"3%"} alignSelf="center"  bg="#fafafa"  >
               
-              <HStack bg={baseColor.bg}  alignItems="center" safeAreaBottom shadow={6} borderRadius={35} >
+              <HStack bg={baseColor.bg}  alignItems="center" safeAreaBottom shadow={6} borderRadius={25} >
                 <Pressable cursor="pointer"  py="3" flex={1} 
                   onPress={() => {IrInicio()}}>
                   <Center >
@@ -136,14 +136,14 @@ const HeaderLeftCustom = ()=>{
                 </Pressable>
                 <Pressable cursor="pointer"  py="2" flex={1} onPress={() => {IrPedidos()}}>
                   <Center>
-                      <Icon  as={<MaterialCommunityIcons name={selected === 1 ? 'percent' : 'percent-outline'} />} color={ selected === 1 ? colors.azul : baseColor.footerIcon} size="lg" />
+                      <Icon  as={<Entypo name="back-in-time" />} color={ selected === 1 ? colors.azul : baseColor.footerIcon} size="lg" />
                       <Text   style={styles.texto} color={ selected === 1 ? colors.azul : baseColor.footerIcon}>Pedidos</Text>
                   </Center>
                 </Pressable>
                 
                 <Pressable cursor="pointer"  py="2" flex={1} onPress={() => {IrCarrito()} }>
                   <Center>
-                      <Icon  as={<AntDesign name="customerservice"  />} color={ selected === 2 ? colors.azul : baseColor.footerIcon} size="lg" />
+                      <Icon  as={<AntDesign name="shoppingcart"  />} color={ selected === 2 ? colors.azul : baseColor.footerIcon} size="lg" />
                       <Text  style={styles.texto} color={ selected === 2 ? colors.azul : baseColor.footerIcon}>Carrito</Text>
                   </Center>
                 </Pressable>
