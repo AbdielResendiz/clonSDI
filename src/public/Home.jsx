@@ -12,6 +12,12 @@ export default function Home(props) {
     props.navigation.navigate(item);
   };
 
+  const detalleCategorias= (item) => {
+    props.navigation.navigate("DetalleCategoria", {
+      categoria: item,
+    });
+  };
+
   return (
     <NativeBaseProvider >
       <Box h={"100%"} bg={colors.grisbg}>
@@ -20,17 +26,17 @@ export default function Home(props) {
         </Box>
         
         <Box ml={3}>
-        <Text> Categorías</Text>
+        <Text bold> Categorías</Text>
         </Box>
         <Center w={"95%"} ml={3}>
         <Stack direction={"row"}>
-          <Pressable h={10} w={"40%"} bg={colors.blanco} shadow={6} borderRadius={10} m={3}>
+          <Pressable h={10} w={"40%"} bg={colors.blanco} shadow={6} borderRadius={10} m={3} onPress={()=>detalleCategorias("Impresos")}>
             <Center h={"100%"} w={"100%"}>
               <Text bold>Impresos</Text>
             </Center>
           </Pressable>
 
-          <Pressable h={10} w={"40%"} bg={colors.blanco} shadow={6} borderRadius={10} m={3} onPress={()=>navegacion("DetalleCategoria")}>
+          <Pressable h={10} w={"40%"} bg={colors.blanco} shadow={6} borderRadius={10} m={3} onPress={()=>detalleCategorias("No impresos")}>
             <Center h={"100%"} w={"100%"}>
               <Text bold>No Impresos</Text>
             </Center>

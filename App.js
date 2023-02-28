@@ -19,11 +19,14 @@ import colors from './src/colors';
 import Buscar from "./src/public/Buscar"
 import Favoritos from './src/public/Favoritos';
 import DetalleCategoria from "./src/public/DetalleCategoria"
+import DetalleSubCategoria from './src/public/DetalleSubCategoria';
+import ScrollSubCategorias from './src/components/ScrollSubCategorias';
+import DetalleProducto from './src/public/DetalleProducto';
 
 
 const Stack = createStackNavigator();
 
-export default function App() {
+export default function App(props) {
   const [selected, setSelected] = useState(0);
   const [showFooter, setShowFooter] = useState(true);
 
@@ -119,8 +122,29 @@ const HeaderLeftCustom = ()=>{
         <Stack.Screen name="Sign" component={Sign} />
         <Stack.Screen name="Perfil" component={Perfil} />
         <Stack.Screen name="Buscar" component={Buscar} />
+        <Stack.Screen name="ScrollSubCategorias" component={ScrollSubCategorias} />
         <Stack.Screen name="Favoritos" component={Favoritos} />
-        <Stack.Screen name="DetalleCategoria" component={DetalleCategoria} />
+        <Stack.Screen name="DetalleProducto" component={DetalleProducto} />
+        <Stack.Screen name="DetalleCategoria" component={DetalleCategoria}  options={{title: '',
+         headerTintColor:colors.blanco,
+         headerStyle: {
+           backgroundColor: colors.azul,
+         },
+         headerShadowVisible: true,
+         headerRight: () => (
+           <HeaderRightCustom/>
+         ),
+       }}/>
+           <Stack.Screen name="DetalleSubCategoria" component={DetalleSubCategoria}  options={{title: '',
+         headerTintColor:colors.blanco,
+         headerStyle: {
+           backgroundColor: colors.azul,
+         },
+         headerShadowVisible: true,
+         headerRight: () => (
+           <HeaderRightCustom/>
+         ),
+       }}/>
       </Stack.Navigator>
 
       {showFooter ? (

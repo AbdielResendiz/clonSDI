@@ -1,7 +1,15 @@
 import { Box, Pressable, Icon, Center, Image, Text, Stack} from "native-base";
 import {  AntDesign } from '@expo/vector-icons'; 
 import colors from "../colors";
-const ProductoComponent = ()=>{
+import { useNavigation } from '@react-navigation/native';
+const ProductoComponent = (props)=>{
+    const navigation =useNavigation();
+
+    const detalleCategorias= (item) => {
+        navigation.navigate("DetalleProducto", {
+          categoria: item,
+        });
+      };
 
     return(
         <>
@@ -10,18 +18,20 @@ const ProductoComponent = ()=>{
             
             <Icon as={AntDesign} name="hearto"  ml={24} mt={2} />
         </Pressable>
+        <Pressable onPress={()=>detalleCategorias("Impresos")}>
+            <Center>
+                <Image source={{
+                uri: "https://w7.pngwing.com/pngs/638/892/png-transparent-hoodie-t-shirt-sweater-bluza-deep-grey-zipper-hat-active-shirt.png"
+                }} alt="Alternate Text" size="sm" />
+            </Center>
+            <Center w={120} h={10} mx={1}>
+                <Text fontSize={10} justifyContent={"center"}> Sudadera Gris algodon Unisex Infantil</Text>
+            </Center>
+            <Center >
+                <Text fontSize={10} justifyContent={"center"} bold> $220.00</Text>
+            </Center>
+        </Pressable>
 
-        <Center>
-            <Image source={{
-            uri: "https://w7.pngwing.com/pngs/638/892/png-transparent-hoodie-t-shirt-sweater-bluza-deep-grey-zipper-hat-active-shirt.png"
-            }} alt="Alternate Text" size="md" />
-        </Center>
-        <Center w={120} h={10} mx={1}>
-            <Text fontSize={10} justifyContent={"center"}> Sudadera Gris algodon Unisex Infantil</Text>
-        </Center>
-        <Center >
-            <Text fontSize={10} justifyContent={"center"} bold> $220.00</Text>
-        </Center>
         <Pressable bg={colors.azul} borderRadius={30} w="80%" ml="10%">
             <Center>
             <Stack direction={"row"}>
