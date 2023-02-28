@@ -30,7 +30,7 @@ export default function Home(props) {
             </Center>
           </Pressable>
 
-          <Pressable h={10} w={"40%"} bg={colors.blanco} shadow={6} borderRadius={10} m={3}>
+          <Pressable h={10} w={"40%"} bg={colors.blanco} shadow={6} borderRadius={10} m={3} onPress={()=>navegacion("DetalleCategoria")}>
             <Center h={"100%"} w={"100%"}>
               <Text bold>No Impresos</Text>
             </Center>

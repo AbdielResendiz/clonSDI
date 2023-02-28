@@ -18,6 +18,7 @@ import Sign from './src/public/Sign';
 import colors from './src/colors';
 import Buscar from "./src/public/Buscar"
 import Favoritos from './src/public/Favoritos';
+import DetalleCategoria from "./src/public/DetalleCategoria"
 
 
 const Stack = createStackNavigator();
@@ -119,10 +120,11 @@ const HeaderLeftCustom = ()=>{
         <Stack.Screen name="Perfil" component={Perfil} />
         <Stack.Screen name="Buscar" component={Buscar} />
         <Stack.Screen name="Favoritos" component={Favoritos} />
+        <Stack.Screen name="DetalleCategoria" component={DetalleCategoria} />
       </Stack.Navigator>
 
       {showFooter ? (
-        <View style={{height:70, marginBottom:8}} >
+        <View style={{height:50, marginBottom:12}} >
            <NativeBaseProvider>
             <Box flex={1} safeAreaTop width="94%" mx={"3%"} alignSelf="center"  bg="#fafafa"  >
               
@@ -130,28 +132,28 @@ const HeaderLeftCustom = ()=>{
                 <Pressable cursor="pointer"  py="3" flex={1} 
                   onPress={() => {IrInicio()}}>
                   <Center >
-                      <Icon  as={<Ionicons name={selected === 0 ? 'home' : 'home-outline'} />} color={ selected === 0 ? colors.azul : baseColor.footerIcon} size="lg" />
-                      <Text   style={styles.texto} color={ selected === 0 ? colors.azul : baseColor.footerIcon}>Inicio</Text>
+                      <Icon  as={<Ionicons name={selected === 0 ? 'home' : 'home-outline'} />} color={ selected === 0 ? colors.azul : baseColor.footerIcon} size="md" />
+                      <Text   style={styles.texto} color={ selected === 0 ? colors.azul : baseColor.footerIcon} fontSize={12}>Inicio</Text>
                   </Center>
                 </Pressable>
                 <Pressable cursor="pointer"  py="2" flex={1} onPress={() => {IrPedidos()}}>
                   <Center>
-                      <Icon  as={<Entypo name="back-in-time" />} color={ selected === 1 ? colors.azul : baseColor.footerIcon} size="lg" />
-                      <Text   style={styles.texto} color={ selected === 1 ? colors.azul : baseColor.footerIcon}>Pedidos</Text>
+                      <Icon  as={<Entypo name="back-in-time" />} color={ selected === 1 ? colors.azul : baseColor.footerIcon} size="md" />
+                      <Text   style={styles.texto} color={ selected === 1 ? colors.azul : baseColor.footerIcon} fontSize={12}>Pedidos</Text>
                   </Center>
                 </Pressable>
                 
                 <Pressable cursor="pointer"  py="2" flex={1} onPress={() => {IrCarrito()} }>
                   <Center>
-                      <Icon  as={<AntDesign name="shoppingcart"  />} color={ selected === 2 ? colors.azul : baseColor.footerIcon} size="lg" />
-                      <Text  style={styles.texto} color={ selected === 2 ? colors.azul : baseColor.footerIcon}>Carrito</Text>
+                      <Icon  as={<AntDesign name="shoppingcart"  />} color={ selected === 2 ? colors.azul : baseColor.footerIcon} size="md" />
+                      <Text  style={styles.texto} color={ selected === 2 ? colors.azul : baseColor.footerIcon} fontSize={12}>Carrito</Text>
                   </Center>
                 </Pressable>
                 <Pressable cursor="pointer"  py="2" flex={1} onPress={() => {IrCuenta()} }>
                   <Center>
                       <Icon  as={<MaterialCommunityIcons name={selected === 3 ? 'account' : 'account-outline'} />} 
-                      color={ selected === 3 ? colors.azul : baseColor.footerIcon} size="lg" />
-                      <Text  style={styles.texto} color={ selected === 3 ? colors.azul : baseColor.footerIcon}>Cuenta</Text>
+                      color={ selected === 3 ? colors.azul : baseColor.footerIcon} size="md" />
+                      <Text  style={styles.texto} color={ selected === 3 ? colors.azul : baseColor.footerIcon} fontSize={12}>Cuenta</Text>
                   </Center>
                 </Pressable>
               </HStack>
