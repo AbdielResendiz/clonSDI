@@ -48,7 +48,7 @@ export default function Home(props) {
       <Box>
         <Stack direction={"row"} justifyContent={"space-between"} mx={9} my={1}>
           <Text bold >Más vendidos impresos</Text>
-          <Pressable>
+          <Pressable onPress={()=>detalleCategorias("Impresos")}>
             <Text color={"#ff0000"}> Ver más</Text>
           </Pressable>
 
@@ -67,7 +67,7 @@ export default function Home(props) {
       <Box my={3}>
         <Stack direction={"row"} justifyContent={"space-between"} mx={9} my={1}>
           <Text bold >Más vendidos impresos</Text>
-          <Pressable>
+          <Pressable onPress={()=>detalleCategorias("No Impresos")}>
             <Text color={"#ff0000"}> Ver más</Text>
           </Pressable>
 

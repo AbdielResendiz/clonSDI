@@ -114,17 +114,85 @@ const HeaderLeftCustom = ()=>{
          headerLeft: ()=>(
            <HeaderLeftCustom/>
          )
-        
-         
        }}/>
-        <Stack.Screen name="Pedidos" component={Pedidos} />
-        <Stack.Screen name="Carrito" component={Carrito} />
+        <Stack.Screen name="Pedidos" component={Pedidos}   
+          options={{title: 'Pedidos',
+          headerTintColor:colors.blanco,
+          headerStyle: {
+            backgroundColor: colors.azul,
+          },
+          headerShadowVisible: true,
+          headerRight: () => (
+            <HeaderRightCustom/>
+          ),
+        }}/>
+        <Stack.Screen name="Carrito" component={Carrito}   
+            options={{title: 'Carrito',
+            headerTintColor:colors.blanco,
+            headerStyle: {
+              backgroundColor: colors.azul,
+            },
+            headerShadowVisible: true,
+            headerRight: () => (
+              <HeaderRightCustom/>
+            ),
+          }}/>
         <Stack.Screen name="Sign" component={Sign} />
-        <Stack.Screen name="Perfil" component={Perfil} />
-        <Stack.Screen name="Buscar" component={Buscar} />
+        <Stack.Screen name="Perfil" component={Perfil}   
+          options={{title: 'Mi cuenta',
+          headerTintColor:colors.blanco,
+          headerStyle: {
+            backgroundColor: colors.azul,
+          },
+          headerShadowVisible: true,
+          headerRight: () => (
+            <HeaderRightCustom/>
+          ),
+        }} />
+        <Stack.Screen name="Buscar" component={Buscar} 
+          options={{title: 'Buscar',
+          headerTintColor:colors.blanco,
+          headerStyle: {
+            backgroundColor: colors.azul,
+          },
+          headerShadowVisible: true,
+          headerRight: () => (
+            <HeaderRightCustom/>
+          ),
+        }}
+        />
         <Stack.Screen name="ScrollSubCategorias" component={ScrollSubCategorias} />
-        <Stack.Screen name="Favoritos" component={Favoritos} />
-        <Stack.Screen name="DetalleProducto" component={DetalleProducto} />
+        <Stack.Screen name="Favoritos" component={Favoritos}   
+        options={{title: 'Favoritos',
+         headerTintColor:colors.blanco,
+         headerStyle: {
+           backgroundColor: colors.azul,
+         },
+         headerShadowVisible: true,
+         headerRight: () => (
+          <View style={{flexDirection: 'row'}}>
+          <TouchableOpacity onPress={()=>navigationRef.navigate("Buscar")} style={{marginRight:20}}>
+            <FontAwesome name="search" size={24} color={baseColor.colorFont2} />
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={()=>navigationRef.navigate("Favoritos")} style={{marginRight:12}}>
+            <FontAwesome name="heart" size={24} color={colors.rosa} />
+          </TouchableOpacity>
+        </View>
+         ),
+        
+       }} />
+        <Stack.Screen name="DetalleProducto" component={DetalleProducto} 
+          options={{title: 'Buscar',
+          headerTintColor:colors.blanco,
+          headerStyle: {
+            backgroundColor: colors.azul,
+          },
+          headerShadowVisible: true,
+          headerRight: () => (
+            <HeaderRightCustom/>
+          ),
+        }}/>
         <Stack.Screen name="DetalleCategoria" component={DetalleCategoria}  options={{title: '',
          headerTintColor:colors.blanco,
          headerStyle: {
@@ -150,7 +218,7 @@ const HeaderLeftCustom = ()=>{
       {showFooter ? (
         <View style={{height:50, marginBottom:12}} >
            <NativeBaseProvider>
-            <Box flex={1} safeAreaTop width="94%" mx={"3%"} alignSelf="center"  bg="#fafafa"  >
+            <Box flex={1} safeAreaTop width="94%" mx={"3%"} alignSelf="center"  bg={colors.grisbg}  >
               
               <HStack bg={baseColor.bg}  alignItems="center" safeAreaBottom shadow={6} borderRadius={25} >
                 <Pressable cursor="pointer"  py="3" flex={1} 

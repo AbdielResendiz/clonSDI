@@ -2,6 +2,7 @@ import { Box, Pressable, Icon, Center, Image, Text, Stack} from "native-base";
 import {  AntDesign } from '@expo/vector-icons'; 
 import colors from "../colors";
 import { useNavigation } from '@react-navigation/native';
+import { useEffect, useState } from "react";
 const ProductoComponent = (props)=>{
     const navigation =useNavigation();
 
@@ -11,17 +12,34 @@ const ProductoComponent = (props)=>{
         });
       };
 
+      const [ selected, setSelected] = useState(false);
+
+      const handleIconPress = () => {
+        if (selected===true){
+            setSelected(false);
+        }else{
+        setSelected(true);}
+      };
+     useEffect( ()=>{
+        console.log(selected)
+     },[selected]);
+
+
+
     return(
         <>
         <Box  h={180} w={120} ml={2} borderRadius={20} shadow={6} bg="white" my={3}>
-        <Pressable justifyContent={"flex-end"} alignContent="flex-end">
-            
-            <Icon as={AntDesign} name="hearto"  ml={24} mt={2} />
+        <Pressable justifyContent={"flex-end"} alignContent="flex-end" onPress={()=>handleIconPress()}>
+            { selected===true ?
+            <Icon as={AntDesign} name="heart"  ml={24} mt={2}  color={colors.rosa }/> :
+            <Icon as={AntDesign} name="hearto"  ml={24} mt={2}  />
+        }
+           
         </Pressable>
         <Pressable onPress={()=>detalleCategorias("Impresos")}>
             <Center>
                 <Image source={{
-                uri: "https://w7.pngwing.com/pngs/638/892/png-transparent-hoodie-t-shirt-sweater-bluza-deep-grey-zipper-hat-active-shirt.png"
+                uri: "https://clipground.com/images/hoodie-png-2.png"
                 }} alt="Alternate Text" size="sm" />
             </Center>
             <Center w={120} h={10} mx={1}>

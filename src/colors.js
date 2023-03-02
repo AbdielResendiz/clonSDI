@@ -6,7 +6,7 @@ const colors={
     gris     : "#6C6C6C",
     blanco   : "#FFFFFF",
     grisbg : "#fafafa",
-    grisclaro: "#ededed"
+    grisclaro: "#f0f0f0"
 
 
 }

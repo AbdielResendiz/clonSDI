@@ -10,6 +10,8 @@ import SwiperList from '../components/SwiperList';
 
 const DetalleSubCategoria = (props) => {
   //  const subCategoria = props.route.params.subCategoria;
+
+  //Datos de mapeo de prueba.
   const data = [
     { id: 1, text: 'Objeto 1' },
     { id: 2, text: 'Objeto 2' },
