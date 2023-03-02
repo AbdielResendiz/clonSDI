@@ -22,6 +22,12 @@ import DetalleCategoria from "./src/public/DetalleCategoria"
 import DetalleSubCategoria from './src/public/DetalleSubCategoria';
 import ScrollSubCategorias from './src/components/ScrollSubCategorias';
 import DetalleProducto from './src/public/DetalleProducto';
+import TestingLogin from './src/public/TestingLogin';
+import CuentaMenu from './src/private/CuentaMenu';
+import Factura from './src/private/Factura';
+import Tarjetas from './src/private/Tarjetas';
+import FAQ from './src/private/Factura';
+import Notificaciones from './src/private/Notificaciones';
 
 
 const Stack = createStackNavigator();
@@ -70,7 +76,7 @@ const IrCarrito = () => {
 
 const IrCuenta = () => {
   setSelected(3)
-  navigationRef.navigate('Sign');
+  navigationRef.navigate('TestingLogin');
 };
 
 const HeaderRightCustom = ()=>{
@@ -139,6 +145,17 @@ const HeaderLeftCustom = ()=>{
           }}/>
         <Stack.Screen name="Sign" component={Sign} />
         <Stack.Screen name="Perfil" component={Perfil}   
+          options={{title: 'Mi Perfil',
+          headerTintColor:colors.blanco,
+          headerStyle: {
+            backgroundColor: colors.azul,
+          },
+          headerShadowVisible: true,
+          headerRight: () => (
+            <HeaderRightCustom/>
+          ),
+        }} />
+        <Stack.Screen name="CuentaMenu" component={CuentaMenu}   
           options={{title: 'Mi cuenta',
           headerTintColor:colors.blanco,
           headerStyle: {
@@ -149,6 +166,57 @@ const HeaderLeftCustom = ()=>{
             <HeaderRightCustom/>
           ),
         }} />
+        <Stack.Screen name="Factura" component={Factura}   
+          options={{title: 'Facturación',
+          headerTintColor:colors.blanco,
+          headerStyle: {
+            backgroundColor: colors.azul,
+          },
+          headerShadowVisible: true,
+          headerRight: () => (
+            <HeaderRightCustom/>
+          ),
+        }} />
+        <Stack.Screen name="Tarjetas" component={Tarjetas}   
+          options={{title: 'Tarjetas',
+          headerTintColor:colors.blanco,
+          headerStyle: {
+            backgroundColor: colors.azul,
+          },
+          headerShadowVisible: true,
+          headerRight: () => (
+            <HeaderRightCustom/>
+          ),
+        }} />
+        <Stack.Screen name="Notificaciones" component={Notificaciones}   
+          options={{title: 'Notificaciones',
+          headerTintColor:colors.blanco,
+          headerStyle: {
+            backgroundColor: colors.azul,
+          },
+          headerShadowVisible: true,
+          headerRight: () => (
+            <HeaderRightCustom/>
+          ),
+        }} />
+
+          <Stack.Screen name="FAQ" component={FAQ}   
+          options={{title: 'Preguntas frecuentes',
+          headerTintColor:colors.blanco,
+          headerStyle: {
+            backgroundColor: colors.azul,
+          },
+          headerShadowVisible: true,
+          headerRight: () => (
+            <HeaderRightCustom/>
+          ),
+        }} />
+
+
+
+
+
+        
         <Stack.Screen name="Buscar" component={Buscar} 
           options={{title: 'Buscar',
           headerTintColor:colors.blanco,
@@ -213,6 +281,8 @@ const HeaderLeftCustom = ()=>{
            <HeaderRightCustom/>
          ),
        }}/>
+
+        <Stack.Screen name="TestingLogin" component={TestingLogin} ></Stack.Screen>
       </Stack.Navigator>
 
       {showFooter ? (
