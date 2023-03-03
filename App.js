@@ -28,6 +28,7 @@ import Factura from './src/private/Factura';
 import Tarjetas from './src/private/Tarjetas';
 import FAQ from './src/private/Factura';
 import Notificaciones from './src/private/Notificaciones';
+import DetalleTarjeta from './src/private/DetalleTarjeta';
 
 
 const Stack = createStackNavigator();
@@ -281,16 +282,26 @@ const HeaderLeftCustom = ()=>{
            <HeaderRightCustom/>
          ),
        }}/>
+        <Stack.Screen name="DetalleTarjeta" component={DetalleTarjeta}  options={{title: 'Detalle de la tarjeta',
+         headerTintColor:colors.blanco,
+         headerStyle: {
+           backgroundColor: colors.azul,
+         },
+         headerShadowVisible: true,
+         headerRight: () => (
+           <HeaderRightCustom/>
+         ),
+       }}/>
 
         <Stack.Screen name="TestingLogin" component={TestingLogin} ></Stack.Screen>
       </Stack.Navigator>
 
       {showFooter ? (
-        <View style={{height:50, marginBottom:12}} >
+        <View style={{height:55, marginBottom:12}} >
            <NativeBaseProvider>
-            <Box flex={1} safeAreaTop width="94%" mx={"3%"} alignSelf="center"  bg={colors.grisbg}  >
+            <Box flex={1} safeAreaY={2}  safeAreaX={5} width="100%"  alignSelf="center"  bg={colors.blanco}  >
               
-              <HStack bg={baseColor.bg}  alignItems="center" safeAreaBottom shadow={6} borderRadius={25} >
+              <HStack bg={colors.blanco}  alignItems="center" shadow={6} borderRadius={25} >
                 <Pressable cursor="pointer"  py="3" flex={1} 
                   onPress={() => {IrInicio()}}>
                   <Center >

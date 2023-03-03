@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { Box, Divider, Icon, NativeBaseProvider, Pressable, Text } from 'native-base';
+import { Box, Divider, Icon, NativeBaseProvider, Pressable, Text, View } from 'native-base';
 
 import colors from '../colors';
 import { FontAwesome5, Ionicons, AntDesign } from '@expo/vector-icons'; 
@@ -31,21 +31,23 @@ const CuentaMenu=(props)=> {
 
   return (
     <NativeBaseProvider >
-      <Box mt={6}/>
-      <PerfilButton as={FontAwesome5} name="user-alt" text="Mi Perfil" nav="Perfil"/>
-      <Divider h={0.5} bg={colors.gris} w="90%" mx="5%"/>
+      <View bg={colors.blanco} flex={1}>
+        <Box mt={6}/>
+        <PerfilButton as={FontAwesome5} name="user-alt" text="Mi Perfil" nav="Perfil"/>
+        <Divider h={0.5} bg={colors.gris} w="90%" mx="5%"/>
 
-      <PerfilButton as={FontAwesome5} name="copy" text="Facturación" nav="Factura"/>
-      <Divider h={0.5} bg={colors.gris} w="90%" mx="5%"/>
+        <PerfilButton as={FontAwesome5} name="copy" text="Facturación" nav="Factura"/>
+        <Divider h={0.5} bg={colors.gris} w="90%" mx="5%"/>
 
-      <PerfilButton as={Ionicons} name="card" text="Mis tarjetas" nav="Tarjetas"/>
-      <Divider h={0.5} bg={colors.gris} w="90%" mx="5%"/>
+        <PerfilButton as={Ionicons} name="card" text="Mis tarjetas" nav="Tarjetas"/>
+        <Divider h={0.5} bg={colors.gris} w="90%" mx="5%"/>
 
-      <PerfilButton as={Ionicons} name="notifications-outline" text="Notificaciones" nav="Notificaciones"/>
-      <Divider h={0.5} bg={colors.gris} w="90%" mx="5%"/>
+        <PerfilButton as={Ionicons} name="notifications-outline" text="Notificaciones" nav="Notificaciones"/>
+        <Divider h={0.5} bg={colors.gris} w="90%" mx="5%"/>
 
-      <PerfilButton as={FontAwesome5} name="question-circle" text="Preguntas frecuentes" nav="FAQ"/>
-      <Divider h={0.5} bg={colors.gris} w="90%" mx="5%"/>
+        <PerfilButton as={FontAwesome5} name="question-circle" text="Preguntas frecuentes" nav="FAQ"/>
+        <Divider h={0.5} bg={colors.gris} w="90%" mx="5%"/>
+      </View>
     </NativeBaseProvider>
   );
 }

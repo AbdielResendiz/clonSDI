@@ -20,7 +20,7 @@ export default function Home(props) {
 
   return (
     <NativeBaseProvider >
-      <Box h={"100%"} bg={colors.grisbg}>
+      <Box h={"100%"} bg={colors.blanco}>
         <Box h={"20%"}>
         <SwiperList/>
         </Box>
