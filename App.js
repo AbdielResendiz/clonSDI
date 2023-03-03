@@ -26,7 +26,7 @@ import TestingLogin from './src/public/TestingLogin';
 import CuentaMenu from './src/private/CuentaMenu';
 import Factura from './src/private/Factura';
 import Tarjetas from './src/private/Tarjetas';
-import FAQ from './src/private/Factura';
+import FAQ from './src/private/FAQ';
 import Notificaciones from './src/private/Notificaciones';
 import DetalleTarjeta from './src/private/DetalleTarjeta';
 
