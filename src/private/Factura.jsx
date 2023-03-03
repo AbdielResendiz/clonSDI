@@ -46,10 +46,15 @@ export default function Factura() {
     <NativeBaseProvider>
       <View flex={1} bg={colors.blanco}>
         <Text bold fontSize={"xl"} ml={5} my={3}>Datos de facturación</Text>
-        <Box bg={colors.blanco} w="90%" mx="5%" h={"470px"} shadow={6}>
+        <Box bg={colors.blanco} w="90%" mx="5%" h={"400px"} shadow={6} borderRadius={20}>
         <Stack space={4} w="100%" alignItems="center">
           {/**NOMBRE */}
           <Input w={"90%"} mt={2} placeholder="Nombre" variant="underlined" />
+          <Input w={"90%"} mt={2} placeholder="RFC" variant="underlined" />
+          <Input w={"90%"} mt={2} placeholder="Regimen fiscal" variant="underlined" />
+          <Input w={"90%"} mt={2} placeholder="Código Postal" variant="underlined" />
+          <Input w={"90%"} mt={2} placeholder="Correo electrónico" variant="underlined" />
+
 
        
           
