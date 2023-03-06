@@ -1,7 +1,7 @@
 import React, { useState,useEffect } from "react";
 import {TouchableOpacity} from "react-native"
-import {  Ionicons,MaterialCommunityIcons,FontAwesome5,MaterialIcons} from '@expo/vector-icons'; 
-import { Icon,NativeBaseProvider,Checkbox,Select, Text,Box, Center,Container,ScrollView, Image, View, Button, useSafeArea, Input,FormControl, Column,} from "native-base";
+import {  Ionicons,MaterialCommunityIcons,MaterialIcons} from '@expo/vector-icons'; 
+import { Icon, Text, Center,ScrollView, View, Input,FormControl,} from "native-base";
 import CheckBox from "expo-checkbox";
 import RNPickerSelect from "react-native-picker-select";
 
@@ -78,7 +78,7 @@ const FormRegistro = () => {
 
 
  return (
-  
+  <>
     <ScrollView>
             <Center>
 
@@ -148,8 +148,7 @@ const FormRegistro = () => {
                      { label: "JavaScript", value: "JavaScript" },
                      { label: "TypeScript", value: "TypeScript" },
                      { label: "Python", value: "Python" },
-                     { label: "Java", value: "Java" },
-                     { label: "C++", value: "C++" },
+                   
                   
                  ]}/>
              </View>
@@ -196,7 +195,7 @@ const FormRegistro = () => {
 
             </Center>
     </ScrollView>
-   
+    </>
   )
 }
 

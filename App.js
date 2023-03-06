@@ -29,6 +29,7 @@ import Tarjetas from './src/private/Tarjetas';
 import FAQ from './src/private/FAQ';
 import Notificaciones from './src/private/Notificaciones';
 import DetalleTarjeta from './src/private/DetalleTarjeta';
+import Recoleccion from './src/private/Recoleccion';
 
 
 const Stack = createStackNavigator();
@@ -292,6 +293,17 @@ const HeaderLeftCustom = ()=>{
            <HeaderRightCustom/>
          ),
        }}/>
+
+        <Stack.Screen name="Recoleccion" component={Recoleccion}  options={{title: 'Recolección',
+         headerTintColor:colors.blanco,
+         headerStyle: {
+           backgroundColor: colors.azul,
+         },
+         headerShadowVisible: true,
+         headerRight: () => (
+           <HeaderRightCustom/>
+         ),
+        }}/>
 
         <Stack.Screen name="TestingLogin" component={TestingLogin} ></Stack.Screen>
       </Stack.Navigator>

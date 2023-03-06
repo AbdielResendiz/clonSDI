@@ -13,7 +13,7 @@ const Boton = (props) => {
 
 
     return(
-        <Pressable justifyContent={"center"} alignItems={"center"} w="80%" mx="10%" bg={color} h={12} borderRadius={50} my={4} onPress={()=>navegacion(nav)}>
+        <Pressable justifyContent={"center"} alignItems={"center"} w="80%" mx="10%" bg={color} h={12} borderRadius={50} my={4}  onPress={()=>navegacion(nav)}>
                 <Text bold fontSize={"lg"}  color={colorText}> {text} </Text>
                 
         </Pressable>
