@@ -1,11 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
 import {  StyleSheet, TouchableOpacity, View } from 'react-native';
-import { NativeBaseProvider, Box, Text, Stack, Pressable, Center, ScrollView, VStack, HStack } from 'native-base';
+import { NativeBaseProvider, Box, Text, Stack, Pressable, Center, ScrollView, Icon } from 'native-base';
 import colors from '../colors';
 import { FontAwesome5, Entypo } from '@expo/vector-icons'; 
 
 import SwiperList from '../components/SwiperList';
-import ProductoComponent2 from '../components/ProductoComponent2';
+import ProductoComponent from '../components/ProductoComponent';
 import ScrollSubCategorias from '../components/ScrollSubCategorias';
 import fetchPost from '../helper/fetchPost';
 import URL from '../helper/URL';
@@ -45,7 +45,7 @@ export default function DetalleCategoria(props) {
 
   return (
     <NativeBaseProvider >
-      <Box flex={1} bg={colors.grisbg}>
+      <Box h={"100%"} bg={colors.grisbg}>
         <Box h={"20%"}>
             <SwiperList/>
         </Box>
@@ -98,44 +98,45 @@ export default function DetalleCategoria(props) {
 
 
         </Center>
-        <Center>
-        <ScrollView horizontal={false} h="68%">
-                <HStack space={4} mr={2}>
-                    <VStack >
-                    {productos.map((item, index) => {
-        // Si el índice es par, comienza una nueva fila
-                        if (index % 2 === 0) {
-                        return (
-                          <ProductoComponent2 
-                          key={index} nombre={item.nombreS} id={item.idS}
-                          precio={item.precioS} 
-                          image={item.image_url}/>
-                        );
-                        }
-                    })}
+        <ScrollView>
+      <Box>
+        <Stack direction={"row"} justifyContent={"space-between"} mx={9} my={1}>
+          <Text bold >Promocionales</Text>
+          <Pressable>
+            <Text color={"#ff0000"}> Ver más</Text>
+          </Pressable>
+
+        </Stack>
+
+        <ScrollView horizontal={true}>
+          <ProductoComponent/>
+          <ProductoComponent/>
+          <ProductoComponent/>
+          <ProductoComponent/>
+          <ProductoComponent/>
+        </ScrollView>
+      </Box>
 
 
-                    </VStack>
-                    
+      <Box my={3}>
+        <Stack direction={"row"} justifyContent={"space-between"} mx={9} my={1}>
+          <Text bold >Offset</Text>
+          <Pressable>
+            <Text color={"#ff0000"}> Ver más</Text>
+          </Pressable>
 
-                    <VStack>
-                    {productos.map((item, index) => {
-        // Si el índice es par, comienza una nueva fila
-                        if (index % 2 !== 0) {
-                        return (
-                          <ProductoComponent2 
-                          key={index} nombre={item.nombreS} id={item.idS}
-                          precio={item.precioS} 
-                          image={item.image_url}/>
-                        );
-                        }
-                    })}
+        </Stack>
 
-                    </VStack>
-                </HStack>
-
-           </ScrollView>
-           </Center>
+        <ScrollView horizontal={true}>
+          <ProductoComponent/>
+          <ProductoComponent/>
+          <ProductoComponent/>
+          <ProductoComponent/>
+          <ProductoComponent/>
+        </ScrollView>
+      </Box>
+      </ScrollView>
+        
         
       </Box>
     </NativeBaseProvider>
