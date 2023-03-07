@@ -16,6 +16,8 @@ const Login= ()=> {
     const [isShow, setShow]    = useState()
 
 
+   
+
     useEffect(() => {
       
     }, [isShow]);
@@ -49,6 +51,7 @@ const Login= ()=> {
                 </Box>
          </Center>
             <View flex={2} bg="white" pb={20}>
+           
             {/*cargamos el select de Login o registro */}
             {isLoad == true ? (<Log/>):(<SelectBanner/>)}  
             { JSON.stringify(isShow) === JSON.stringify(start) ? (<FormularioRegistro/>):(null)}  

@@ -4,18 +4,44 @@ import {  Ionicons,MaterialCommunityIcons,FontAwesome5,MaterialIcons} from '@exp
 import { Icon,NativeBaseProvider,Checkbox,Select, Text,Box, Center,Container,ScrollView, Image, View, Button, useSafeArea, Input,FormControl, Column,} from "native-base";
 import CheckBox from "expo-checkbox";
 import RNPickerSelect from "react-native-picker-select";
+import { useFetch, URL } from "../API/useFetch";
 
 const FormRegistro = () => {
 
-    //values 
-    const [agree, setAgree]         = useState(false);
-    const [usuario, setUsuario]     = useState('');
-    const [apellido, setApellido]   = useState('');
-    const [celular, setCelular]     = useState('');
-    const [sucursal, setSucursal]   = useState('');
-    const [correo, setCorreo]       = useState('');
-    const [password, setPassword]   = useState('');
+
+ 
+    const [sucursales, setSucursales] = useState();
    
+    useEffect(() => {
+                const sucursal = `${URL.BASE_URL}SucursalesGet/getSucursalesQro`
+ 
+                fetch(sucursal)
+                .then(response => response.json())
+                .then((resultado)=> {
+                    setSucursales(resultado.Registro)
+                })
+                .catch((error) => {
+                    console.log("error",error)
+                })
+    
+    },[]);
+
+   
+
+    //values 
+    const [agree, setAgree]                           = useState(false);
+    const [usuario, setUsuario]                       = useState('');
+    const [apellido, setApellido]                     = useState('');
+    const [celular, setCelular]                       = useState('');
+    const [sucursal, setSucursal]                     = useState('');
+    const [correo, setCorreo]                         = useState('');
+    const [password, setPassword]                     = useState('');
+    const [passwordConfirmar, setPasswordConfirmar]   = useState('');
+
+
+
+
+
     const ChangeTC = () => {
         if(agree == true){
             setAgree(false)
@@ -25,32 +51,45 @@ const FormRegistro = () => {
     }
 
 
-    const [formNombre,   setFormNombre]     = useState(false);
-    const [formApellido, setFormApellido]   = useState(false);
-    const [formCelular, setFormCelular]     = useState(false);
-    const [formSucursal, setFormSucursal]   = useState(false);
-    const [formCorreo, setFormCorreo]       = useState(true);
-    const [formPassword, setFormPassword]   = useState(false);
-
-
+    const [formNombre,   setFormNombre]                       = useState(false);
+    const [formApellido, setFormApellido]                     = useState(false);
+    const [formCelular, setFormCelular]                       = useState(false);
+    const [formSucursal, setFormSucursal]                     = useState(false);
+    const [formCorreo, setFormCorreo]                         = useState(false);
+    const [formPassword, setFormPassword]                     = useState(false);
+    const [formPasswordConfirmar, setFormPasswordConfirmar]   = useState(false);
+    const [checkFormBothpass, setFormcheckBothpass]           = useState(false);
     const validRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    const Validarform = (s) => {
+    
 
-        
+
+
+    const Validarform =  (s) => {
+
+   
 
             if(usuario == ''){
                 setFormNombre(true)
+                
             }else{
-               
+                
                 setFormNombre(false)
             }
     
-            if(apellido == ''){
+            if (apellido == '' || apellido.length <= 0){
+               
+               
                 setFormApellido(true)
+              
+               
+               
+
             }else{
-            
+              
+                
                 setFormApellido(false)
+               
             }
     
             if(celular == '' || (celular.length == 10 || celular.length <= 10)){
@@ -63,92 +102,208 @@ const FormRegistro = () => {
             }
     
             if(sucursal == null || sucursal == ''){
-              
+               
                 setFormSucursal(true)
             }else{
-             
+               
                 setFormSucursal(false)
             }
     
             if(correo == '' || !correo.match(validRegex)){
+               
                 setFormCorreo(true)
-                setInputCorreo(false)
-                console.log("correo true", inputCorreo)  
-                console.log("correo true", formCorreo)                 
+           
+            
+             
             }else{
                 setFormCorreo(false)
-                console.log("correo false")  
+               
             }
 
-            if(password != null && password.length >= 8){
-
+            if(!password == null || password.length <= 5 || !ERPass.test(password)){
+             
                 setFormPassword(true)
-                
             }else{
-                
                 setFormPassword(false)
+              
             }
+
+            if(!passwordConfirmar == null || passwordConfirmar.length <= 5 || !ERPass.test(passwordConfirmar)){
+                console.log("pass", passwordConfirmar)
+                setFormPasswordConfirmar(true)
+               
+                if(passwordConfirmar != password){
+                    setFormcheckBothpass(true)
+                    console.log("no son iguales s")
+
+                }else{
+                    setFormcheckBothpass(false)
+                    console.log("son iguales s")
+                }
+
+
+            }else{
+                setFormPasswordConfirmar(false)
+             
+                setAgree(true)
+            }
+
+
+
+            if((inputNombre == false && inputApellido == false && inputTelefono == false && inputSucursal == false && inputCorreo == false && inputPassword == false && inputPasswordConfirmar == false))
+            {
+                setBandera(false)
+                console.log("inputNombre", usuario)
+                console.log("inputApellido", apellido)
+                console.log("inputTelefono", celular)
+                console.log("inputSucursal", sucursal)
+                console.log("inputCorreo", correo)
+                console.log("inputPassword", password)
+                console.log("inputPasswordConfirmar", inputPasswordConfirmar)
+
+             var Form = new FormData();
+                   Form.append("nombre",       usuario)
+                   Form.append("apellidos",    apellido)
+                   Form.append("telefono",     celular)
+                   Form.append("sucursal",     sucursal)
+                   Form.append("correo",       correo)
+                   Form.append("contrasenia",  password)
+             
+             fetch("http://sdiqro.store/api/Registro/registro_usuario",
+                {method: 'POST',
+                 body: Form
+                })
+                .then(response => response.json())
+                .then((resultado)=> {
+                    console.log("resultado",resultado)
+                    if(resultado.resultado == true){
+                        alert("Registro exitoso")
+                            
+                            function miFuncion() {
+                            console.log("Han pasado 5 segundos");
+
+
+                          }
+                          
+                          setTimeout(miFuncion, 5000);
+                          
+                    }
+                })
+                .catch((error) => {
+                    console.log("errorjj",error)
+                })
+
+               
+            }
+            else{
+                alert("Faltan campos por llenar")
+                console.log("2")
+                setBandera(false)
+            }
+        
+        
     }
     const [inputNombre, setInputNombre]     = useState(true);
     const [inputApellido, setInputApellido] = useState(true);
     const [inputTelefono, setInputTelefono] = useState(true);
     const [inputSucursal, setInputSucursal] = useState(true);
-    const [inputCorreo, setInputCorreo]     = useState(false);
+    const [inputCorreo, setInputCorreo]     = useState(true);
     const [inputPassword, setInputPassword] = useState(true);
+    const [inputPasswordConfirmar, setInputPasswordConfirmar] = useState(true);
+    
     const ERPass = /[!@#$%^&*()\-_=+{}[\]|\:;"'<>,.?/]/;
 
+    const [bandera, setBandera] = useState(false)
+
+
       useEffect(() => {
+        console.log("sucursal", sucursal)
+        console.log("Agree",agree)
         if(usuario.length <= 0){
             setInputNombre(true)
+          
+           
         }else{
             setInputNombre(false)
+            
+
         }
-        
         if(apellido.length <= 0){
+
+           
             setInputApellido(true)
         }else{
             setInputApellido(false)
+
         }
-       
         if(celular.length == 10 && celular.length <= 10 ){
-           
+          
             setInputTelefono(false)
         }else{
             setInputTelefono(true)
-           
-        }
+
         
+        }
         if(sucursal == null || sucursal == ''){
+            
             setInputSucursal(true)
         }else{
             setInputSucursal(false)
-        }
 
+           
+        }
         if(!correo.match(validRegex)){
-            console.log("correo---- true")
+           
             setInputCorreo(true)
         }else{
             setInputCorreo(false)
-            
-            console.log("correo---- false")
 
-        }
-        if((!password == null || password.length <= 8 || !ERPass.test(password))){
-
-            setInputPassword(true)
-            
-        }else{
            
-            setInputPassword(false)
         }
-     
+        if((!password == null || password.length <= 5 || !ERPass.test(password))){
+         
+            setInputPassword(true)
+        }else{
+            setInputPassword(false)
+
+          
+        }
+           
+        if(!passwordConfirmar == null || passwordConfirmar.length <= 5 || !ERPass.test(passwordConfirmar)){
+          
+            setInputPasswordConfirmar(true)
+        
+        }else{
+            setInputPasswordConfirmar(false)
+           
+            
+          
+        }
+        if((passwordConfirmar != password)){
+           
+           
+            setInputPasswordConfirmar(true)
+        console.log("no son iguales")
+        }else {
+          
+            if(passwordConfirmar == '' || passwordConfirmar == ''){
+                setInputPasswordConfirmar(true)
+            }else{
+                console.log("son iguales")
+                setInputPasswordConfirmar(false)
+            }
+        }
+
+
 
         //true  es error
         //false es correcto
-    }, [usuario,apellido,celular,sucursal,correo,password]);
+
+
+    }, [usuario,apellido,celular,sucursal,correo,password,passwordConfirmar,bandera,inputNombre,inputApellido,inputTelefono,inputSucursal,inputCorreo,inputPassword,inputPasswordConfirmar,agree]);
 
  return (
-  
+  <>
     <ScrollView>
             <Center>
 
@@ -206,22 +361,21 @@ const FormRegistro = () => {
             {/*termina form celular */}
 
 
-            {/*Sucural */}
+            {/*Sucursal */}
             <FormControl isInvalid={inputSucursal} w="75%" maxW="300px" pt={1}>
                 <FormControl.Label>Sucursal</FormControl.Label>
                <View borderWidth={1} borderColor={"#D2D2D2"} borderRadius={3}>
-               
-                <RNPickerSelect
-                 onValueChange={(value) => setSucursal(value)}
-                 placeholder={{ label: "Selecciona sucursal preferida", value: null }}
-                 items={[
-                     { label: "JavaScript", value: "JavaScript" },
-                     { label: "TypeScript", value: "TypeScript" },
-                     { label: "Python", value: "Python" },
-                     { label: "Java", value: "Java" },
-                     { label: "C++", value: "C++" },
-                  
-                 ]}/>
+               {sucursales != null ? (
+                            <RNPickerSelect
+                             onValueChange={(value) => setSucursal(value)}
+                             placeholder={{ label: "Selecciona sucursal preferida", value: null }}
+                             items={sucursales.map((sucursal) => ({
+                                label: sucursal.nombreSuc,
+                                value: sucursal.idSuc,
+                              }))}/>
+
+               ):(<Text> Cargando...</Text>)}
+              
              </View>
              {formSucursal  == true ? (  <FormControl.ErrorMessage leftIcon={<MaterialIcons name="error-outline" size={24} color="red" />}>
                     El campo sucursal es obligatorio
@@ -243,13 +397,11 @@ const FormRegistro = () => {
                     value={correo} 
                     InputLeftElement={<Icon as={MaterialIcons} name="email" size={5} color="#FE308E" m={3}/>} size={5} color="muted.400" />
            
-                {formCorreo != true ? (<FormControl.ErrorMessage leftIcon={<MaterialIcons name="error-outline" size={24} color="red" />}>
-                    El campo correo es obligatorio 1
+                {formCorreo != false ? (<FormControl.ErrorMessage leftIcon={<MaterialIcons name="error-outline" size={24} color="red" />}>
+                    El campo correo es obligatorio 
                 </FormControl.ErrorMessage>):(null)}  
                 
-                {formCorreo  == true ? ( null ):(null)}  
-                
-                {(inputCorreo == true && formCorreo == true)? ( null):(null)}  
+              
                 
                 
 
@@ -270,22 +422,42 @@ const FormRegistro = () => {
                     InputLeftElement={<Icon as={MaterialIcons} name="lock" size={5} color="#FE308E" m={3}/>} size={5} color="muted.400" />
                  {formPassword == true ? (  <FormControl.ErrorMessage leftIcon={<MaterialIcons name="error-outline" size={24} color="red" />}>
                     El campo contraseña es obligatorio
-                 </FormControl.ErrorMessage>):(null)}  
+                 </FormControl.ErrorMessage>):(<FormControl.HelperText leftIcon={<MaterialIcons name="error-outline" size={24} color="red" />}>
+                 La contraseña debe tener al menos 5 caracteres y 1 un caracter especial /?&%$/
+                 </FormControl.HelperText>)}  
 
             </FormControl>
             
-            <FormControl isInvalid w="75%" maxW="300px">
+            <FormControl isInvalid={inputPasswordConfirmar} w="75%" maxW="300px">
                 <FormControl.Label>Confirmar contraseña</FormControl.Label>
                 <Input
                     placeholder="Confirmar contraseña"
                     keyboardType='default'
-                    onChangeText={(val) => {setPassword(val)}}
+                    onChangeText={(val) => {setPasswordConfirmar(val)}}
                     autoCapitalize='none'
-                    value={password}  
+                    value={passwordConfirmar}  
                     InputLeftElement={<Icon as={MaterialIcons} name="lock" size={5} color="#FE308E" m={3}/>} size={5} color="muted.400" />
+
+
+                {formPasswordConfirmar == true ? (<FormControl.ErrorMessage leftIcon={<MaterialIcons name="error-outline" size={24} color="red" />}>
+                    El campo contraseña es obligatorio
+                 </FormControl.ErrorMessage>):(null)}  
+
+
             </FormControl>
-             
             {/*termina form Contaseña*/}
+
+
+
+
+            <FormControl isInvalid={inputPasswordConfirmar} w="75%" maxW="300px">
+                {checkFormBothpass != true ? (  null):(<FormControl.ErrorMessage leftIcon={<MaterialIcons name="error-outline" size={24} color="red" />}>
+                    Las contraseñas deben ser iguales
+             </FormControl.ErrorMessage>)}  
+
+
+            </FormControl>
+            
 
              <View flexDirection={"row"}>   
                    <Center><CheckBox
@@ -301,45 +473,16 @@ const FormRegistro = () => {
              </View>
 
 
-            <TouchableOpacity style={{paddingTop: 20}} disabled={!agree}  onPress={() => Validarform(1)} >
-            <Center bg={agree != true ? ("#6C6C6C"):("#FE308E")} h={"41px"} w={"274px"} borderRadius={20} > 
+            <TouchableOpacity style={{paddingTop: 20}} disabled={bandera}  onPress={() => Validarform()} >
+            <Center bg={bandera == true ? ("#6C6C6C"):("#FE308E")} h={"41px"} w={"274px"} borderRadius={20} > 
                 <Text color={"white"}>Registrate</Text></Center>
             </TouchableOpacity>
 
 
             </Center>
     </ScrollView>
-   
+    </>
   )
-
-//     function LoginInput(){
-
-
-//     return(
-//         <FormControl isInvalid={inputCorreo} w="75%" maxW="300px">
-//         <FormControl.Label>Email</FormControl.Label >
-//         <Input
-
-//             placeholder="Correo"
-//             keyboardType='email-address'
-//             onChangeText={(val) => {setCorreo(val)}}
-//             autoCapitalize='none'
-//             value={correo} 
-//             InputLeftElement={<Icon as={MaterialIcons} name="email" size={5} color="#FE308E" m={3}/>} size={5} color="muted.400" />
-   
-//         {formCorreo != true ? (<FormControl.ErrorMessage leftIcon={<MaterialIcons name="error-outline" size={24} color="red" />}>
-//             El campo correo es obligatorio 1
-//         </FormControl.ErrorMessage>):(null)}  
-        
-//         {formCorreo  == true ? ( null ):(null)}  
-        
-//         {(inputCorreo == true && formCorreo == true)? ( null):(null)}  
-        
-        
-
-//     </FormControl>
-//     )
-//   }
 }
 
 
