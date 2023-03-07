@@ -16,8 +16,10 @@ const Login= ()=> {
     const [isShow, setShow]    = useState()
 
 
+   
+
     useEffect(() => {
-      console.log("vista",isShow)
+      
     }, [isShow]);
 
 
@@ -49,6 +51,7 @@ const Login= ()=> {
                 </Box>
          </Center>
             <View flex={2} bg="white" pb={20}>
+           
             {/*cargamos el select de Login o registro */}
             {isLoad == true ? (<Log/>):(<SelectBanner/>)}  
             { JSON.stringify(isShow) === JSON.stringify(start) ? (<FormularioRegistro/>):(null)}  
@@ -160,7 +163,7 @@ const Login= ()=> {
                       InputLeftElement={<Icon as={MaterialIcons} name="lock" size={5} color="#FE308E" m={3}/>} size={5} color="muted.400" />
             </FormControl>
 
-            <TouchableOpacity onPress={() => { setisLoad(false),setisLoadV({vista: 2, status:true})}} >
+            <TouchableOpacity onPress={() => {setisLoad(false),setisLoadV({vista: 2, status:true})}} >
             <Center bg="white" h={"41px"} w={"274px"} mt={10} borderRadius={20} borderWidth={"1px"} borderColor={"#00BAEA"}> 
                 <Text color={"#00BAEA"}>Iniciar sesión</Text></Center>
             </TouchableOpacity>
