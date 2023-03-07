@@ -10,7 +10,7 @@ const Buscar = (props) => {
 
   const handleSearch = async () => {
     try {
-      const response = await fetch(`https://laptopfix.com.mx/laptopfixrun/api/servicios/buscar?q=${searchTerm}`);
+      const response = await fetch(`http://sdiqro.store/abdiel/Productos/buscar?q=${searchTerm}`);
       const data = await response.json();
       setResults(data);
     } catch (error) {
@@ -47,7 +47,7 @@ const Buscar = (props) => {
                     <HStack>
                     <Image 
                                 source={{
-                                uri: item.image_url
+                                uri: `http://sdiqro.store/static/imgServicios/${item.image_url}`
                                 }}alt="Alternate Text" size="lg" resizeMode='contain' />
                             <Box w="60%" mt={5} ml={4}>
                                 <Text  fontSize={20} color="#236DB7" >{item.nombreS}</Text>
