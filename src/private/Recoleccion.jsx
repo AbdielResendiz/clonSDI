@@ -54,7 +54,7 @@ const Recoleccion = (props) => {
                     <Sucursal name="Matriz" address="Avenida Siempre Viva #123, Colonia Limitrofe, Sprindfield"/>
                     <Sucursal name="Matriz" address="Avenida Siempre Viva #123, Colonia Limitrofe, Sprindfield"/>
                 </Box>
-                <Boton text="Siguiente" color={colors.azul} colorText={colors.blanco} nav="" />
+                <Boton text="Siguiente" color={colors.azul} colorText={colors.blanco} nav="SeleccionarTarjeta" />
 
             </View>
         </NativeBaseProvider>

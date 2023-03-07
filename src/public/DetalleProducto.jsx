@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Center, NativeBaseProvider, Text, Stack, Pressable, Divider, Box, Image, HStack, Button, View, Icon, ScrollView} from "native-base";
+import { Center, NativeBaseProvider, Text, Stack, Pressable, Divider, Box, Image, HStack, Button, View, Icon, ScrollView, Input} from "native-base";
 import colors from '../colors';
 import {  AntDesign, Entypo, MaterialCommunityIcons } from '@expo/vector-icons'; 
 
@@ -105,11 +105,20 @@ const DetalleProducto   = () => {
 
                 {/**BOTON CANTIDAD */}
                     <HStack ml={"10%"} my={1} bg={colors.azul} borderRadius={10}>
-                        <Pressable onPress={decrementCount}  py={2} px={0.5}>
+                        <Pressable onPress={decrementCount}  py={2} px={0.5} >
                             <Entypo name="minus" size={16} color="#fff"  />
                         </Pressable>
                         <Center>
-                            <Text fontSize={16} mx={2} bold color="#fff">{count}</Text>
+                        <Input
+                            bg="#fff00f"
+                            fontSize={16}
+                            mx={2}
+                            bold
+                            color="#fff000"
+                            value={count.toString()}
+                            onChangeText={(text) => setCount(parseInt(text))}
+                            keyboardType="numeric"
+                        />
                         </Center>
                         
                         <Pressable onPress={incrementCount}  py={2} px={0.5}>

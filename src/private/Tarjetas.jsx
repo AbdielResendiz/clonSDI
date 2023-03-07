@@ -40,12 +40,16 @@ const Tarjetas = (props) => {
         <NativeBaseProvider>
             <View flex={1} bg={colors.blanco} safeAreaButton={3} >
                 <Text bold fontSize={"xl"} ml={5} my={3}>Mis Tarjetas</Text>
-                <ScrollView bg={colors.blanco} w="90%" mx="5%"  borderRadius={20} shadow={6} safeAreaTop={4} mb={10}>
+                <ScrollView bg={colors.blanco} w="90%" mx="5%"  borderRadius={20} shadow={6} safeAreaTop={4} mb={5}>
                     <TarjetaRow text="0000 (tarjeta de Pepe)"/>
                     <TarjetaRow text="0000 (tarjeta de Lulu)"/>
                     <TarjetaRow text="0000 (tarjeta Hermano)"/>
                     
                 </ScrollView>
+                <Pressable my={5} alignItems="center">
+                    <Text bold underline color={colors.azul} fontSize={18}>Agregar tarjeta</Text>
+                </Pressable>
+                
 
             </View>
         </NativeBaseProvider>

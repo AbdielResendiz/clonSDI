@@ -1,12 +1,16 @@
 import { StatusBar } from 'expo-status-bar';
 import {  StyleSheet, TouchableOpacity, View } from 'react-native';
-import { NativeBaseProvider, Box, Text, Stack, Pressable, Center, ScrollView } from 'native-base';
+import { NativeBaseProvider, Box, Text, Stack, Pressable, Center, ScrollView, useSafeArea } from 'native-base';
 import colors from '../colors';
-
+import fetchPost from '../helper/fetchPost';
 import SwiperList from '../components/SwiperList';
 import ProductoComponent from '../components/ProductoComponent';
+import URL from '../helper/URL';
+import { useState, useEffect } from 'react';
 
 export default function Home(props) {
+  const BASE_URL =URL.BASE_URL;
+ // console.log(BASE_URL)
 
   const navegacion= (item) => {
     props.navigation.navigate(item);
@@ -18,6 +22,23 @@ export default function Home(props) {
     });
   };
 
+  const [ impresos, setImpresos ] = useState([]);
+  const getImpresos = async()=>{
+    const url = `${BASE_URL}abdiel/Productos/ver_impresos`
+    const options = {
+      method:'POST',
+    };
+    const res = await fetchPost(url, options);
+    setImpresos(res.data);
+   // console.log("res", res.data);
+    
+  }
+  useEffect(() => {
+    getImpresos();
+    
+  }, [])
+  
+ 
   return (
     <NativeBaseProvider >
       <Box h={"100%"} bg={colors.blanco}>
