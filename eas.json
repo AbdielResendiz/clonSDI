@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
     "build": {
       "preview": {
         "android": {
@@ -17,22 +16,3 @@
       "production": {}
     }
   }
-=======
-  "cli": {
-    "version": ">= 3.3.2"
-  },
-  "build": {
-    "development": {
-      "developmentClient": true,
-      "distribution": "internal"
-    },
-    "preview": {
-      "distribution": "internal"
-    },
-    "production": {}
-  },
-  "submit": {
-    "production": {}
-  }
-}
->>>>>>> Aldair

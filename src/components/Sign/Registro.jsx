@@ -6,11 +6,14 @@ import CheckBox from "expo-checkbox";
 import RNPickerSelect from "react-native-picker-select";
 import { useFetch, URL } from "../API/useFetch";
 
-const FormRegistro = () => {
+const FormRegistro = (props) => {
 
 
  
     const [sucursales, setSucursales] = useState();
+    
+    
+   
    
     useEffect(() => {
                 const sucursal = `${URL.BASE_URL}SucursalesGet/getSucursalesQro`
@@ -21,7 +24,7 @@ const FormRegistro = () => {
                     setSucursales(resultado.Registro)
                 })
                 .catch((error) => {
-                    console.log("error",error)
+                    // console.log("error",error)
                 })
     
     },[]);
@@ -61,9 +64,7 @@ const FormRegistro = () => {
     const [checkFormBothpass, setFormcheckBothpass]           = useState(false);
     const validRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    
-
-
+   
 
     const Validarform =  (s) => {
 
@@ -129,16 +130,16 @@ const FormRegistro = () => {
             }
 
             if(!passwordConfirmar == null || passwordConfirmar.length <= 5 || !ERPass.test(passwordConfirmar)){
-                console.log("pass", passwordConfirmar)
+                // console.log("pass", passwordConfirmar)
                 setFormPasswordConfirmar(true)
                
                 if(passwordConfirmar != password){
                     setFormcheckBothpass(true)
-                    console.log("no son iguales s")
+                    // console.log("no son iguales s")
 
                 }else{
                     setFormcheckBothpass(false)
-                    console.log("son iguales s")
+                    // console.log("son iguales s")
                 }
 
 
@@ -152,6 +153,8 @@ const FormRegistro = () => {
 
             if((inputNombre == false && inputApellido == false && inputTelefono == false && inputSucursal == false && inputCorreo == false && inputPassword == false && inputPasswordConfirmar == false))
             {
+               
+
                 setBandera(false)
                 console.log("inputNombre", usuario)
                 console.log("inputApellido", apellido)
@@ -168,6 +171,12 @@ const FormRegistro = () => {
                    Form.append("sucursal",     sucursal)
                    Form.append("correo",       correo)
                    Form.append("contrasenia",  password)
+
+
+                 
+
+               
+                  
              
              fetch("http://sdiqro.store/api/Registro/registro_usuario",
                 {method: 'POST',
@@ -178,14 +187,8 @@ const FormRegistro = () => {
                     console.log("resultado",resultado)
                     if(resultado.resultado == true){
                         alert("Registro exitoso")
-                            
-                            function miFuncion() {
-                            console.log("Han pasado 5 segundos");
-
-
-                          }
-                          
-                          setTimeout(miFuncion, 5000);
+                    
+                          setTimeout(miFuncion, 3000);
                           
                     }
                 })
@@ -199,10 +202,13 @@ const FormRegistro = () => {
                 alert("Faltan campos por llenar")
                 console.log("2")
                 setBandera(false)
+
             }
         
         
     }
+
+  
     const [inputNombre, setInputNombre]     = useState(true);
     const [inputApellido, setInputApellido] = useState(true);
     const [inputTelefono, setInputTelefono] = useState(true);
