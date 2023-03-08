@@ -10,6 +10,7 @@ import ScrollSubCategorias from '../components/ScrollSubCategorias';
 import fetchPost from '../helper/fetchPost';
 import URL from '../helper/URL';
 import { useState, useEffect } from 'react';
+import Categoria from '../components/Categoria';
 
 export default function DetalleCategoria(props) {
 
@@ -18,8 +19,12 @@ export default function DetalleCategoria(props) {
   const estado = props.route.params.estado;
   const urlCat = props.route.params.url;
   console.log("link" , urlCat);
+  console.log("ESTADO ===", estado);
+
+ 
 
   
+  const [ categorias, setCategorias ] = useState([]);
 
   const [ productos, setProductos ] = useState([]);
 
@@ -43,6 +48,23 @@ export default function DetalleCategoria(props) {
   }, [])
 
 
+  const getCategorias= async()=>{
+
+    const url = "http://sdiqro.store/abdiel/Productos/categorias"
+    const options = {
+      method:'POST',
+    };
+    const res1 = await fetchPost(url, options);
+    setCategorias(res1.data);
+    console.log("Categorias", res1.data);
+    
+  }
+  useEffect(() => {
+    getCategorias();
+    console.log(categorias)
+  }, [])
+
+
   return (
     <NativeBaseProvider >
       <Box flex={1} bg={colors.grisbg}>
@@ -55,41 +77,19 @@ export default function DetalleCategoria(props) {
         </Box>
         <Center w={"95%"} ml={3}>
 
-        <ScrollView horizontal={true}>
+        <ScrollView horizontal={true} >
 
-            <Pressable mx={1} onPress={()=>navegacion("DetalleSubCategoria")}>
-                <Center bg="#cfcfcf" h={16} w={16} borderRadius={16}>
-                    <FontAwesome5 name="tshirt" size={24} color="#808080" />
-                </Center>
-            </Pressable>
-            <Pressable mx={1}>
-                <Center bg="#cfcfcf" h={16} w={16} borderRadius={16}>
-                    <Entypo name="cup" size={24} color="#808080" />
-                </Center>
-            </Pressable>
+            { categorias.map( (item,index) => {
+              return(
+                <Categoria  image={item.imagen} titulo={item.nombreCS} key={index} idCS={item.idCS} impreso={estado} />
+              )
+            }
 
-            <Pressable mx={1}>
-                <Center bg="#cfcfcf" h={16} w={16} borderRadius={16}>
-                    <FontAwesome5 name="pencil-alt" size={24} color="#808080" />
-                </Center>
-            </Pressable>
+            )
 
-            <Pressable mx={1}>
-                <Center bg="#cfcfcf" h={16} w={16} borderRadius={16}>
-                    <Entypo name="book" size={24} color="#808080" />
-                </Center>
-            </Pressable>
-
-            <Pressable mx={1}>
-                <Center bg="#cfcfcf" h={16} w={16} borderRadius={16}>
-                    <Entypo name="scissors" size={24} color="#808080" />
-                </Center>
-            </Pressable>
-            <Pressable mx={1}>
-                <Center bg="#cfcfcf" h={16} w={16} borderRadius={16}>
-                    <FontAwesome5 name="tshirt" size={24} color="#808080" />
-                </Center>
-            </Pressable>
+            }
+            
+        
 
 
 
