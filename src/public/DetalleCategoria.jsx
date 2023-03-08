@@ -25,14 +25,9 @@ export default function DetalleCategoria(props) {
 
   
   const [ categorias, setCategorias ] = useState([]);
-
+//PRODUCTOS MAPEO
   const [ productos, setProductos ] = useState([]);
-
-  const navegacion= (item) => {
-    props.navigation.navigate(item);
-  };
    const getProductos= async()=>{
-
     const url = urlCat
     const options = {
       method:'POST',
@@ -40,13 +35,12 @@ export default function DetalleCategoria(props) {
     const res = await fetchPost(url, options);
     setProductos(res.data);
     console.log("res", res.data);
-    
   }
   useEffect(() => {
     getProductos();
     console.log(productos)
   }, [])
-
+// fin PRODUCTOS MAPEO
 
   const getCategorias= async()=>{
 
@@ -64,6 +58,13 @@ export default function DetalleCategoria(props) {
     console.log(categorias)
   }, [])
 
+  const detalleCategorias= (idCS, impreso, nombreCS) => {
+    props.navigation.navigate("DetalleSubCategoria", {
+      idCS: idCS,
+      impreso: impreso,
+      nombreCS: nombreCS
+    });
+  };
 
   return (
     <NativeBaseProvider >
@@ -81,7 +82,9 @@ export default function DetalleCategoria(props) {
 
             { categorias.map( (item,index) => {
               return(
-                <Categoria  image={item.imagen} titulo={item.nombreCS} key={index} idCS={item.idCS} impreso={estado} />
+                <Pressable mx={1} key={index} onPress={()=>detalleCategorias(item.idCS, estado, item.nombreCS)}>
+                <Categoria  image={item.imagen} titulo={item.nombreCS}  idCS={item.idCS} impreso={estado} />
+                </Pressable>
               )
             }
 
@@ -98,8 +101,9 @@ export default function DetalleCategoria(props) {
 
 
         </Center>
-        <Center>
-        <ScrollView horizontal={false} h="68%">
+        <Center> 
+         
+          <ScrollView horizontal={false} h="55%">
                 <HStack space={4} mr={2}>
                     <VStack >
                     {productos.map((item, index) => {
