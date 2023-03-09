@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { NativeBaseProvider, Text, View, Image, Center} from "native-base";
+import { NativeBaseProvider, View, Image, Center} from "native-base";
 import colors from '../colors';
 import Boton from '../components/Boton';
 

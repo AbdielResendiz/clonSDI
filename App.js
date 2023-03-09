@@ -253,7 +253,7 @@ const HeaderLeftCustom = ()=>{
         
        }} />
         <Stack.Screen name="DetalleProducto" component={DetalleProducto} 
-          options={{title: 'Buscar',
+          options={{title: 'Detalle del producto',
           headerTintColor:colors.blanco,
           headerStyle: {
             backgroundColor: colors.azul,

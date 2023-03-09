@@ -8,13 +8,13 @@ const ProductoComponent2 = (props)=>{
 
     const { nombre, precio, id, image } =props;
 
-    const detalleCategorias= (item, tipo) => {
+    const detalleCategorias= (item, impreso) => {
         navigation.navigate("DetalleProducto", {
           id: item,
+          impreso: impreso
           
         });
       };
-
       const [ selected, setSelected] = useState(false);
 
       const handleIconPress = () => {

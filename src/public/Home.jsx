@@ -16,6 +16,8 @@ export default function Home(props) {
     props.navigation.navigate(item);
   }; 
 
+
+
   const detalleCategorias= (item, link) => {
     props.navigation.navigate("DetalleCategoria", {
       estado: item,
@@ -83,7 +85,7 @@ export default function Home(props) {
           </Pressable>
       </Stack>
 
-        </Center>
+        </Center>  
         <ScrollView>
       <Box>
         <Stack direction={"row"} justifyContent={"space-between"} mx={9} my={1}>
@@ -100,7 +102,8 @@ export default function Home(props) {
               <ProductoComponent 
               key={index} nombre={impreso.nombreS} id={impreso.idS}
               precio={impreso.precioS} 
-              image={impreso.image_url}/>
+              image={impreso.image_url}
+              impreso={true}/>
             ) 
           } )
 
@@ -124,7 +127,8 @@ export default function Home(props) {
               <ProductoComponent 
               key={index} nombre={noImpreso.nombreS} id={noImpreso.idS}
               precio={noImpreso.precioS} 
-              image={noImpreso.image_url}/>
+              image={noImpreso.image_url}
+              impreso={false}/>
             ) 
           } )
 

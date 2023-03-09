@@ -3,9 +3,17 @@ import { Center, NativeBaseProvider, Text, Stack, Pressable, Divider, Box, Image
 import colors from '../colors';
 import {  AntDesign, Entypo, MaterialCommunityIcons } from '@expo/vector-icons'; 
 
-const DetalleProducto   = () => {
+const DetalleProducto   = (props) => {
 
     const [ selected, setSelected] = useState(false);
+
+
+    const id = props.route.params.id;
+    const impreso = props.route.params.impreso;
+    const image = props.route.params.image;
+    const nombre = props.route.params.nombre;
+    console.log("id" , id);
+    console.log("ESTADO ===", impreso);
 
       const handleIconPress = () => {
         if (selected===true){
@@ -13,6 +21,8 @@ const DetalleProducto   = () => {
         }else{
         setSelected(true);}
       };
+
+
      useEffect( ()=>{
         console.log(selected)
      },[selected]);
@@ -30,17 +40,36 @@ const DetalleProducto   = () => {
     }
   };
 
+
+  //obtener sucursales
+   
+//   const [sucursales, setSucursales] = useState();
+//   useEffect(() => {
+//               const sucursal = `http://sdiqro.store/api/SucursalesGet/getSucursalesQro`
+
+//               fetch(sucursal)
+//               .then(response => response.json())
+//               .then((resultado)=> {
+//                   setSucursales(resultado.Registro)
+//               })
+//               .catch((error) => {
+//                   // console.log("error",error)
+//               })
+//   console.log("sucurasales", sucursales)
+//   },[]);
+
+
     return(
         <NativeBaseProvider >
             <ScrollView bg={colors.blanco} flex={1}>
             {/**Titulo */}
             <Center my={1}>
-                <Text bold fontSize={18}>Detalle Producto</Text>
+                <Text bold fontSize={18}>{nombre}</Text>
             </Center>
             {/**IMAGEN */}
             <Center  h={32} w="90%" mx="5%" mb={2}>
                 <Image source={{
-                uri: "https://wallpaperaccess.com/full/317501.jpg"
+                uri: `http://sdiqro.store/static/imgServicios/${image}`
                 }} alt="Alternate Text" size="xl" />
             </Center>
                 {/** color, talla y precio */}

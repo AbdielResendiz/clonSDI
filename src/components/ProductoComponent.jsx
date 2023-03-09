@@ -6,11 +6,15 @@ import { useEffect, useState } from "react";
 const ProductoComponent = (props)=>{
     const navigation =useNavigation();
 
-    const { nombre, precio, id, image } =props;
+    const { nombre, precio, id, image, impreso } =props;
 
-    const detalleCategorias= (item, tipo) => {
+    const detalleCategorias= (item, impreso, image, nombre) => {
         navigation.navigate("DetalleProducto", {
           id: item,
+          impreso: impreso,
+          image: image,
+          nombre: nombre
+          
           
         });
       };
@@ -39,7 +43,7 @@ const ProductoComponent = (props)=>{
         }
            
         </Pressable>
-        <Pressable onPress={()=>detalleCategorias(id)}>
+        <Pressable onPress={()=>detalleCategorias(id, impreso, image, nombre)}>
             <Center>
                 <Image source={{
                 uri: `http://sdiqro.store/static/imgServicios/${image}`
