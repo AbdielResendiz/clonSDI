@@ -1,28 +1,28 @@
 import React, { useState,useEffect } from "react";
 import {TouchableOpacity} from "react-native"
 import {  Ionicons,MaterialCommunityIcons,MaterialIcons} from '@expo/vector-icons'; 
-import { Icon, Text, Center,ScrollView, View, Input,FormControl,} from "native-base";
-import CheckBox from "expo-checkbox";
+import { Icon, Text, Center,ScrollView, View, Input,FormControl, NativeBaseProvider, Checkbox} from "native-base";
 import RNPickerSelect from "react-native-picker-select";
-
-
+import colors from "../colors";
 
 const RegistroAbdiel = ()=>{
     //Obtener sucursales
     const [sucursales, setSucursales] = useState();
+    const getSucursales= ()=>{
+        const sucursal = `http://sdiqro.store/api/SucursalesGet/getSucursalesQro`
+        fetch(sucursal)
+        .then(response => response.json())
+        .then((resultado)=> {
+            setSucursales(resultado.Registro)
+        })
+        .catch((error) => {
+             console.log("error",error)
+        })
+    }
     useEffect(() => {
-                const sucursal = `http://sdiqro.store/api/SucursalesGet/getSucursalesQro`
- 
-                fetch(sucursal)
-                .then(response => response.json())
-                .then((resultado)=> {
-                    setSucursales(resultado.Registro)
-                })
-                .catch((error) => {
-                     console.log("error",error)
-                })
-    
-    },[]);
+        getSucursales();
+               console.log(sucursales)
+    },[sucursales]);
 
     //values 
     const [agree, setAgree]                           = useState(false);
@@ -34,8 +34,6 @@ const RegistroAbdiel = ()=>{
     const [password, setPassword]                     = useState('');
     const [passwordConfirmar, setPasswordConfirmar]   = useState('');
 
-
-
     const ChangeTC = () => {
         if(agree == true){
             setAgree(false)
@@ -44,115 +42,11 @@ const RegistroAbdiel = ()=>{
         }
     }
 
-
-    const [formNombre,   setFormNombre]                       = useState(false);
-    const [formApellido, setFormApellido]                     = useState(false);
-    const [formCelular, setFormCelular]                       = useState(false);
-    const [formSucursal, setFormSucursal]                     = useState(false);
-    const [formCorreo, setFormCorreo]                         = useState(false);
-    const [formPassword, setFormPassword]                     = useState(false);
-    const [formPasswordConfirmar, setFormPasswordConfirmar]   = useState(false);
-    const [checkFormBothpass, setFormcheckBothpass]           = useState(false);
     const validRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
    
-
     const Validarform =  () => {
-
-            if(usuario == ''){
-                setFormNombre(true)
-                
-            }else{
-                
-                setFormNombre(false)
-            }
-    
-            if (apellido == '' || apellido.length <= 0){
-               
-               
-                setFormApellido(true)
-              
-               
-               
-
-            }else{
-              
-                
-                setFormApellido(false)
-               
-            }
-    
-            if(celular == '' || (celular.length == 10 || celular.length <= 10)){
-              
-                setFormCelular(true)
-                
-            }else{
-                
-                setFormCelular(false)
-            }
-    
-            if(sucursal == null || sucursal == ''){
-               
-                setFormSucursal(true)
-            }else{
-               
-                setFormSucursal(false)
-            }
-    
-            if(correo == '' || !correo.match(validRegex)){
-               
-                setFormCorreo(true)
-           
-            
-             
-            }else{
-                setFormCorreo(false)
-               
-            }
-
-            if(!password == null || password.length <= 5 || !ERPass.test(password)){
-             
-                setFormPassword(true)
-            }else{
-                setFormPassword(false)
-              
-            }
-
-            if(!passwordConfirmar == null || passwordConfirmar.length <= 5 || !ERPass.test(passwordConfirmar)){
-                // console.log("pass", passwordConfirmar)
-                setFormPasswordConfirmar(true)
-               
-                if(passwordConfirmar != password){
-                    setFormcheckBothpass(true)
-                    // console.log("no son iguales s")
-
-                }else{
-                    setFormcheckBothpass(false)
-                    // console.log("son iguales s")
-                }
-
-
-            }else{
-                setFormPasswordConfirmar(false)
-             
-                setAgree(true)
-            }
-
-
-
-            if((inputNombre == false && inputApellido == false && inputTelefono == false && inputSucursal == false && inputCorreo == false && inputPassword == false && inputPasswordConfirmar == false))
-            {
-               
-
-                setBandera(false)
-                console.log("inputNombre", usuario)
-                console.log("inputApellido", apellido)
-                console.log("inputTelefono", celular)
-                console.log("inputSucursal", sucursal)
-                console.log("inputCorreo", correo)
-                console.log("inputPassword", password)
-                console.log("inputPasswordConfirmar", inputPasswordConfirmar)
-
+        if (usuario.length>3 && apellido.length>3 && celular.length===10 && correo.length>3  && password===passwordConfirmar){
              var Form = new FormData();
                    Form.append("nombre",       usuario)
                    Form.append("apellidos",    apellido)
@@ -161,11 +55,6 @@ const RegistroAbdiel = ()=>{
                    Form.append("correo",       correo)
                    Form.append("contrasenia",  password)
 
-
-                 
-
-               
-                  
              
              fetch("http://sdiqro.store/api/Registro/registro_usuario",
                 {method: 'POST',
@@ -176,134 +65,28 @@ const RegistroAbdiel = ()=>{
                     console.log("resultado",resultado)
                     if(resultado.resultado == true){
                         alert("Registro exitoso")
-                    
-                          setTimeout(miFuncion, 3000);
-                          
+                    }else{
+                        alert("Error en registro, vuelva a intentarlo")
                     }
                 })
                 .catch((error) => {
                     console.log("errorjj",error)
                 })
-
-               
+            }else{
+                alert("Error, verifica tus datos")
             }
-            else{
-                alert("Faltan campos por llenar")
-                console.log("2")
-                setBandera(false)
-
-            }
-        
-        
+    
     }
 
   
-    const [inputNombre, setInputNombre]     = useState(true);
-    const [inputApellido, setInputApellido] = useState(true);
-    const [inputTelefono, setInputTelefono] = useState(true);
-    const [inputSucursal, setInputSucursal] = useState(true);
-    const [inputCorreo, setInputCorreo]     = useState(true);
-    const [inputPassword, setInputPassword] = useState(true);
-    const [inputPasswordConfirmar, setInputPasswordConfirmar] = useState(true);
-    
-    const ERPass = /[!@#$%^&*()\-_=+{}[\]|\:;"'<>,.?/]/;
-
-    const [bandera, setBandera] = useState(false)
-
-
-      useEffect(() => {
-        console.log("sucursal", sucursal)
-        console.log("Agree",agree)
-        if(usuario.length <= 0){
-            setInputNombre(true)
-          
-           
-        }else{
-            setInputNombre(false)
-            
-
-        }
-        if(apellido.length <= 0){
-
-           
-            setInputApellido(true)
-        }else{
-            setInputApellido(false)
-
-        }
-        if(celular.length == 10 && celular.length <= 10 ){
-          
-            setInputTelefono(false)
-        }else{
-            setInputTelefono(true)
-
-        
-        }
-        if(sucursal == null || sucursal == ''){
-            
-            setInputSucursal(true)
-        }else{
-            setInputSucursal(false)
-
-           
-        }
-        if(!correo.match(validRegex)){
-           
-            setInputCorreo(true)
-        }else{
-            setInputCorreo(false)
-
-           
-        }
-        if((!password == null || password.length <= 5 || !ERPass.test(password))){
-         
-            setInputPassword(true)
-        }else{
-            setInputPassword(false)
-
-          
-        }
-           
-        if(!passwordConfirmar == null || passwordConfirmar.length <= 5 || !ERPass.test(passwordConfirmar)){
-          
-            setInputPasswordConfirmar(true)
-        
-        }else{
-            setInputPasswordConfirmar(false)
-           
-            
-          
-        }
-        if((passwordConfirmar != password)){
-           
-           
-            setInputPasswordConfirmar(true)
-        console.log("no son iguales")
-        }else {
-          
-            if(passwordConfirmar == '' || passwordConfirmar == ''){
-                setInputPasswordConfirmar(true)
-            }else{
-                console.log("son iguales")
-                setInputPasswordConfirmar(false)
-            }
-        }
-
-
-
-        //true  es error
-        //false es correcto
-
-
-    }, [usuario,apellido,celular,sucursal,correo,password,passwordConfirmar,bandera,inputNombre,inputApellido,inputTelefono,inputSucursal,inputCorreo,inputPassword,inputPasswordConfirmar,agree]);
-
 
     return(
+        <NativeBaseProvider>
         <ScrollView>
             <Center>
 
              {/*Nombre*/}
-            <FormControl isInvalid={inputNombre} w="75%" maxW="300px">
+            <FormControl  w="75%" maxW="300px">
                 <FormControl.Label>Nombre(s)</FormControl.Label>
                 <Input
                     placeholder="Nombre(s)"
@@ -312,15 +95,12 @@ const RegistroAbdiel = ()=>{
                     autoCapitalize='none'
                     value={usuario}
                     InputLeftElement={<Icon as={Ionicons} name="person" size={5} color="#FE308E" m={3}/>} size={5} color="muted.400" />
-                {formNombre == true ? (  <FormControl.ErrorMessage leftIcon={<MaterialIcons name="error-outline" size={24} color="red" />}>
-                    El campo nombre es obligatorio
-                </FormControl.ErrorMessage>):(null)}
             </FormControl>
              {/*Termina form nombre */}
             
 
              {/*Apellido */}
-            <FormControl isInvalid={inputApellido}  w="75%" maxW="300px">
+            <FormControl w="75%" maxW="300px">
                 <FormControl.Label>Apellido(s)</FormControl.Label>
                 <Input 
                     placeholder="Apellido(s)"
@@ -330,15 +110,12 @@ const RegistroAbdiel = ()=>{
                     value={apellido}
                     InputLeftElement={<Icon as={Ionicons} name="person" size={5} color="#FE308E" m={3}/>} size={5} color="muted.400"/>
 
-                {formApellido == true ? (  <FormControl.ErrorMessage leftIcon={<MaterialIcons name="error-outline" size={24} color="red" />}>
-                    El campo apellido es obligatorio
-                </FormControl.ErrorMessage>):(null)}  
             </FormControl>
              {/*termina form apellido */}
              
 
             {/*CELULAR */}
-            <FormControl isInvalid={inputTelefono} w="75%" maxW="300px">
+            <FormControl  w="75%" maxW="300px">
                 <FormControl.Label>Celular</FormControl.Label>
 
                 <Input 
@@ -346,18 +123,16 @@ const RegistroAbdiel = ()=>{
                     keyboardType='number-pad'
                     onChangeText={(val) => {setCelular(val)}}
                     autoCapitalize='none'
+                    maxLength={10}
                     value={celular}
                     InputLeftElement={<Icon as={MaterialCommunityIcons} name="cellphone" size={5} color="#FE308E" m={3} mr={5}/>} size={5} color="muted.400" />
-
-                {formCelular == true ? (  <FormControl.ErrorMessage leftIcon={<MaterialIcons name="error-outline" size={24} color="red" />}>
-                    El campo celular es obligatorio
-                </FormControl.ErrorMessage>):(null)}  
+ 
             </FormControl>
             {/*termina form celular */}
 
 
             {/*Sucursal */}
-            <FormControl isInvalid={inputSucursal} w="75%" maxW="300px" pt={1}>
+            <FormControl  w="75%" maxW="300px" pt={1}>
                 <FormControl.Label>Sucursal</FormControl.Label>
                <View borderWidth={1} borderColor={"#D2D2D2"} borderRadius={3}>
                {sucursales != null ? (
@@ -372,16 +147,14 @@ const RegistroAbdiel = ()=>{
                ):(<Text> Cargando...</Text>)}
               
              </View>
-             {formSucursal  == true ? (  <FormControl.ErrorMessage leftIcon={<MaterialIcons name="error-outline" size={24} color="red" />}>
-                    El campo sucursal es obligatorio
-                </FormControl.ErrorMessage>):(null)}  
+       
 
 
             </FormControl>
             {/*termina form sucursal*/}
 
             {/*Email */}
-            <FormControl isInvalid={inputCorreo} w="75%" maxW="300px">
+            <FormControl  w="75%" maxW="300px">
                 <FormControl.Label>Email</FormControl.Label >
                 <Input
 
@@ -391,91 +164,58 @@ const RegistroAbdiel = ()=>{
                     autoCapitalize='none'
                     value={correo} 
                     InputLeftElement={<Icon as={MaterialIcons} name="email" size={5} color="#FE308E" m={3}/>} size={5} color="muted.400" />
-           
-                {formCorreo != false ? (<FormControl.ErrorMessage leftIcon={<MaterialIcons name="error-outline" size={24} color="red" />}>
-                    El campo correo es obligatorio 
-                </FormControl.ErrorMessage>):(null)}  
-                
-              
-                
-                
-
             </FormControl>
              {/*termina form Email*/}
             
             {/*Contaseña */}
-            <FormControl isInvalid={inputPassword} w="75%" maxW="300px">
+            <FormControl  w="75%" maxW="300px">
                 <FormControl.Label>Contraseña</FormControl.Label>
                 <Input 
                      placeholder="Contraseña"
                      keyboardType='default'
                      onChangeText={(val) => {setPassword(val)}}
                      autoCapitalize='none'
+                     type="password"
                      value={password} 
-
-
                     InputLeftElement={<Icon as={MaterialIcons} name="lock" size={5} color="#FE308E" m={3}/>} size={5} color="muted.400" />
-                 {formPassword == true ? (  <FormControl.ErrorMessage leftIcon={<MaterialIcons name="error-outline" size={24} color="red" />}>
-                    El campo contraseña es obligatorio
-                 </FormControl.ErrorMessage>):(<FormControl.HelperText leftIcon={<MaterialIcons name="error-outline" size={24} color="red" />}>
-                 La contraseña debe tener al menos 5 caracteres y 1 un caracter especial /?&%$/
-                 </FormControl.HelperText>)}  
-
             </FormControl>
             
-            <FormControl isInvalid={inputPasswordConfirmar} w="75%" maxW="300px">
+            <FormControl  w="75%" maxW="300px">
                 <FormControl.Label>Confirmar contraseña</FormControl.Label>
                 <Input
+                    type="password"
                     placeholder="Confirmar contraseña"
                     keyboardType='default'
                     onChangeText={(val) => {setPasswordConfirmar(val)}}
                     autoCapitalize='none'
                     value={passwordConfirmar}  
                     InputLeftElement={<Icon as={MaterialIcons} name="lock" size={5} color="#FE308E" m={3}/>} size={5} color="muted.400" />
-
-
-                {formPasswordConfirmar == true ? (<FormControl.ErrorMessage leftIcon={<MaterialIcons name="error-outline" size={24} color="red" />}>
-                    El campo contraseña es obligatorio
-                 </FormControl.ErrorMessage>):(null)}  
-
-
             </FormControl>
             {/*termina form Contaseña*/}
-
-
-
-
-            <FormControl isInvalid={inputPasswordConfirmar} w="75%" maxW="300px">
-                {checkFormBothpass != true ? (  null):(<FormControl.ErrorMessage leftIcon={<MaterialIcons name="error-outline" size={24} color="red" />}>
-                    Las contraseñas deben ser iguales
-             </FormControl.ErrorMessage>)}  
-
-
-            </FormControl>
             
 
              <View flexDirection={"row"}>   
-                   <Center><CheckBox
-                        style={{ marginTop: 20}}
-                        value={agree}
-                        onValueChange={() => ChangeTC()}
-                        color={agree ? "#FE308E" : undefined}
-                        />
-                        <Text>
-                                He leído y acepto los terminos y condiciones
-                        </Text>
-                        </Center> 
+                <Center>
+                    <Checkbox
+                    style={{ marginTop: 20}}
+                    accessibilityLabel="Condiciones"
+                    value={agree}
+                    onChange={() => ChangeTC()}
+                    color={agree ? "#FE308E" : colors.rosa}
+                    />
+                    <Text>
+                            He leído y acepto los terminos y condiciones
+                    </Text>
+                </Center> 
              </View>
 
-
-            <TouchableOpacity style={{paddingTop: 20}} disabled={bandera}  onPress={() => Validarform()} >
-            <Center bg={bandera == true ? ("#6C6C6C"):("#FE308E")} h={"41px"} w={"274px"} borderRadius={20} > 
-                <Text color={"white"}>Registrate</Text></Center>
-            </TouchableOpacity>
-
-
+            <TouchableOpacity style={{paddingTop: 20}}  onPress={() => { agree===true ? Validarform() : alert("Debes aceptar terminos y condiciones") }} >
+                <Center bg={agree == false ? ("#6C6C6C"):("#FE308E")} h={"41px"} w={"274px"} borderRadius={20} > 
+                    <Text color={"white"}>Registrate</Text></Center>
+                </TouchableOpacity>
             </Center>
     </ScrollView>
+    </NativeBaseProvider>
     )
 } 
 export default RegistroAbdiel;
