@@ -4,7 +4,7 @@ import colors from '../colors';
 import {  AntDesign, Entypo, MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { TextInput } from 'react-native';
 
-const DetalleProducto   = (props) => {
+const DetalleProductoas   = (props) => {
 
     const [ selected, setSelected] = useState(false);
 
@@ -13,9 +13,9 @@ const DetalleProducto   = (props) => {
     const impreso = props.route.params.impreso;
     const image = props.route.params.image;
     const nombre = props.route.params.nombre;
-    //console.log("id" , id);
-    //console.log("ESTADO ===", impreso);
-    
+    console.log("id" , id);
+    console.log("ESTADO ===", impreso);
+
       const handleIconPress = () => {
         if (selected===true){
             setSelected(false);
@@ -26,21 +26,11 @@ const DetalleProducto   = (props) => {
 
      useEffect( ()=>{
         console.log(selected)
-        console.log("count", count)
-        
-     },[selected, count]);
+     },[selected]);
 
-    //  useEffect( ()=>{
-    //     console.log("count", count)
-        
-        
-    //  },[count]);
-  
 
      //inicia funciones para contar
   const [ count, setCount ] = useState(1);
-  console.log("count fuera: ", count)
-
   const incrementCount = () => {
     setCount(count + 1);
   };
@@ -50,12 +40,7 @@ const DetalleProducto   = (props) => {
       setCount(count - 1);
     }
   };
-const notNumber=()=>{
-    if (count===NaN){
-        setCount(1);
-    }
-}
-notNumber();
+
 
   //obtener sucursales
    
@@ -149,21 +134,21 @@ notNumber();
             <Stack direction={"row"} justifyContent="space-around">
 
                 {/**BOTON CANTIDAD */}
-                    <HStack ml={5} my={1} bg={colors.blanco} borderRadius={10} borderWidth={2} borderColor={colors.azul}>
-                        <Center px={2}>
-                            <Text bold>Cantidad: </Text>
-                        </Center>
-                        
-                        <Center w={16}>
+                    <HStack ml={"10%"} my={1} bg={colors.azul} borderRadius={10}>
+                        <Pressable onPress={decrementCount}  py={2} px={0.5} >
+                            <Entypo name="minus" size={16} color="#fff"  />
+                        </Pressable>
+                        <Center>
                         <TextInput
-                        
                             value={count}
                             onChangeText={(text) => setCount(parseInt(text))}
                             keyboardType="numeric"
                         />
                         </Center>
                         
-                       
+                        <Pressable onPress={incrementCount}  py={2} px={0.5}>
+                            <Entypo name="plus" size={16} color={"#fff"}  />
+                        </Pressable>
                     </HStack>
                         {/**BOTON AGREGAR */}
                     <Pressable bg={colors.azul} borderRadius={10} w="30%" h={9} >
@@ -193,4 +178,4 @@ notNumber();
     );
 };
 
-export default DetalleProducto;
+export default DetalleProductoas;

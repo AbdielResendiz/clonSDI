@@ -16,9 +16,9 @@ import { useState, useEffect } from 'react';
 import Carrito from './src/private/Carrito';
 import Sign from './src/public/Sign';
 import colors from './src/colors';
-import Buscar from "./src/public/Buscar"
+import Buscar from "./src/public/Buscar";
 import Favoritos from './src/public/Favoritos';
-import DetalleCategoria from "./src/public/DetalleCategoria"
+import DetalleCategoria from "./src/public/DetalleCategoria";
 import DetalleSubCategoria from './src/public/DetalleSubCategoria';
 import ScrollSubCategorias from './src/components/ScrollSubCategorias';
 import DetalleProducto from './src/public/DetalleProducto';
@@ -26,9 +26,16 @@ import TestingLogin from './src/public/TestingLogin';
 import CuentaMenu from './src/private/CuentaMenu';
 import Factura from './src/private/Factura';
 import Tarjetas from './src/private/Tarjetas';
-import FAQ from './src/private/Factura';
+import FAQ from './src/private/FAQ';
 import Notificaciones from './src/private/Notificaciones';
-
+import DetalleTarjeta from './src/private/DetalleTarjeta';
+import Recoleccion from './src/private/Recoleccion';
+import SeleccionarTarjeta from './src/private/SeleccionarTarjeta';
+import CheckOut from './src/private/CheckOut';
+import ConfirmaPago from './src/private/ConfirmaPago';
+import DetalleCompra from './src/private/DetalleCompra'
+import ListaFactura from './src/private/ListaFactura';
+import Welcome from './src/public/Welcome';
 
 const Stack = createStackNavigator();
 
@@ -200,6 +207,18 @@ const HeaderLeftCustom = ()=>{
           ),
         }} />
 
+          <Stack.Screen name="Welcome" component={Welcome}   
+          options={{title: 'Bienvenido',
+          headerTintColor:colors.blanco,
+          headerStyle: {
+            backgroundColor: colors.azul,
+          },
+          headerShadowVisible: true,
+          headerRight: () => (
+            <HeaderRightCustom/>
+          ),
+        }} />
+
           <Stack.Screen name="FAQ" component={FAQ}   
           options={{title: 'Preguntas frecuentes',
           headerTintColor:colors.blanco,
@@ -213,10 +232,6 @@ const HeaderLeftCustom = ()=>{
         }} />
 
 
-
-
-
-        
         <Stack.Screen name="Buscar" component={Buscar} 
           options={{title: 'Buscar',
           headerTintColor:colors.blanco,
@@ -251,7 +266,7 @@ const HeaderLeftCustom = ()=>{
         
        }} />
         <Stack.Screen name="DetalleProducto" component={DetalleProducto} 
-          options={{title: 'Buscar',
+          options={{title: 'Detalle del producto',
           headerTintColor:colors.blanco,
           headerStyle: {
             backgroundColor: colors.azul,
@@ -281,16 +296,90 @@ const HeaderLeftCustom = ()=>{
            <HeaderRightCustom/>
          ),
        }}/>
+        <Stack.Screen name="DetalleTarjeta" component={DetalleTarjeta}  options={{title: 'Detalle de la tarjeta',
+         headerTintColor:colors.blanco,
+         headerStyle: {
+           backgroundColor: colors.azul,
+         },
+         headerShadowVisible: true,
+         headerRight: () => (
+           <HeaderRightCustom/>
+         ),
+       }}/>
+
+        <Stack.Screen name="Recoleccion" component={Recoleccion}  options={{title: 'Recolección',
+         headerTintColor:colors.blanco,
+         headerStyle: {
+           backgroundColor: colors.azul,
+         },
+         headerShadowVisible: true,
+         headerRight: () => (
+           <HeaderRightCustom/>
+         ),
+        }}/>
+
+        <Stack.Screen name="SeleccionarTarjeta" component={SeleccionarTarjeta}  options={{title: 'Seleccionar Tarjeta',
+         headerTintColor:colors.blanco,
+         headerStyle: {
+           backgroundColor: colors.azul,
+         },
+         headerShadowVisible: true,
+         headerRight: () => (
+           <HeaderRightCustom/>
+         ),
+        }}/>
+         <Stack.Screen name="CheckOut" component={CheckOut}  options={{title: 'Check out',
+         headerTintColor:colors.blanco,
+         headerStyle: {
+           backgroundColor: colors.azul,
+         },
+         headerShadowVisible: true,
+         headerRight: () => (
+           <HeaderRightCustom/>
+         ),
+        }}/>
+
+        <Stack.Screen name="ConfirmaPago" component={ConfirmaPago}  options={{title: '',
+         headerTintColor:colors.blanco,
+         headerStyle: {
+           backgroundColor: colors.azul,
+         },
+         headerShadowVisible: true,
+         headerRight: () => (
+           <HeaderRightCustom/>
+         ),
+        }}/>
+         <Stack.Screen name="DetalleCompra" component={DetalleCompra}  options={{title: 'Detalle de pedido',
+         headerTintColor:colors.blanco,
+         headerStyle: {
+           backgroundColor: colors.azul,
+         },
+         headerShadowVisible: true,
+         headerRight: () => (
+           <HeaderRightCustom/>
+         ),
+        }}/>
+
+        <Stack.Screen name="ListaFactura" component={ListaFactura}  options={{title: 'Facturación',
+         headerTintColor:colors.blanco,
+         headerStyle: {
+           backgroundColor: colors.azul,
+         },
+         headerShadowVisible: true,
+         headerRight: () => (
+           <HeaderRightCustom/>
+         ),
+        }}/>
 
         <Stack.Screen name="TestingLogin" component={TestingLogin} ></Stack.Screen>
       </Stack.Navigator>
 
       {showFooter ? (
-        <View style={{height:50, marginBottom:12}} >
+        <View style={{height:55, marginBottom:12}} >
            <NativeBaseProvider>
-            <Box flex={1} safeAreaTop width="94%" mx={"3%"} alignSelf="center"  bg={colors.grisbg}  >
+            <Box flex={1} safeAreaY={2}  safeAreaX={5} width="100%"  alignSelf="center"  bg={colors.blanco}  >
               
-              <HStack bg={baseColor.bg}  alignItems="center" safeAreaBottom shadow={6} borderRadius={25} >
+              <HStack bg={colors.blanco}  alignItems="center" shadow={6} borderRadius={25} >
                 <Pressable cursor="pointer"  py="3" flex={1} 
                   onPress={() => {IrInicio()}}>
                   <Center >
@@ -323,6 +412,8 @@ const HeaderLeftCustom = ()=>{
         </NativeBaseProvider>
         </View>
       ) : null}
+
+
     </NavigationContainer>
   );
 }

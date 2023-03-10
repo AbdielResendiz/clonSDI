@@ -7,8 +7,10 @@ import { Ionicons } from '@expo/vector-icons';
 
 
 
-const Carrito = () => {
-
+const Carrito = (props) => {
+    const navegacion= (item) => {
+        props.navigation.navigate(item);
+      }; 
 
     return(
         <NativeBaseProvider>
@@ -26,7 +28,7 @@ const Carrito = () => {
                 <Text fontSize={22} bold>Total: $ 600.00</Text>
             </Box>
 
-            <Pressable alignItems="center">
+            <Pressable alignItems="center" onPress={()=>navegacion("Recoleccion")}>
                 <Center h="35" my={1} w="50%" bg={colors.azul} borderRadius={20} mx={7} >  
                     <HStack>
                         <Icon as={Ionicons} name="wallet"  size={6} color={"white"} />

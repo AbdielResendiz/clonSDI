@@ -9,7 +9,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#00BAEA"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -25,14 +25,14 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.aldaircruz.SDI"
+      "package": "com.abdielrv.SDI"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "extra": {
       "eas": {
-        "projectId": "701ec550-81df-4bfb-a364-1c1e695f7651"
+        "projectId": "0be12457-39a3-483f-9481-e994c5fd5603"
       }
     }
   }

@@ -4,7 +4,7 @@ import colors from '../colors';
 import { FontAwesome } from '@expo/vector-icons'; 
 
 
-const Pedidos = () => {
+const Pedidos = (props) => {
 // status de pedido
 // 0.Por recoger
 // 1. entregado
@@ -16,7 +16,7 @@ const Pedidos = () => {
             case 0:
               return (<>
                 <Text ml={1}> Estatus: <Text color={"warning.500"}>Por recoger</Text> </Text>
-                <Pressable flexDirection={"row"} bg={colors.azul} borderRadius={10} px={2} mr={3} py={1} shadow={6}>
+                <Pressable flexDirection={"row"} bg={colors.azul} borderRadius={10} px={2} mr={3} py={1} shadow={6} onPress={()=>(props.navigation.navigate("DetalleCompra"))}>
                     <Icon as={FontAwesome} name="list-ul" size={4} mt={1} mx={1}  color="white"  />
                     
                     <Text color="#fff"> Detalle</Text>
@@ -26,13 +26,13 @@ const Pedidos = () => {
             case 1:
               return (<>
                 <Text ml={1}> Estatus: <Text color={"success.500"}>Entregado</Text> </Text>
-                <Pressable flexDirection={"row"} bg={colors.rosa} borderRadius={10} px={1} mr={1} py={1} shadow={6}>
+                <Pressable flexDirection={"row"} bg={colors.rosa} borderRadius={10} px={1} mr={1} py={1} shadow={6} onPress={()=>(props.navigation.navigate("ListaFactura"))}>
                     <Icon as={FontAwesome} name="copy" size={4} mt={1} mx={1}  color="white"  />
                     
                     <Text color="#fff"> Facturar</Text>
 
                 </Pressable>
-                <Pressable flexDirection={"row"} bg={colors.azul} borderRadius={10} px={1} mr={2} py={1} shadow={6}>
+                <Pressable flexDirection={"row"} bg={colors.azul} borderRadius={10} px={1} mr={2} py={1} shadow={6} onPress={()=>(props.navigation.navigate("DetalleCompra"))}>
                     <Icon as={FontAwesome} name="list-ul" size={4} mt={1} mx={1}  color="white"  />
                     
                     <Text color="#fff"> Detalle</Text>
