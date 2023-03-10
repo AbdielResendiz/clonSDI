@@ -1,16 +1,16 @@
 import React, { useState,useEffect } from "react";
 import {TouchableOpacity} from "react-native"
-import {  Ionicons,MaterialCommunityIcons,MaterialIcons} from '@expo/vector-icons'; 
-import { Icon, Text, Center,ScrollView, View, Input,FormControl,} from "native-base";
+import {  Ionicons,MaterialCommunityIcons,FontAwesome5,MaterialIcons} from '@expo/vector-icons'; 
+import { Icon,NativeBaseProvider,Checkbox,Select, Text,Box, Center,Container,ScrollView, Image, View, Button, useSafeArea, Input,FormControl, Column,} from "native-base";
 import CheckBox from "expo-checkbox";
 import RNPickerSelect from "react-native-picker-select";
 import { useFetch, URL } from "../API/useFetch";
 
-const FormRegistro = (props) => {
+const FormRegistro = () => {
 
 
  
-    const [sucursales, setSucursales] = useState();
+    const [sucursales, setSucursales] = useState(null);
     const [bandera, setBandera] = useState(false)
     
     const [agree, setAgree]                           = useState(false);
@@ -77,9 +77,7 @@ const FormRegistro = (props) => {
 
 
 
-    const Validarform =  (s) => {
-
-   
+    const Validarform =  () => {
 
             if(usuario == ''){
                 setFormNombre(true)
@@ -301,15 +299,11 @@ const FormRegistro = (props) => {
                 setInputPasswordConfirmar(false)
             }
         }
-
-
-
         //true  es error
         //false es correcto
     }, [usuario,apellido,celular,sucursal,correo,password,passwordConfirmar,bandera,inputNombre,inputApellido,inputTelefono,inputSucursal,inputCorreo,inputPassword,inputPasswordConfirmar,agree]);
 
  return (
-  
   <>
   <View>
     <ScrollView>
@@ -491,7 +485,6 @@ const FormRegistro = (props) => {
     </ScrollView>
     </View>
     </>
-    
   )
 }
 
