@@ -11,10 +11,38 @@ const FormRegistro = (props) => {
 
  
     const [sucursales, setSucursales] = useState();
+    const [bandera, setBandera] = useState(false)
     
+    const [agree, setAgree]                           = useState(false);
+    const [usuario, setUsuario]                       = useState('');
+    const [apellido, setApellido]                     = useState('');
+    const [celular, setCelular]                       = useState('');
+    const [sucursal, setSucursal]                     = useState('');
+    const [correo, setCorreo]                         = useState('');
+    const [password, setPassword]                     = useState('');
+    const [passwordConfirmar, setPasswordConfirmar]   = useState('');
+   
+    const [formNombre,   setFormNombre]                       = useState(false);
+    const [formApellido, setFormApellido]                     = useState(false);
+    const [formCelular, setFormCelular]                       = useState(false);
+    const [formSucursal, setFormSucursal]                     = useState(false);
+    const [formCorreo, setFormCorreo]                         = useState(false);
+    const [formPassword, setFormPassword]                     = useState(false);
+    const [formPasswordConfirmar, setFormPasswordConfirmar]   = useState(false);
+    const [checkFormBothpass, setFormcheckBothpass]           = useState(false);
+    const validRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    const [inputNombre, setInputNombre]     = useState(true);
+    const [inputApellido, setInputApellido] = useState(true);
+    const [inputTelefono, setInputTelefono] = useState(true);
+    const [inputSucursal, setInputSucursal] = useState(true);
+    const [inputCorreo, setInputCorreo]     = useState(true);
+    const [inputPassword, setInputPassword] = useState(true);
+    const [inputPasswordConfirmar, setInputPasswordConfirmar] = useState(true);
     
-   
-   
+    const ERPass = /[!@#$%^&*()\-_=+{}[\]|\:;"'<>,.?/]/;
+
+
     useEffect(() => {
                 const sucursal = `${URL.BASE_URL}SucursalesGet/getSucursalesQro`
  
@@ -32,14 +60,7 @@ const FormRegistro = (props) => {
    
 
     //values 
-    const [agree, setAgree]                           = useState(false);
-    const [usuario, setUsuario]                       = useState('');
-    const [apellido, setApellido]                     = useState('');
-    const [celular, setCelular]                       = useState('');
-    const [sucursal, setSucursal]                     = useState('');
-    const [correo, setCorreo]                         = useState('');
-    const [password, setPassword]                     = useState('');
-    const [passwordConfirmar, setPasswordConfirmar]   = useState('');
+  
 
 
 
@@ -54,17 +75,7 @@ const FormRegistro = (props) => {
     }
 
 
-    const [formNombre,   setFormNombre]                       = useState(false);
-    const [formApellido, setFormApellido]                     = useState(false);
-    const [formCelular, setFormCelular]                       = useState(false);
-    const [formSucursal, setFormSucursal]                     = useState(false);
-    const [formCorreo, setFormCorreo]                         = useState(false);
-    const [formPassword, setFormPassword]                     = useState(false);
-    const [formPasswordConfirmar, setFormPasswordConfirmar]   = useState(false);
-    const [checkFormBothpass, setFormcheckBothpass]           = useState(false);
-    const validRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-   
 
     const Validarform =  (s) => {
 
@@ -209,17 +220,8 @@ const FormRegistro = (props) => {
     }
 
   
-    const [inputNombre, setInputNombre]     = useState(true);
-    const [inputApellido, setInputApellido] = useState(true);
-    const [inputTelefono, setInputTelefono] = useState(true);
-    const [inputSucursal, setInputSucursal] = useState(true);
-    const [inputCorreo, setInputCorreo]     = useState(true);
-    const [inputPassword, setInputPassword] = useState(true);
-    const [inputPasswordConfirmar, setInputPasswordConfirmar] = useState(true);
-    
-    const ERPass = /[!@#$%^&*()\-_=+{}[\]|\:;"'<>,.?/]/;
+ 
 
-    const [bandera, setBandera] = useState(false)
 
 
       useEffect(() => {
@@ -304,12 +306,11 @@ const FormRegistro = (props) => {
 
         //true  es error
         //false es correcto
-
-
     }, [usuario,apellido,celular,sucursal,correo,password,passwordConfirmar,bandera,inputNombre,inputApellido,inputTelefono,inputSucursal,inputCorreo,inputPassword,inputPasswordConfirmar,agree]);
 
  return (
   <>
+  <View>
     <ScrollView>
             <Center>
 
@@ -487,6 +488,7 @@ const FormRegistro = (props) => {
 
             </Center>
     </ScrollView>
+    </View>
     </>
   )
 }

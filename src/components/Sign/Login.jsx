@@ -23,12 +23,14 @@ const Login= ()=> {
 
 
       if(JSON.stringify(isLoadV) == JSON.stringify(start)){  
+          setisLoad(false)
          console.log("entro aqui")
          let vista = {vista: 0, status:true}
          setShow(vista)
 
       }
       else if(JSON.stringify(isLoadV) == JSON.stringify(login)){  
+        setisLoad(false)
         console.log("entro aqui 2")
          let vista = {vista: 2, status:true}
          setShow(vista)
@@ -41,6 +43,7 @@ const Login= ()=> {
     
 
     return (
+      
         <View flex={3} bg="white">
          <Center flex={1}>
                 <Box mt={4} bg="white">
@@ -109,12 +112,12 @@ const Login= ()=> {
     return(
     <View justifyContent={"space-evenly"}>
         <Center>
-            <TouchableOpacity onPress={() => { setisLoad(false),setisLoadV({vista: 0, status:true})}}>
+            <TouchableOpacity onPress={() => { setisLoadV({vista: 0, status:true})}}>
             <Center bg="#00BAEA" h={"41px"} w={"274px"} mt={20} borderRadius={20}> 
                 <Text color={"white"}>Registrate</Text></Center>
             </TouchableOpacity>
             
-            <TouchableOpacity onPress={() => { setisLoad(false),setisLoadV({vista: 2, status:true})}} >
+            <TouchableOpacity onPress={() => { setisLoadV({vista: 2, status:true})}} >
             <Center bg="white" h={"41px"} w={"274px"} mt={10} borderRadius={20} borderWidth={"1px"} borderColor={"#00BAEA"}> 
                 <Text color={"#00BAEA"}>Iniciar sesión</Text></Center>
             </TouchableOpacity>
