@@ -16,7 +16,7 @@ const ProductoComponent = (props)=>{
           nombre: nombre
           
           
-        });
+        }); 
       };
 
       const [ selected, setSelected] = useState(false);

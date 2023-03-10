@@ -35,6 +35,7 @@ import CheckOut from './src/private/CheckOut';
 import ConfirmaPago from './src/private/ConfirmaPago';
 import DetalleCompra from './src/private/DetalleCompra'
 import ListaFactura from './src/private/ListaFactura';
+import Welcome from './src/public/Welcome';
 
 const Stack = createStackNavigator();
 
@@ -196,6 +197,18 @@ const HeaderLeftCustom = ()=>{
         }} />
         <Stack.Screen name="Notificaciones" component={Notificaciones}   
           options={{title: 'Notificaciones',
+          headerTintColor:colors.blanco,
+          headerStyle: {
+            backgroundColor: colors.azul,
+          },
+          headerShadowVisible: true,
+          headerRight: () => (
+            <HeaderRightCustom/>
+          ),
+        }} />
+
+          <Stack.Screen name="Welcome" component={Welcome}   
+          options={{title: 'Bienvenido',
           headerTintColor:colors.blanco,
           headerStyle: {
             backgroundColor: colors.azul,

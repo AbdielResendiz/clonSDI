@@ -13,16 +13,20 @@ const Buscar = (props) => {
       const response = await fetch(`http://sdiqro.store/abdiel/Productos/buscar?q=${searchTerm}`);
       const data = await response.json();
       setResults(data);
+      console.log("busqueda", results);
     } catch (error) {
       console.error(error);
     }
   };
-
-  const detalleServicio= (item) => {
-    props.navigation.navigate("DetalleServicio", {
-      idServicio: item,
+  const detalleServicio= (item, image, nombre, precio) => {
+    props.navigation.navigate("DetalleProducto", {
+      id: item,
+      precio:precio,
+      image: image,
+      nombre: nombre
     });
   };
+  console.log("busqueda", results);
 
   return (
     <NativeBaseProvider>
@@ -34,16 +38,13 @@ const Buscar = (props) => {
          onSubmitEditing={handleSearch} 
          InputLeftElement={<Icon as={<FontAwesome name="search" />} size={5} ml="2" color="muted.400" />}/>
            
-      
         <FlatList
             data={results}
             keyExtractor={(item) => item.idS}
-      
             renderItem={({ item }) => (
-            
                 <Box bg={"white"} rounded="lg" marginLeft={5} marginRight={5} marginTop={2}>
                 <TouchableOpacity
-                  onPress={() => detalleServicio(item.idS)}>
+                  onPress={() => detalleServicio(item.idS, item.image_url, item.nombreS, item.precioS )}>
                     <HStack>
                     <Image 
                                 source={{
