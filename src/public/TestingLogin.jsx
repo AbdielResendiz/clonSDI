@@ -11,7 +11,7 @@ const TestingLogin = (props) => {
         <NativeBaseProvider>
             <Text bold fontSize={"lg"} mx={12} my={10}>Vista Para Testing de perfil y login, se removerá mas adelante</Text>
             <Button m={5} onPress={()=>navegacion("Sign")}>LOGIN Aldair</Button>
-            <Button m={5} onPress={()=>navegacion("Welcome")}>LOGIN abdiel</Button>
+            <Button m={5} onPress={()=>navegacion("Welcome")}>LOGIN Abdiel</Button>
             <Button m={5} onPress={()=>navegacion("CuentaMenu")}>Perfil</Button>
         </NativeBaseProvider>
     );
