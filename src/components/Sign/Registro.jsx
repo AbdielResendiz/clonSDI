@@ -1,10 +1,11 @@
 import React, { useState,useEffect } from "react";
 import {TouchableOpacity} from "react-native"
 import {  Ionicons,MaterialCommunityIcons,FontAwesome5,MaterialIcons} from '@expo/vector-icons'; 
-import { Icon,NativeBaseProvider,Checkbox,Select, Text,Box, Center,Container,ScrollView, Image, View, Button, useSafeArea, Input,FormControl, Column,} from "native-base";
-import CheckBox from "expo-checkbox";
-import RNPickerSelect from "react-native-picker-select";
+import { Icon,NativeBaseProvider,Checkbox,Select, Text,Box, Center,Container,ScrollView, Image, View, Button, useSafeArea,CheckIcon, Input,FormControl, HStack,} from "native-base";
+
+
 import { useFetch, URL } from "../API/useFetch";
+import colors from "../../colors";
 
 const FormRegistro = () => {
 
@@ -364,27 +365,20 @@ const FormRegistro = () => {
 
 
             {/*Sucursal */}
-            <FormControl isInvalid={inputSucursal} w="75%" maxW="300px" pt={1}>
-                <FormControl.Label>Sucursal</FormControl.Label>
-               <View borderWidth={1} borderColor={"#D2D2D2"} borderRadius={3}>
-               {sucursales != null ? (
-                            <RNPickerSelect
-                             onValueChange={(value) => setSucursal(value)}
-                             placeholder={{ label: "Selecciona sucursal preferida", value: null }}
-                             items={sucursales.map((sucursal) => ({
-                                label: sucursal.nombreSuc,
-                                value: sucursal.idSuc,
-                              }))}/>
-
-               ):(<Text> Cargando...</Text>)}
-              
-             </View>
-             {formSucursal  == true ? (  <FormControl.ErrorMessage leftIcon={<MaterialIcons name="error-outline" size={24} color="red" />}>
-                    El campo sucursal es obligatorio
-                </FormControl.ErrorMessage>):(null)}  
-
-
-            </FormControl>
+            <HStack>
+                <FormControl.Label mt={3} mx={3}>Sucursal: </FormControl.Label>
+                <Box maxW="300">
+                    <Select selectedValue={sucursal} minWidth="200" accessibilityLabel="Choose Service" placeholder="Choose Service" _selectedItem={{
+                        bg: "teal.600",
+                        endIcon: <CheckIcon size="5" />
+                    }} mt={1} onValueChange={itemValue => setSucursal(itemValue)}>
+                        <Select.Item label="Matriz" value="ux" />
+                        <Select.Item label="Plaza Río" value="web" />
+                        <Select.Item label="San Juan del Río" value="cross" />
+                        
+                    </Select>
+                </Box>
+            </HStack>
             {/*termina form sucursal*/}
 
             {/*Email */}
@@ -461,17 +455,19 @@ const FormRegistro = () => {
             </FormControl>
             
 
-             <View flexDirection={"row"}>   
-                   <Center><CheckBox
-                        style={{ marginTop: 20}}
-                        value={agree}
-                        onValueChange={() => ChangeTC()}
-                        color={agree ? "#FE308E" : undefined}
-                        />
-                        <Text>
-                                He leído y acepto los terminos y condiciones
-                        </Text>
-                        </Center> 
+            <View flexDirection={"row"}>   
+                <Center>
+                    <Checkbox
+                    style={{ marginTop: 20}}
+                    accessibilityLabel="Condiciones"
+                    value={agree}
+                    onChange={() => ChangeTC()}
+                    color={agree ? "#FE308E" : colors.rosa}
+                    />
+                    <Text>
+                            He leído y acepto los terminos y condiciones
+                    </Text>
+                </Center> 
              </View>
 
 
