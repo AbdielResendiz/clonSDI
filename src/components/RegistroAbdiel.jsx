@@ -22,7 +22,7 @@ const RegistroAbdiel = ()=>{
     useEffect(() => {
         getSucursales();
                console.log(sucursales)
-    },[sucursales]);
+    },[]);
 
     //values 
     const [agree, setAgree]                           = useState(false);
@@ -43,7 +43,7 @@ const RegistroAbdiel = ()=>{
     }
 
     const validRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
+console.log("sucursal", sucursal);
    
     const Validarform =  () => {
         if (usuario.length>3 && apellido.length>3 && celular.length===10 && correo.length>3  && password===passwordConfirmar){
@@ -139,9 +139,9 @@ const RegistroAbdiel = ()=>{
                         bg: "teal.600",
                         endIcon: <CheckIcon size="5" />
                     }} mt={1} onValueChange={itemValue => setSucursal(itemValue)}>
-                        <Select.Item label="Matriz" value="ux" />
-                        <Select.Item label="Plaza Río" value="web" />
-                        <Select.Item label="San Juan del Río" value="cross" />
+                        <Select.Item label="Matriz" value={9} />
+                        <Select.Item label="Plaza Río" value={10} />
+                        <Select.Item label="San Juan del Río" value={11} />
                         
                     </Select>
                 </Box>

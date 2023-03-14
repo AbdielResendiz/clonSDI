@@ -1,6 +1,8 @@
 import React, { useState,useEffect } from "react";
 import { View, Center, FormControl, Input, Pressable, Icon, Text } from "native-base";
 import { MaterialIcons} from '@expo/vector-icons'; 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import ProcesandoLoginL from "../components/Componentes/procesando/ProcesandoLoginL.js";
 
 const LoginAbdiel = ()=>{
     const [loading , setLoading] = useState(false)
@@ -11,8 +13,9 @@ const LoginAbdiel = ()=>{
     const [formPassword, setFormPassword] = useState(false);
     const [password, setPassword] = useState('');
     const validRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const [ id, setId ] = useState();
 
-    const Validarform = ()  => {
+    const Validarform = async()  => {
         if(correo == '' || !correo.match(validRegex)){
                  
           setFormCorreo(true)
@@ -44,7 +47,7 @@ const LoginAbdiel = ()=>{
   
                function miFuncion() {
            
-                  fetch("http://sdiqro.store/api/Login/inicio_sesion",
+                  fetch("http://sdiqro.store/abdiel/Login/inicio_sesion",
                   {method: 'POST',
                     body: Form
                   })
@@ -54,7 +57,11 @@ const LoginAbdiel = ()=>{
                       if(resultado.status == true){
   
                         setLoading(false)
-                        alert("Sesion iniciada");
+                        console.log("login resultado", resultado.id);
+                         storeData(resultado.id)
+                        
+                        
+                        alert(`Inicio de sesión exitoso. ID: ${resultado.id}`);
                             
                       }else{
                         setLoading(false)
@@ -66,7 +73,7 @@ const LoginAbdiel = ()=>{
                       console.log("Error login",error)
                   })
               }
-              setTimeout(miFuncion, 4000);
+              setTimeout(miFuncion, 2000);
         }
         else{
            
@@ -74,8 +81,19 @@ const LoginAbdiel = ()=>{
           
   
         }
+      
     
   
+      }
+      console.log("ID USUARIO", id);
+      const storeData = async (value) => {
+        try {
+          await AsyncStorage.setItem('@id_user', value);
+          let idAsync =  await AsyncStorage.getItem("@id_user");
+          console.log("exito async",idAsync );
+        } catch (e) {
+          console.log("error async", e);
+        }
       }
   
       return(
@@ -112,6 +130,7 @@ const LoginAbdiel = ()=>{
                        onChangeText={(val) => {setPassword(val)}}
                        autoCapitalize='none'
                        value={password} 
+                       type="password"
   
   
                       InputLeftElement={<Icon as={MaterialIcons} name="lock" size={5} color="#FE308E" m={3}/>} size={5} color="muted.400" />

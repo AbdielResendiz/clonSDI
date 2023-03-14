@@ -10,9 +10,9 @@ const TestingLogin = (props) => {
     return(
         <NativeBaseProvider>
             <Text bold fontSize={"lg"} mx={12} my={10}>Vista Para Testing de perfil y login, se removerá mas adelante</Text>
-            <Button m={5} onPress={()=>navegacion("Sign")}>LOGIN Aldair</Button>
-            <Button m={5} onPress={()=>navegacion("Welcome")}>LOGIN Abdiel</Button>
-            <Button m={5} onPress={()=>navegacion("CuentaMenu")}>Perfil</Button>
+            {/* <Button m={5} onPress={()=>navegacion("Sign")}>LOGIN Aldair</Button> */}
+            <Button m={5} size="lg" onPress={()=>navegacion("Welcome")}>REGISTRO E INICIO DE SESIÓN </Button>
+            <Button m={5} size="lg" colorScheme="secondary" onPress={()=>navegacion("CuentaMenu")}>Perfil</Button>
         </NativeBaseProvider>
     );
 };

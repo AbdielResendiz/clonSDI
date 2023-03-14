@@ -2,8 +2,7 @@ import React, { useState,useEffect } from "react";
 import {TouchableOpacity} from "react-native"
 import {  Ionicons,MaterialCommunityIcons,MaterialIcons} from '@expo/vector-icons'; 
 import { Icon, Text, Center,ScrollView, View, Input,FormControl,NativeBaseProvider, Checkbox, Box, Select, CheckIcon, HStack} from "native-base";
-import CheckBox from "expo-checkbox";
-import RNPickerSelect from "react-native-picker-select";
+import colors from "../../colors";
 import { useFetch, URL } from "../API/useFetch";
 
 const FormRegistro = (props) => {
