@@ -7,6 +7,7 @@ import SwiperList from '../components/SwiperList';
 import ProductoComponent from '../components/ProductoComponent';
 import URL from '../helper/URL';
 import { useState, useEffect } from 'react';
+import Loader from '../components/Loader';
 
 export default function Home(props) {
   const BASE_URL =URL.BASE_URL;
@@ -16,7 +17,7 @@ export default function Home(props) {
     props.navigation.navigate(item);
   }; 
 
-
+const [loader, setLoader ]= useState(true);
 
   const detalleCategorias= (item, link) => {
     props.navigation.navigate("DetalleCategoria", {
@@ -50,6 +51,7 @@ export default function Home(props) {
     const res = await fetchPost(url, options);
     setNoImpresos(res.data);
     console.log("res", res.data);
+    setLoader(false);
     
   }
   useEffect(() => {
@@ -60,6 +62,7 @@ export default function Home(props) {
  
   return (
     <NativeBaseProvider >
+      {loader===true ? <Loader/> : 
       <Box h={"100%"} bg={colors.blanco}>
         <Box h={"20%"}>
         <SwiperList/>
@@ -140,6 +143,7 @@ export default function Home(props) {
         
         
       </Box>
+      }
     </NativeBaseProvider>
   );
 }

@@ -66,6 +66,8 @@ export default function DetalleCategoria(props) {
     });
   };
 
+  const [ loader, setLoader ] = useState()
+
   return (
     <NativeBaseProvider >
       <Box flex={1} bg={colors.grisbg}>

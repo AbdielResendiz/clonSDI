@@ -36,6 +36,7 @@ import ConfirmaPago from './src/private/ConfirmaPago';
 import DetalleCompra from './src/private/DetalleCompra'
 import ListaFactura from './src/private/ListaFactura';
 import Welcome from './src/public/Welcome';
+import Password from './src/private/Password';
 
 const Stack = createStackNavigator();
 
@@ -361,6 +362,16 @@ const HeaderLeftCustom = ()=>{
         }}/>
 
         <Stack.Screen name="ListaFactura" component={ListaFactura}  options={{title: 'Facturación',
+         headerTintColor:colors.blanco,
+         headerStyle: {
+           backgroundColor: colors.azul,
+         },
+         headerShadowVisible: true,
+         headerRight: () => (
+           <HeaderRightCustom/>
+         ),
+        }}/>
+        <Stack.Screen name="Password" component={Password}  options={{title: 'Cambiar contraseña',
          headerTintColor:colors.blanco,
          headerStyle: {
            backgroundColor: colors.azul,
