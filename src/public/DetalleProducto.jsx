@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Center, NativeBaseProvider, Text, Stack, Pressable, Divider, Box, Image, HStack, Button, View, Icon, ScrollView, Input} from "native-base";
+import { Center, NativeBaseProvider, Text, Stack, Pressable, Divider, Box, Image, HStack, Button, View, Icon, ScrollView, Input, VStack} from "native-base";
 import colors from '../colors';
 import {  AntDesign, Entypo, MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { TextInput } from 'react-native';
@@ -12,9 +12,13 @@ const DetalleProducto   = (props) => {
     const id = props.route.params.id;
     const impreso = props.route.params.impreso;
     const image = props.route.params.image;
+    const idAS = props.route.params.idAS;
     const nombre = props.route.params.nombre;
-    //console.log("id" , id);
-    //console.log("ESTADO ===", impreso);
+    console.log("id" , id);
+    console.log("ESTADO ===", impreso);
+    console.log("imagen", image);
+    console.log("idAgrupacion", idAS);
+    console.log("nombre", nombre);
     
       const handleIconPress = () => {
         if (selected===true){
@@ -88,38 +92,22 @@ notNumber();
                 uri: `http://sdiqro.store/static/imgServicios/${image}`
                 }} alt="Alternate Text" size="xl" />
             </Center>
+
                 {/** color, talla y precio */}
             <Stack direction={"row"} justifyContent={"space-between"} mx={"5%"} my={2}  flex={1}>
-                <Stack direction={"column"}>
-                    <Text bold>
-                        Color:
-                    </Text>
-                    <HStack>
-                        <Pressable  h={6} w={6} mx={1}>
-                            <Center bg={"#ff0000"} flex={1} borderRadius={100} shadow={6}/>
-                        </Pressable>
-                        <Pressable  h={6} w={6} mx={1}>
-                            <Center bg={"#00ff00"} flex={1} borderRadius={100} shadow={6}/>
-                        </Pressable>
-                        <Pressable  h={6} w={6} mx={1}>
-                            <Center bg={"#0000ff"} flex={1} borderRadius={100} shadow={6}/>
-                        </Pressable>
-                    </HStack>
-                    <Text bold mt={2}>Talla:</Text>
-                    <Center>
-                        <Box w={32} h={6} borderWidth={1}>
-                        
-                        </Box>
-                    </Center>
-
-                </Stack>
-                <Stack direction={"column"}>
-                    <Text bold fontSize={"lg"}>$130</Text>
-
-                </Stack>
+                <VStack>
+                    <Text>hola</Text>
+                </VStack>
+                <VStack >
+                    <Text>Precio menudeo: $300 </Text>
+                    <Text>Precio medio mayoreo: $250 </Text>
+                    <Text>Precio mayoreo: $200 </Text>
+                </VStack>
+                
                 
 
             </Stack>
+
             <Divider w="90%" mx="5%" bg={colors.azul} h={0.5}/>
             {/** STOCK */}
             <Text bold ml={5} mt={1}> Stock:</Text>

@@ -6,13 +6,14 @@ import { useEffect, useState } from "react";
 const ProductoComponent = (props)=>{
     const navigation =useNavigation();
 
-    const { nombre, precio, id, image, impreso } =props;
+    const { nombre, precio, id, image, impreso, idAS } =props;
 
-    const detalleCategorias= (item, impreso, image, nombre) => {
+    const detalleCategorias= (item, impreso, image,idAS, nombre) => {
         navigation.navigate("DetalleProducto", {
           id: item,
           impreso: impreso,
           image: image,
+          idAS: idAS,
           nombre: nombre
           
           
@@ -28,7 +29,7 @@ const ProductoComponent = (props)=>{
         setSelected(true);}
       };
      useEffect( ()=>{
-        console.log(selected)
+        //console.log(selected)
      },[selected]);
 
 
@@ -43,25 +44,26 @@ const ProductoComponent = (props)=>{
         }
            
         </Pressable>
-        <Pressable onPress={()=>detalleCategorias(id, impreso, image, nombre)}>
+        <Pressable onPress={()=>detalleCategorias(id, impreso, image, idAS, nombre)}>
             <Center>
                 <Image source={{
                 uri: `http://sdiqro.store/static/imgServicios/${image}`
                 }} alt="Alternate Text" size="md" />
             </Center>
             <Center w={120} h={10} mx={1}>
-                <Text fontSize={12} justifyContent={"center"}> {nombre}</Text>
+                <Text fontSize={12} textAlign="center"> {nombre}</Text>
             </Center>
             <Center >
                 <Text fontSize={12} justifyContent={"center"} bold> ${precio}</Text>
             </Center>
         </Pressable>
 
-        <Pressable bg={colors.azul} borderRadius={30} w="80%" ml="10%">
+        <Pressable bg={colors.rosa} borderRadius={30} w="80%" ml="10%"
+         onPress={()=>detalleCategorias(id, impreso, image, idAS, nombre)}>
             <Center>
-            <Stack direction={"row"}>
-                <Icon as={AntDesign} name="shoppingcart"   mt={1} mr={1} color="white"/>
-                <Text bold color={"white"}>Agregar</Text>
+            <Stack direction={"row"}> 
+               
+                <Text bold color={"white"}>Ver más</Text>
             </Stack>
             </Center>
         </Pressable>

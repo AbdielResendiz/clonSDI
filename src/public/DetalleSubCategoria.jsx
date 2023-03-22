@@ -6,6 +6,7 @@ import ProductoComponent from '../components/ProductoComponent';
 import URL from '../helper/URL';
 import fetchPost from '../helper/fetchPost';
 import ProductoComponent2 from '../components/ProductoComponent2';
+import Loader from '../components/Loader';
 //import ProductoComponent from '../components/ProductoComponent';
 
 const DetalleSubCategoria = (props) => {
@@ -18,7 +19,7 @@ const DetalleSubCategoria = (props) => {
     console.log("impreso subcat", impreso);
     console.log("IDCS", idCS);
 
-
+const [ load, setLoad ] = useState(true);
 
     //PRODUCTOS MAPEO
   const [ productos, setProductos ] = useState([]);
@@ -35,6 +36,7 @@ const DetalleSubCategoria = (props) => {
    const res = await fetchPost(url, options);
    setProductos(res.data);
    console.log("response", res.data);
+   setLoad(false);
  }
  useEffect(() => {
    getProductos();
@@ -47,6 +49,7 @@ const DetalleSubCategoria = (props) => {
 
     return (
         <NativeBaseProvider >
+          {load=== true ? <Loader/> : 
           <Box h={"100%"} bg={colors.grisbg}>
             <Box h={"20%"}>
                 <SwiperList/>
@@ -94,6 +97,7 @@ const DetalleSubCategoria = (props) => {
            </ScrollView>
            : <Text textAlign={"center"} mt={5} fontSize={20}>No hay productos por el momento</Text> }
           </Box>
+          }
         </NativeBaseProvider>
       );
 };

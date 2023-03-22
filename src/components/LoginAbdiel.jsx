@@ -6,12 +6,12 @@ import ProcesandoLoginL from "../components/Componentes/procesando/ProcesandoLog
 
 const LoginAbdiel = ()=>{
     const [loading , setLoading] = useState(false)
-    const [correo, setCorreo] = useState('');
+    const [correo, setCorreo] = useState('test@gmail.com');
     const [inputCorreo, setInputCorreo]  = useState(true);
     const [formCorreo, setFormCorreo] = useState(false);
     const [inputPassword, setInputPassword] = useState(true);
     const [formPassword, setFormPassword] = useState(false);
-    const [password, setPassword] = useState('');
+    const [password, setPassword] = useState('12345');
     const validRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const [ id, setId ] = useState();
 
