@@ -21,7 +21,7 @@ const DetalleSubCategoria = (props) => {
 
 const [ load, setLoad ] = useState(true);
 
-    //PRODUCTOS MAPEO
+    //PRODUCTOS MAPEO 
   const [ productos, setProductos ] = useState([]);
   const getProductos= async()=>{
 

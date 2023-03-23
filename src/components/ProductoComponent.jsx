@@ -6,15 +6,16 @@ import { useEffect, useState } from "react";
 const ProductoComponent = (props)=>{
     const navigation =useNavigation();
 
-    const { nombre, precio, id, image, impreso, idAS } =props;
+    const { nombre, precio, id, image, impreso, idAS , idU} =props;
 
-    const detalleCategorias= (item, impreso, image,idAS, nombre) => {
+    const detalleCategorias= (item, impreso, image,idAS, nombre, idU) => {
         navigation.navigate("DetalleProducto", {
           id: item,
           impreso: impreso,
           image: image,
           idAS: idAS,
-          nombre: nombre
+          nombre: nombre,
+          idU : idU
           
           
         }); 

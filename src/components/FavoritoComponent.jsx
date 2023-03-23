@@ -1,43 +1,64 @@
-import { Box, Icon, Stack , Image, Text, Center, CheckCircleIcon, Pressable} from "native-base";
-import {  AntDesign, Entypo, MaterialCommunityIcons } from '@expo/vector-icons'; 
+import { Box, Pressable, Icon, Center, Image, Text, Stack} from "native-base";
+import {  AntDesign } from '@expo/vector-icons'; 
 import colors from "../colors";
+import { useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from "react";
+const FavoritoComponent = (props)=>{
+    const navigation =useNavigation();
 
-const Favoritocomponent= (props)=>{
+    const { nombre, precio, id, image, impreso, idAS , idU} =props;
 
-    const [ existe, setExiste ] = useState(false);
+    const detalleCategorias= (item, impreso, image,idAS, nombre, idU) => {
+        navigation.navigate("DetalleProducto", {
+          id: item,
+          impreso: impreso,
+          image: image,
+          idAS: idAS,
+          nombre: nombre,
+          idU : idU
+          
+          
+        }); 
+      };
 
-    useEffect( () =>{
-console.log("existeFav", existe)
-    },[existe]);
+      const [ selected, setSelected] = useState(false);
+
+      const handleIconPress = () => {
+        if (selected===true){
+            setSelected(false);
+        }else{
+        setSelected(true);}
+      };
+     useEffect( ()=>{
+        //console.log(selected)
+     },[selected]);
+
+     const [ existe, setExiste ] = useState(false);
 
     return(
-        <Box h={32} w={"90%"} mx={"5%"}  my={2} shadow={6} bg="white" borderRadius={20} >
+        <>
+      <Box h={32} w={"90%"} mx={"5%"}  my={2} shadow={6} bg="white" borderRadius={20} >
             <Stack direction={"row"}> 
                 <Icon as={AntDesign} name="heart" size={6} ml={3}  mt={3} color={colors.rosa} />
                 
                 <Image source={{
-                uri: "https://clipground.com/images/hoodie-png-2.png"
-                }} alt="Alternate Text" size="lg" mt={5} mx={8} />
-                <Stack direction={"column"} justifyContent={"flex-end"}  w="150" mt={2}>
-                    <Text> Sudadera Gris algodón Unisex Infantil</Text>
-                    <Text bold fontSize={"lg"}>$300.00</Text>
-                    <Box my={3} >
-                    { (existe === true) ?
-                     <Pressable bg={colors.azul} borderRadius={10} w={24} h={9} >
+                uri: `http://sdiqro.store/static/imgServicios/${image}`
+                }} alt="Alternate Text" size="lg" mt={4} mx={1} />
+                <Stack direction={"column"}   flex={1} mt={2}>
+                    <Text  pt={1}> {nombre}</Text>
+                    <Text bold fontSize={"lg"}>${precio}</Text>
+                    <Box my={1} >
+                 
+                     <Pressable bg={colors.azul} borderRadius={10} w={24} h={9}
+                     onPress={()=>detalleCategorias(id, impreso, image, idAS, nombre)} >
                         <Center >
                             <Stack direction={"row"} mt={1}>
-                                <Icon as={MaterialCommunityIcons} name="cart-plus" size={6}  mt={1} mr={2} color="white"/>
-                                <Text bold color={"white"} mt={1}>Agregar</Text>
+                                
+                                <Text bold color={"white"} mt={1}>Ver más</Text>
                             </Stack>
                         </Center>
                     </Pressable>
-                    :
-                    <Stack direction={"row"} >
-                        <Icon as={AntDesign} name="exclamationcircle" size={4} color={colors.rosa} mr={3} />
-                        <Text fontSize={12} color={"#222222"}>No hay existencia</Text>
-                    </Stack>
-                    }
+                   
                     </Box>
 
                 </Stack>
@@ -46,6 +67,9 @@ console.log("existeFav", existe)
             </Stack>
 
         </Box>
+        
+        </>
     );
 };
-export default Favoritocomponent;
+
+export default FavoritoComponent;

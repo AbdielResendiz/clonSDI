@@ -123,7 +123,8 @@ const [loader, setLoader ]= useState(true);
               precio = {impreso.precioS}
               image={impreso.image_url}
               idAS={impreso.idAS}
-              impreso={true}/>
+              impreso={true}
+              idU={idU}/>
             ) 
           } )
 
