@@ -3,6 +3,8 @@ import {  AntDesign } from '@expo/vector-icons';
 import colors from "../colors";
 import { useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from "react";
+import eliminarFav from "../helper/eliminarFav";
+import { Alert } from "react-native";
 const FavoritoComponent = (props)=>{
     const navigation =useNavigation();
 
@@ -21,25 +23,31 @@ const FavoritoComponent = (props)=>{
         }); 
       };
 
-      const [ selected, setSelected] = useState(false);
 
-      const handleIconPress = () => {
-        if (selected===true){
-            setSelected(false);
-        }else{
-        setSelected(true);}
-      };
-     useEffect( ()=>{
-        //console.log(selected)
-     },[selected]);
 
-     const [ existe, setExiste ] = useState(false);
+
+
+     const eliminarFavorito = ()=>{
+        Alert.alert('Borrar Favorito', `¿Deseas borrar ${nombre} de favoritos?`, [
+            {
+              text: 'Cancelar',
+              onPress: () => console.log('Cancel Pressed'),
+              style: 'cancel',
+            },
+            {text: 'Confirmar', onPress: () => eliminarFav(idU, idAS)},
+          ],
+          {cancelable: true}
+          );
+     }
 
     return(
         <>
       <Box h={32} w={"90%"} mx={"5%"}  my={2} shadow={6} bg="white" borderRadius={20} >
             <Stack direction={"row"}> 
-                <Icon as={AntDesign} name="heart" size={6} ml={3}  mt={3} color={colors.rosa} />
+                <Pressable onPress={()=>eliminarFavorito()}>
+                  <Icon as={AntDesign} name="heart" size={6} ml={3}  mt={3} color={colors.rosa} />
+                </Pressable>
+               
                 
                 <Image source={{
                 uri: `http://sdiqro.store/static/imgServicios/${image}`

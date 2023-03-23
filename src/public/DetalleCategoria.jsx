@@ -18,6 +18,8 @@ export default function DetalleCategoria(props) {
 
   const estado = props.route.params.estado;
   const urlCat = props.route.params.url;
+  const idU = props.route.params.user;
+  console.log("idU categoria", idU);
   console.log("link" , urlCat);
   console.log("ESTADO ===", estado);
   const [ loader, setLoader ] = useState(true);
@@ -119,7 +121,8 @@ export default function DetalleCategoria(props) {
                           precio={item.precioS} 
                           image={item.image_url}
                           idAS={item.idAS}
-                          impreso={estado}/>
+                          impreso={estado}
+                          idU={idU}/>
                         );
                         }
                     })}
@@ -137,7 +140,8 @@ export default function DetalleCategoria(props) {
                           key={index} nombre={item.nombreS} id={item.idS}
                           precio={item.precioS} 
                           image={item.image_url}
-                          idAS={item.idAS}/>
+                          idAS={item.idAS}
+                          idU={idU}/>
                         );
                         }
                     })}

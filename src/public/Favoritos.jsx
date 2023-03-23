@@ -20,7 +20,7 @@ const Favoritos = () => {
         try {
           const value = await AsyncStorage.getItem('@id_user')
           if(value !== null) {
-            console.log("idU async: ", value);
+            //console.log("idU async: ", value);
             setIdU(value);
             getFav(value);
           }
@@ -38,9 +38,14 @@ const Favoritos = () => {
           method:'POST',
           body: dataFav
         };
-        const res = await fetchPost(url, options);
-        setFavoritos(res.data);
-       // console.log("res", res.data);
+        const responseFav = await fetchPost(url, options);
+        if (responseFav !== null){
+          setFavoritos(responseFav.data);
+        }else{
+          setFavoritos([]);
+        }
+       
+        //console.log("res", responseFav.data);
         setLoader(false);
         
       }
@@ -48,15 +53,17 @@ const Favoritos = () => {
       useEffect(() => {
         getData();
         
-        console.log("favoritos: " ,favoritos)
-      }, [idU])
+        //console.log("favoritos: " ,favoritos)
+      }, [favoritos])
 
 
 
     return(
         <NativeBaseProvider>
+          { loader===true ? <Loader/> :
             <View flex={1} bg={colors.blanco} >
             <Text bold fontSize={20} ml={5} mt={3}>Favoritos</Text>
+           { favoritos.length > 0 ? 
             <ScrollView>    
             { favoritos.map( (impreso, index)=>{
             return(
@@ -75,7 +82,9 @@ const Favoritos = () => {
                 
 
             </ScrollView>
+            : <Text alignSelf={"center"} mt={10} fontSize={24}>No tienes favoritos por ahora</Text>}
             </View>
+             }
 
         </NativeBaseProvider>
     );

@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Center, NativeBaseProvider, Text, Stack, Pressable, Divider, Box, Image, HStack, Button, View, Icon, ScrollView, Input, VStack} from "native-base";
+import { Center, NativeBaseProvider, Text, Stack, Pressable, Divider, Box, Image, HStack,  Icon, ScrollView, VStack} from "native-base";
 import colors from '../colors';
-import {  AntDesign, Entypo, MaterialCommunityIcons } from '@expo/vector-icons'; 
+import {  AntDesign, MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { TextInput } from 'react-native';
+import checkFav from '../helper/checkFav';
+import agregarFav from '../helper/agregarFav';
+import eliminarFav from '../helper/eliminarFav';
 
 const DetalleProducto   = (props) => {
 
-    const [ selected, setSelected] = useState(false);
+
 
 
     const id = props.route.params.id;
@@ -14,25 +17,52 @@ const DetalleProducto   = (props) => {
     const image = props.route.params.image;
     const idAS = props.route.params.idAS;
     const nombre = props.route.params.nombre;
-    console.log("id" , id);
-    console.log("ESTADO ===", impreso);
-    console.log("imagen", image);
-    console.log("idAgrupacion", idAS);
-    console.log("nombre", nombre);
+    const idU = props.route.params.idU;
+    // console.log("id" , id);
+    // console.log("ESTADO ===", impreso);
+    // console.log("imagen", image);
+    // console.log("idAgrupacion", idAS);
+    // console.log("nombre", nombre);
+    // console.log("idU DetalleProd", idU);
     
-      const handleIconPress = () => {
-        if (selected===true){
-            setSelected(false);
-        }else{
-        setSelected(true);}
-      };
+ 
+
+    const [ selected, setSelected] = useState(false);
+
+    const handleIconPress = (idAS, idU) => {
+      if (selected===true){
+          eliminarFav(idU, idAS);
+
+          setSelected(false);
+      }else{
+          agregarFav(idU, idAS);
+          setSelected(true);}
+    };
+
+
+    const checked = async()=>{
+     // console.log("idAS check", idAS);
+     // console.log("idU check", idU);
+      let state = await checkFav(idU, idAS);
+      //console.log("state", state)
+      setSelected(state);
+  }
+
+   useEffect( ()=>{
+      
+      checked();
+   },[selected]);
+
 
 
      useEffect( ()=>{
-        console.log(selected)
+       
         console.log("count", count)
         
-     },[selected, count]);
+     },[ count]);
+
+
+
 
     //  useEffect( ()=>{
     //     console.log("count", count)
@@ -96,7 +126,7 @@ notNumber();
                 {/** color, talla y precio */}
             <Stack direction={"row"} justifyContent={"space-between"} mx={"5%"} my={2}  flex={1}>
                 <VStack>
-                    <Text>hola</Text>
+                    <Text>Atributos</Text>
                 </VStack>
                 <VStack >
                     <Text>Precio menudeo: $300 </Text>
@@ -163,7 +193,7 @@ notNumber();
                         </Center>
                     </Pressable>
                     {/**FAVORITO */}
-                   <Pressable onPress={()=>handleIconPress()} mr={10}>
+                   <Pressable onPress={()=>handleIconPress(idAS, idU)} mr={10}>
                         <Center>
                             { selected===true ?
                             <Icon as={AntDesign} name="heart"   mt={2} size={6} color={colors.rosa}/> :

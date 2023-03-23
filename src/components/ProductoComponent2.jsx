@@ -3,10 +3,15 @@ import {  AntDesign } from '@expo/vector-icons';
 import colors from "../colors";
 import { useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from "react";
+import URL from "../helper/URL";
+import agregarFav from "../helper/agregarFav";
+import eliminarFav from "../helper/eliminarFav";
+import checkFav from "../helper/checkFav";
+
 const ProductoComponent2 = (props)=>{
     const navigation =useNavigation();
 
-    const { nombre, precio, id, image, impreso, idAS } =props;
+    const { nombre, precio, id, image, impreso, idAS, idU } =props;
 
     const detalleCategorias= (item, impreso, image,idAS, nombre) => {
         navigation.navigate("DetalleProducto", {
@@ -21,22 +26,37 @@ const ProductoComponent2 = (props)=>{
       };
       const [ selected, setSelected] = useState(false);
 
-      const handleIconPress = () => {
+
+      const handleIconPress = (idAS, idU) => {
         if (selected===true){
+            eliminarFav(idU, idAS);
+
             setSelected(false);
         }else{
-        setSelected(true);}
+            agregarFav(idU, idAS);
+            setSelected(true);}
       };
-     useEffect( ()=>{
-        console.log(selected)
-     },[selected]);
 
+
+      const checked = async()=>{
+       // console.log("idAS check", idAS);
+       // console.log("idU check", idU);
+        let state = await checkFav(idU, idAS);
+        //console.log("state", state)
+        setSelected(state);
+        
+    }
+
+     useEffect( ()=>{
+        
+        checked();
+     });
 
 
     return(
         <>
         <Box  h={210} w={150} ml={2} borderRadius={20} shadow={6} bg="white" my={3}>
-        <Pressable justifyContent={"flex-end"} alignContent="flex-end" ml={7} onPress={()=>handleIconPress()}>
+        <Pressable justifyContent={"flex-end"} alignContent="flex-end" ml={7} onPress={()=>handleIconPress(idAS, idU)}>
             { selected===true ?
             <Icon as={AntDesign} name="heart"  ml={24} mt={2}  color={colors.rosa }/> :
             <Icon as={AntDesign} name="hearto"  ml={24} mt={2}  />

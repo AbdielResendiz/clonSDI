@@ -34,10 +34,11 @@ export default function Home(props) {
 
 const [loader, setLoader ]= useState(true);
 
-  const detalleCategorias= (item, link) => {
+  const detalleCategorias= (item, link, user) => {
     props.navigation.navigate("DetalleCategoria", {
       estado: item,
       url: link,
+      user: user
     });
   };
 
@@ -53,10 +54,11 @@ const [loader, setLoader ]= useState(true);
     
   }
   useEffect(() => {
-    getImpresos();
     getData();
+    getImpresos();
+    getNoImpresos();
     
-  }, [])
+  },[])
 
   const [ noImpresos, setNoImpresos ] = useState([]);
   const getNoImpresos = async()=>{
@@ -70,10 +72,7 @@ const [loader, setLoader ]= useState(true);
     setLoader(false);
     
   }
-  useEffect(() => {
-    getNoImpresos();
-    
-  }, [])
+
   
  
   return (
@@ -90,14 +89,14 @@ const [loader, setLoader ]= useState(true);
         <Center w={"95%"} ml={3}>
         <Stack direction={"row"}>
           <Pressable h={10} w={"40%"} bg={colors.blanco} shadow={6} 
-          borderRadius={10} m={3} onPress={()=>detalleCategorias(true, "http://sdiqro.store/abdiel/Productos/ver_impresos")}>
+          borderRadius={10} m={3} onPress={()=>detalleCategorias(true, "http://sdiqro.store/abdiel/Productos/ver_impresos", idU)}>
             <Center h={"100%"} w={"100%"}>
               <Text bold>Impresos</Text>
             </Center>
           </Pressable>
 
           <Pressable h={10} w={"40%"} bg={colors.blanco} shadow={6} 
-          borderRadius={10} m={3} onPress={()=>detalleCategorias(false, "http://sdiqro.store/abdiel/Productos/ver_noimpresos")}>
+          borderRadius={10} m={3} onPress={()=>detalleCategorias(false, "http://sdiqro.store/abdiel/Productos/ver_noimpresos", idU)}>
             <Center h={"100%"} w={"100%"}>
               <Text bold>No Impresos</Text>
             </Center>
@@ -109,7 +108,7 @@ const [loader, setLoader ]= useState(true);
       <Box>
         <Stack direction={"row"} justifyContent={"space-between"} mx={9} my={1}>
           <Text bold >Más vendidos impresos</Text>
-          <Pressable onPress={()=>detalleCategorias(false, "http://sdiqro.store/abdiel/Productos/ver_impresos")}>
+          <Pressable onPress={()=>detalleCategorias(false, "http://sdiqro.store/abdiel/Productos/ver_impresos", idU)}>
             <Text color={"#ff0000"}> Ver más</Text>
           </Pressable>
 
@@ -136,7 +135,7 @@ const [loader, setLoader ]= useState(true);
       <Box my={3}>
         <Stack direction={"row"} justifyContent={"space-between"} mx={9} my={1}>
           <Text bold >Más vendidos no impresos</Text>
-          <Pressable onPress={()=>detalleCategorias(false, "http://sdiqro.store/abdiel/Productos/ver_noimpresos")}>
+          <Pressable onPress={()=>detalleCategorias(false, "http://sdiqro.store/abdiel/Productos/ver_noimpresos", idU)}>
             <Text color={"#ff0000"}> Ver más</Text>
           </Pressable>
 
@@ -150,7 +149,8 @@ const [loader, setLoader ]= useState(true);
               precio = {noImpreso.precioS}
               image={noImpreso.image_url}
               impreso={false}
-              idAS={noImpreso.idAS}/>
+              idAS={noImpreso.idAS}
+              idU={idU}/>
             ) 
           } )
 
