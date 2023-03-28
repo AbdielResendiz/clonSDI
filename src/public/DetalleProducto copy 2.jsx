@@ -10,7 +10,7 @@ import eliminarFav from '../helper/eliminarFav';
 import URL from '../helper/URL';
 import fetchPost from '../helper/fetchPost';
 
-const DetalleProducto   = (props) => {
+const DetalleProductoss   = (props) => {
     const BASE_URL = URL.BASE_URL;
     const id = props.route.params.id;
     const impreso = props.route.params.impreso;
@@ -44,6 +44,7 @@ const DetalleProducto   = (props) => {
      // console.log("idAS check", idAS);
      // console.log("idU check", idU);
       let state = await checkFav(idU, idAS);
+      getAtributos();
       //console.log("state", state)
       setSelected(state);
   }
@@ -53,127 +54,127 @@ const DetalleProducto   = (props) => {
       checked();
    },[selected]);
 
-        
+   useEffect( ()=>{
+      
+        getAtributos();
+    },[atributos]);
 
 
 
 
 
-    useEffect( ()=>{
+     useEffect( ()=>{
         console.log("count", count)
         
-        notNumber();
-    },[count]);
+    notNumber();
+     },[count]);
+  
+
+     //inicia funciones para contar
+  const [ count, setCount ] = useState(1);
+  console.log("count fuera: ", count)
 
 
-    //inicia funciones para contar
-    const [ count, setCount ] = useState(1);
-    console.log("count fuera: ", count)
-
-
-    const notNumber=()=>{
-        if (count===NaN){
-            setCount(1);
-        }
+const notNumber=()=>{
+    if (count===NaN){
+        setCount(1);
     }
+}
 
 
 
 
-    const [ atributos, setAtributos] = useState([]);
-    const [numeroAtributos, setNumeroAtributos ] =  useState(0);
+const [ atributos, setAtributos] = useState([]);
 
-    const getAtributos = async()=>{
+const getAtributos = async()=>{
 
-            
-        const dataAtributo = new FormData();
-        dataAtributo.append("idAS", idAS);
-        const url = `${BASE_URL}abdiel/atributos/get_atributos`
-        const options = {
-        method:'POST',
-        body: dataAtributo
-        };
-        const responseAtributo = await fetchPost(url, options);
-        if (responseAtributo !== null){
-          // console.log(responseAtributo.atributos);
-            setAtributos(responseAtributo.atributos);
-            console.log("atributos COUNT =====",atributos.length);
-            setNumeroAtributos(atributos.length)
-            console.log("atributoooos", atributos)
-        }else{
-            setAtributos([]);
-        }
         
+    const dataAtributo = new FormData();
+    dataAtributo.append("idAS", idAS);
+    const url = `${BASE_URL}abdiel/atributos/get_atributos`
+    const options = {
+      method:'POST',
+      body: dataAtributo
+    };
+    const responseAtributo = await fetchPost(url, options);
+    if (responseAtributo !== null){
+        setAtributos(responseAtributo.atributos);
+        console.log("atributos",atributos);
+    }else{
+        setAtributos([]);
     }
+   
+    //console.log("res", responseFav.data);
+    setLoader(false);
+    
+}
 
-    useEffect(() => {
-        getAtributos();
-    }, []);
+const getOpciones = async(idAtr)=>{
+    const dataOpciones = new FormData();
+    dataOpciones.append("idAtr", idAtr);
+    const url = `${BASE_URL}abdiel/atributos/get_detalle`
+    const options = {
+      method:'POST',
+      body: dataOpciones
+    };
+    const responseOpciones = await fetchPost(url, options);
+    if (responseOpciones !== null){
+        console.log("opciones", responseOpciones.atributos);
+        {
+            responseOpciones.atributos.map
+        }
+        return  responseOpciones.atributos;
         
-
-
-
-
-
-    const AtributoSelector = (props) => { 
-        const { idAtr, nombreAtr, count} =props;
-
-            const [ categoriaAtributo, setCategoriaAtributo ] = useState();
-            const [ detalles, setDetalles] = useState([]);
-            console.log("contador index nombre", nombreAtr+count )
-
-            const getOpciones = async(idAtr)=>{
-                const dataOpciones = new FormData();
-                dataOpciones.append("idAtr", idAtr);
-                const url = `${BASE_URL}abdiel/atributos/get_detalle`
-                const options = {
-                  method:'POST',
-                  body: dataOpciones
-                };
-                const responseOpciones = await fetchPost(url, options);
-                if (responseOpciones !== null){
-                  //  console.log("responseOpciones.atributos",responseOpciones.atributos);
-                  setDetalles(responseOpciones.atributos)
-                //  console.log("detalle", detalles);
-                  
-                    
-                }else{
-                    setDetalles([])
-                }
-               
-                
-            }
-
-            useEffect(() => {
-              getOpciones(idAtr);
-            }, [idAtr])
-            
-
-        return(
-            <Center>
-                <Box maxW="300">
-                    <Select selectedValue={categoriaAtributo} minWidth="200" accessibilityLabel={String(idAtr)} placeholder={nombreAtr + ":" + idAtr} _selectedItem={{
-                    bg: "teal.600",
-                    endIcon: <CheckIcon size="5" />
-                    }} mt={1} onValueChange={itemValue => setCategoriaAtributo(itemValue)}>
-                    { detalles.length>0 ?
-                                    detalles.map( (detalle, index)=>{
-                                        return(
-                                            <Select.Item key={index}
-                                            label={detalle.nombreDAtr} 
-                                            value={detalle.idDAtr} />
-                                        )
-                                    } )
-                    :  <Select.Item label="UX Research" value="ux" />}
-                    
-
-                    
-                    
-                    </Select>
-            </Box>
-        </Center>
-        )
+    }else{
+        return []
     }
+   
+    //console.log("res", responseFav.data);
+   // setLoader(false);
+    
+}
+
+
+
+// const AtributoSelector = async(props) => { 
+//     const { idAtr, nombreAtr} =props;
+
+//     try {
+//         let opciones = await getOpciones(idAtr);
+//         console.log("OPCIONES ====", opciones);
+//     } catch (error) {
+//         console.error("Error al obtener opciones", error);
+//     }
+
+
+
+//         const [ categoriaAtributo, setCategoriaAtributo ] = useState();
+
+//     return(
+//         <Center>
+//         <Box maxW="300">
+//           <Select selectedValue={categoriaAtributo} minWidth="200" accessibilityLabel={String(idAtr)} placeholder={nombreAtr + ":" + idAtr} _selectedItem={{
+//           bg: "teal.600",
+//           endIcon: <CheckIcon size="5" />
+//         }} mt={1} onValueChange={itemValue => setCategoriaAtributo(itemValue)}>
+
+//             { opciones.length>0 ?
+//                 opciones.map( (opcion, index)=>{
+//                     return(
+//                         <Select.Item key={index} 
+//                         value={opcion.idDAtr}  label={opcion.nombreDAtr}
+//                         />
+//                     )
+//                 } )
+//              : <Select.Item label="UX Research" value="ux" />}
+
+           
+           
+//           </Select>
+//         </Box>
+//       </Center>
+//     )
+//  }
 
 
 
@@ -199,11 +200,10 @@ const DetalleProducto   = (props) => {
                     return(
                         <AtributoSelector key={index} 
                         idAtr={atributo.idAtr}  nombreAtr={atributo.nombreAtr}
-                        count={index}
                         />
                     )
                 } )
-             : <Text> hola</Text>}
+             : null}
             
 
                 {/** color, talla y precio */}
@@ -295,4 +295,4 @@ const DetalleProducto   = (props) => {
     );
 };
 
-export default DetalleProducto;
+export default DetalleProductoss;
