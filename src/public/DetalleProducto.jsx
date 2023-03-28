@@ -6,11 +6,9 @@ import { TextInput } from 'react-native';
 import checkFav from '../helper/checkFav';
 import agregarFav from '../helper/agregarFav';
 import eliminarFav from '../helper/eliminarFav';
+import AtributoSelector from '../components/Componentes/Producto/AtributoSelector';
 
 const DetalleProducto   = (props) => {
-
-
-
 
     const id = props.route.params.id;
     const impreso = props.route.params.impreso;
@@ -21,12 +19,12 @@ const DetalleProducto   = (props) => {
     // console.log("id" , id);
     // console.log("ESTADO ===", impreso);
     // console.log("imagen", image);
-    // console.log("idAgrupacion", idAS);
+     console.log("idAgrupacion", idAS);
     // console.log("nombre", nombre);
     // console.log("idU DetalleProd", idU);
     
- 
-
+    const [loader, setLoader ]= useState(true);
+    //SELECTOR DE FAVORITO
     const [ selected, setSelected] = useState(false);
 
     const handleIconPress = (idAS, idU) => {
@@ -64,49 +62,50 @@ const DetalleProducto   = (props) => {
 
 
 
-    //  useEffect( ()=>{
-    //     console.log("count", count)
+     useEffect( ()=>{
+        console.log("count", count)
         
-        
-    //  },[count]);
+    notNumber();
+     },[count]);
   
 
      //inicia funciones para contar
   const [ count, setCount ] = useState(1);
   console.log("count fuera: ", count)
 
-  const incrementCount = () => {
-    setCount(count + 1);
-  };
 
-  const decrementCount = () => {
-    if (count > 1) {
-      setCount(count - 1);
-    }
-  };
 const notNumber=()=>{
     if (count===NaN){
         setCount(1);
     }
 }
-notNumber();
 
-  //obtener sucursales
+
+
+
+const [ atributos, setAtributos] = useState();
+
+const getAtributos = async()=>{
+
+        
+    const dataAtributo = new FormData();
+    dataAtributo.append("idU", value);
+    const url = `${BASE_URL}abdiel/favoritos/get_items`
+    const options = {
+      method:'POST',
+      body: dataAtributo
+    };
+    const responseAtributo = await fetchPost(url, options);
+    if (responseAtributo !== null){
+        setAtributos(responseAtributo.data);
+    }else{
+        setAtributos([]);
+    }
    
-//   const [sucursales, setSucursales] = useState();
-//   useEffect(() => {
-//               const sucursal = `http://sdiqro.store/api/SucursalesGet/getSucursalesQro`
-
-//               fetch(sucursal)
-//               .then(response => response.json())
-//               .then((resultado)=> {
-//                   setSucursales(resultado.Registro)
-//               })
-//               .catch((error) => {
-//                   // console.log("error",error)
-//               })
-//   console.log("sucurasales", sucursales)
-//   },[]);
+    //console.log("res", responseFav.data);
+    setLoader(false);
+    
+}
 
 
     return(
@@ -122,11 +121,14 @@ notNumber();
                 uri: `http://sdiqro.store/static/imgServicios/${image}`
                 }} alt="Alternate Text" size="xl" />
             </Center>
+            <AtributoSelector/>
+            
 
                 {/** color, talla y precio */}
             <Stack direction={"row"} justifyContent={"space-between"} mx={"5%"} my={2}  flex={1}>
                 <VStack>
                     <Text>Atributos</Text>
+                   
                 </VStack>
                 <VStack >
                     <Text>Precio menudeo: $300 </Text>

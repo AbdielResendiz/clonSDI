@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import URL from '../helper/URL';
 import fetchPost from '../helper/fetchPost';
 import Loader from '../components/Loader';
-import FavoritoComponent2 from '../components/FavoritoComponen2';
+
 
 
 const Favoritos = () => {
