@@ -44,9 +44,9 @@ const DetalleProductoss   = (props) => {
      // console.log("idAS check", idAS);
      // console.log("idU check", idU);
       let state = await checkFav(idU, idAS);
-      getAtributos();
       //console.log("state", state)
       setSelected(state);
+      getAtributos();
   }
 
    useEffect( ()=>{

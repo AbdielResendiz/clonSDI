@@ -68,7 +68,7 @@ const DetalleProducto   = (props) => {
 
     //inicia funciones para contar
     const [ count, setCount ] = useState(1);
-    console.log("count fuera: ", count)
+   // console.log("count fuera: ", count)
 
 
     const notNumber=()=>{
@@ -82,6 +82,9 @@ const DetalleProducto   = (props) => {
 
     const [ atributos, setAtributos] = useState([]);
     const [numeroAtributos, setNumeroAtributos ] =  useState(0);
+
+    const [myArray, setMyArray] = useState(Array(0).fill(null));
+
 
     const getAtributos = async()=>{
 
@@ -98,8 +101,10 @@ const DetalleProducto   = (props) => {
           // console.log(responseAtributo.atributos);
             setAtributos(responseAtributo.atributos);
             console.log("atributos COUNT =====",atributos.length);
+            //cuenta numero de atributos y hace un array con dicho numero , con valor null
             setNumeroAtributos(atributos.length)
-            console.log("atributoooos", atributos)
+            setMyArray(Array(atributos.length).fill(null))
+           // console.log("atributoooos", atributos)
         }else{
             setAtributos([]);
         }
@@ -113,14 +118,18 @@ const DetalleProducto   = (props) => {
 
 
 
-
+    useEffect(() => {
+      console.log("my array", myArray);
+      //  console.log("my array lenght", myArray.length);
+    }, [myArray])
+    
 
     const AtributoSelector = (props) => { 
-        const { idAtr, nombreAtr, count} =props;
+        const { idAtr, nombreAtr, index} =props;
 
             const [ categoriaAtributo, setCategoriaAtributo ] = useState();
             const [ detalles, setDetalles] = useState([]);
-            console.log("contador index nombre", nombreAtr+count )
+            //console.log(" index atributo:=", nombreAtr+index )
 
             const getOpciones = async(idAtr)=>{
                 const dataOpciones = new FormData();
@@ -146,7 +155,57 @@ const DetalleProducto   = (props) => {
 
             useEffect(() => {
               getOpciones(idAtr);
-            }, [idAtr])
+            }, [idAtr]);
+
+            const atributoHandle = (itemValue)=>{
+                    let valorAtributo = itemValue
+                    
+                    const newArray =  [...myArray];
+                    newArray[index] = valorAtributo;
+                    setMyArray(newArray);
+                    
+                 
+                    //console.log("CategoriaAtriburto HANDLE", categoriaAtributo)
+                    
+                
+                  
+                
+
+            }
+            // useEffect(() => {
+            //     if ( categoriaAtributo!==null){
+
+            //         console.log("id ATRIBUTO array", categoriaAtributo)
+            //         AtributoHandle(categoriaAtributo)               
+            //      }else{
+            //         console.log("F")
+            //      }
+                
+            //   }, [categoriaAtributo]);
+            //   console.log("===categoriaAtributo==" , categoriaAtributo)
+            const [ valor, setValor ] = useState(null);
+
+            
+/**TESTERARRRRR */
+            useEffect( () => {
+                console.log("valor actual de categoriaAtributo: ", valor);
+             
+                atributoHandle(valor)
+              //  atributoHandle(categoriaAtributo)
+
+              }, [valor]);
+
+
+            useEffect(() => {
+             console.log("categoriaAtributo: ", categoriaAtributo)
+             console.log("categoriaAtributo1222: ", valor)
+             if (valor!==null) {
+                atributoHandle(valor)
+             }else{
+                console.log("error useEffect: ", valor)
+             }
+            
+            }, [categoriaAtributo])
             
 
         return(
@@ -155,7 +214,13 @@ const DetalleProducto   = (props) => {
                     <Select selectedValue={categoriaAtributo} minWidth="200" accessibilityLabel={String(idAtr)} placeholder={nombreAtr + ":" + idAtr} _selectedItem={{
                     bg: "teal.600",
                     endIcon: <CheckIcon size="5" />
-                    }} mt={1} onValueChange={itemValue => setCategoriaAtributo(itemValue)}>
+                    }} mt={1} onValueChange={ (itemValue) =>{
+                        console.log("PRimero", itemValue)
+                        setCategoriaAtributo(itemValue)
+                        //atributoHandle(itemValue)
+                       // setValor(itemValue)
+                       
+                     } }>
                     { detalles.length>0 ?
                                     detalles.map( (detalle, index)=>{
                                         return(
@@ -170,6 +235,7 @@ const DetalleProducto   = (props) => {
                     
                     
                     </Select>
+                    
             </Box>
         </Center>
         )
@@ -199,11 +265,11 @@ const DetalleProducto   = (props) => {
                     return(
                         <AtributoSelector key={index} 
                         idAtr={atributo.idAtr}  nombreAtr={atributo.nombreAtr}
-                        count={index}
+                        index={index}
                         />
                     )
                 } )
-             : <Text> hola</Text>}
+             : <Text> TEST</Text>}
             
 
                 {/** color, talla y precio */}
