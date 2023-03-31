@@ -81,8 +81,6 @@ const DetalleProducto   = (props) => {
 
 
     const [ atributos, setAtributos] = useState([]);
-    const [numeroAtributos, setNumeroAtributos ] =  useState(0);
-
     const [myArray, setMyArray] = useState(Array(0).fill(null));
 
 
@@ -102,7 +100,7 @@ const DetalleProducto   = (props) => {
             setAtributos(responseAtributo.atributos);
             console.log("atributos COUNT =====",atributos.length);
             //cuenta numero de atributos y hace un array con dicho numero , con valor null
-            setNumeroAtributos(atributos.length)
+          
             setMyArray(Array(atributos.length).fill(null))
            // console.log("atributoooos", atributos)
         }else{
@@ -127,9 +125,9 @@ const DetalleProducto   = (props) => {
     const AtributoSelector = (props) => { 
         const { idAtr, nombreAtr, index} =props;
 
-            const [ categoriaAtributo, setCategoriaAtributo ] = useState();
+   
             const [ detalles, setDetalles] = useState([]);
-            //console.log(" index atributo:=", nombreAtr+index )
+        
 
             const getOpciones = async(idAtr)=>{
                 const dataOpciones = new FormData();
@@ -156,71 +154,81 @@ const DetalleProducto   = (props) => {
             useEffect(() => {
               getOpciones(idAtr);
             }, [idAtr]);
+            const [ valor, setValor ] = useState(null);
 
-            const atributoHandle = (itemValue)=>{
-                    let valorAtributo = itemValue
-                    
+            const atributoHandle = (atr)=>{
+                 
+                   
                     const newArray =  [...myArray];
-                    newArray[index] = valorAtributo;
+                    newArray[index] = atr;
                     setMyArray(newArray);
+                    setValor(atr)
                     
                  
                     //console.log("CategoriaAtriburto HANDLE", categoriaAtributo)
-                    
-                
-                  
-                
-
             }
-            // useEffect(() => {
-            //     if ( categoriaAtributo!==null){
 
-            //         console.log("id ATRIBUTO array", categoriaAtributo)
-            //         AtributoHandle(categoriaAtributo)               
-            //      }else{
-            //         console.log("F")
-            //      }
-                
-            //   }, [categoriaAtributo]);
-            //   console.log("===categoriaAtributo==" , categoriaAtributo)
-            const [ valor, setValor ] = useState(null);
+
+            /**ACTUALIZA PRODUCTO SEGUN ATRIBUTOS */
+
+            function tieneNull(arr) {
+                for (let i = 0; i < arr.length; i++) {
+                  if (arr[i] === null) {
+                    return true;
+                  }
+                }
+                return false;
+              }
+              if (tieneNull(myArray)) {
+                console.log("El arreglo contiene elementos con valor null");
+              } else {
+                console.log("El arreglo no contiene elementos con valor null");
+              }
+
+    const actualizaProducto = async()=>{
 
             
-/**TESTERARRRRR */
-            useEffect( () => {
-                console.log("valor actual de categoriaAtributo: ", valor);
-             
-                atributoHandle(valor)
-              //  atributoHandle(categoriaAtributo)
+        const dataAtributo = new FormData();
+        for (let i = 0; i < arreglo.length; i++) {
+            dataAtributo.append(i, myArray[i]);
+          }
+        const url = `${BASE_URL}abdiel/atributos/get_producto`
+        const options = {
+        method:'POST',
+        body: dataAtributo
+        };
+        const responseAtributo = await fetchPost(url, options);
+        if (responseAtributo !== null){
+          // console.log(responseAtributo.atributos);
+            setAtributos(responseAtributo.atributos);
+            console.log("atributos COUNT =====",atributos.length);
+            //cuenta numero de atributos y hace un array con dicho numero , con valor null
+          
+            setMyArray(Array(atributos.length).fill(null))
+           // console.log("atributoooos", atributos)
+        }else{
+            setAtributos([]);
+        }
+        
+    }
 
-              }, [valor]);
-
-
-            useEffect(() => {
-             console.log("categoriaAtributo: ", categoriaAtributo)
-             console.log("categoriaAtributo1222: ", valor)
-             if (valor!==null) {
-                atributoHandle(valor)
-             }else{
-                console.log("error useEffect: ", valor)
-             }
             
-            }, [categoriaAtributo])
+
             
 
         return(
             <Center>
                 <Box maxW="300">
-                    <Select selectedValue={categoriaAtributo} minWidth="200" accessibilityLabel={String(idAtr)} placeholder={nombreAtr + ":" + idAtr} _selectedItem={{
+                    <Select selectedValue={myArray[index]} minWidth="200" accessibilityLabel={String(idAtr)} placeholder={nombreAtr + ":" + idAtr} _selectedItem={{
                     bg: "teal.600",
                     endIcon: <CheckIcon size="5" />
                     }} mt={1} onValueChange={ (itemValue) =>{
-                        console.log("PRimero", itemValue)
-                        setCategoriaAtributo(itemValue)
-                        //atributoHandle(itemValue)
-                       // setValor(itemValue)
-                       
-                     } }>
+                        //setValor(itemValue)
+                        atributoHandle(itemValue)
+                    }
+                      
+                        
+                       }>
                     { detalles.length>0 ?
                                     detalles.map( (detalle, index)=>{
                                         return(
@@ -229,7 +237,7 @@ const DetalleProducto   = (props) => {
                                             value={detalle.idDAtr} />
                                         )
                                     } )
-                    :  <Select.Item label="UX Research" value="ux" />}
+                    :  <Select.Item label="Revisa tu coneccion a internet" value={null} />}
                     
 
                     
@@ -237,6 +245,7 @@ const DetalleProducto   = (props) => {
                     </Select>
                     
             </Box>
+            <Text>{ "id atributo: " +myArray[index]}</Text>
         </Center>
         )
     }
