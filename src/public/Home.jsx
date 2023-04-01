@@ -1,5 +1,5 @@
 
-import { NativeBaseProvider, Box, Text, Stack, Pressable, Center, ScrollView, useSafeArea } from 'native-base';
+import { NativeBaseProvider, Box, Text, Stack, Pressable, Center, ScrollView } from 'native-base';
 import colors from '../colors';
 import fetchPost from '../helper/fetchPost';
 import SwiperList from '../components/SwiperList';
@@ -68,7 +68,7 @@ const [loader, setLoader ]= useState(true);
     };
     const res = await fetchPost(url, options);
     setNoImpresos(res.data);
-   // console.log("res", res.data);
+   console.log("res", res.data);
     setLoader(false);
     
   }
@@ -124,7 +124,8 @@ const [loader, setLoader ]= useState(true);
               image={impreso.image_url}
               idAS={impreso.idAS}
               impreso={true}
-              idU={idU}/>
+              idU={idU}
+              desS={impreso.desS}/>
             ) 
           } )
 
@@ -151,7 +152,8 @@ const [loader, setLoader ]= useState(true);
               image={noImpreso.image_url}
               impreso={false}
               idAS={noImpreso.idAS}
-              idU={idU}/>
+              idU={idU}
+              desS={noImpreso.desS}/>
             ) 
           } )
 

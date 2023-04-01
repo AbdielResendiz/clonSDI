@@ -11,16 +11,17 @@ import checkFav from "../helper/checkFav";
 const ProductoComponent = (props)=>{
     const navigation =useNavigation();
     const BASE_URL =URL.BASE_URL;
-    const { nombre, precio, id, image, impreso, idAS , idU} =props;
+    const { nombre, precio, id, image, impreso, idAS , idU, desS} =props;
 
-    const detalleCategorias= (item, impreso, image,idAS, nombre, idU) => {
+    const detalleCategorias= (item, impreso, image,idAS, nombre, idU, desS) => {
         navigation.navigate("DetalleProducto", {
           id: item,
           impreso: impreso,
           image: image,
           idAS: idAS,
           nombre: nombre,
-          idU : idU
+          idU : idU,
+          desS: desS
           
           
         }); 
@@ -65,7 +66,7 @@ const ProductoComponent = (props)=>{
         }
            
         </Pressable>
-        <Pressable onPress={()=>detalleCategorias(id, impreso, image, idAS, nombre, idU)}>
+        <Pressable onPress={()=>detalleCategorias(id, impreso, image, idAS, nombre, idU, desS)}>
             <Center>
                 <Image source={{
                 uri: `http://sdiqro.store/static/imgServicios/${image}`
@@ -80,7 +81,7 @@ const ProductoComponent = (props)=>{
         </Pressable>
 
         <Pressable bg={colors.rosa} borderRadius={30} w="80%" ml="10%"
-         onPress={()=>detalleCategorias(id, impreso, image, idAS, nombre, idU)}>
+         onPress={()=>detalleCategorias(id, impreso, image, idAS, nombre, idU, desS)}>
             <Center>
             <Stack direction={"row"}> 
                

@@ -1,63 +1,255 @@
 import React, { useState, useEffect } from 'react';
-import { Center, NativeBaseProvider, Text, Stack, Pressable, Divider, Box, Image, HStack, Button, View, Icon, ScrollView, Input} from "native-base";
+import { Center, NativeBaseProvider, Text, Stack, Pressable, Divider, Box, Image, HStack,  Icon, ScrollView, VStack, Select, CheckIcon} from "native-base";
 import colors from '../colors';
-import {  AntDesign, Entypo, MaterialCommunityIcons } from '@expo/vector-icons'; 
+import {  AntDesign, MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { TextInput } from 'react-native';
+import checkFav from '../helper/checkFav';
+import agregarFav from '../helper/agregarFav';
+import eliminarFav from '../helper/eliminarFav';
 
-const DetalleProductoas   = (props) => {
+import URL from '../helper/URL';
+import fetchPost from '../helper/fetchPost';
 
-    const [ selected, setSelected] = useState(false);
-
-
+const DetalleProducto   = (props) => {
+    const BASE_URL = URL.BASE_URL;
     const id = props.route.params.id;
     const impreso = props.route.params.impreso;
     const image = props.route.params.image;
+    const idAS = props.route.params.idAS;
     const nombre = props.route.params.nombre;
-    console.log("id" , id);
-    console.log("ESTADO ===", impreso);
+    const idU = props.route.params.idU;
+    // console.log("id" , id);
+    // console.log("ESTADO ===", impreso);
+    // console.log("imagen", image);
+     console.log("idAgrupacion", idAS);
+    // console.log("nombre", nombre);
+    // console.log("idU DetalleProd", idU);
+    
+    const [loader, setLoader ]= useState(true);
+    //SELECTOR DE FAVORITO
+    const [ selected, setSelected] = useState(false);
 
-      const handleIconPress = () => {
-        if (selected===true){
-            setSelected(false);
-        }else{
-        setSelected(true);}
-      };
+    const handleIconPress = (idAS, idU) => {
+      if (selected===true){
+          eliminarFav(idU, idAS);
+
+          setSelected(false);
+      }else{
+          agregarFav(idU, idAS);
+          setSelected(true);}
+    };
 
 
-     useEffect( ()=>{
-        console.log(selected)
-     },[selected]);
+    const checked = async()=>{
+     // console.log("idAS check", idAS);
+     // console.log("idU check", idU);
+      let state = await checkFav(idU, idAS);
+      //console.log("state", state)
+      setSelected(state);
+  }
+
+   useEffect( ()=>{
+      
+      checked();
+   },[selected]);
+
+        
 
 
-     //inicia funciones para contar
-  const [ count, setCount ] = useState(1);
-  const incrementCount = () => {
-    setCount(count + 1);
-  };
 
-  const decrementCount = () => {
-    if (count > 1) {
-      setCount(count - 1);
+
+
+    useEffect( ()=>{
+        console.log("count", count)
+        
+        notNumber();
+    },[count]);
+
+
+    //inicia funciones para contar
+    const [ count, setCount ] = useState(1);
+   // console.log("count fuera: ", count)
+
+
+    const notNumber=()=>{
+        if (count===NaN){
+            setCount(1);
+        }
     }
-  };
 
 
-  //obtener sucursales
+
+
+    const [ atributos, setAtributos] = useState([]);
+    const [myArray, setMyArray] = useState(Array(0).fill(null));
+
+
+    const getAtributos = async()=>{
+
+            
+        const dataAtributo = new FormData();
+        dataAtributo.append("idAS", idAS);
+        const url = `${BASE_URL}abdiel/atributos/get_atributos`
+        const options = {
+        method:'POST',
+        body: dataAtributo
+        };
+        const responseAtributo = await fetchPost(url, options);
+        if (responseAtributo !== null){
+          // console.log(responseAtributo.atributos);
+            setAtributos(responseAtributo.atributos);
+            console.log("atributos COUNT =====",atributos.length);
+            //cuenta numero de atributos y hace un array con dicho numero , con valor null
+          
+            setMyArray(Array(atributos.length).fill(null))
+           // console.log("atributoooos", atributos)
+        }else{
+            setAtributos([]);
+        }
+        
+    }
+
+    useEffect(() => {
+        getAtributos();
+    }, []);
+        
+
+
+    /**ACTUALIZA PRODUCTO SEGUN ATRIBUTOS */
+
+    function tieneNull(arr) {
+        for (let i = 0; i < arr.length; i++) {
+            if (arr[i] === null) {
+            return true;
+            }
+        }
+        return false;
+    }
+         
+
+    const actualizaProducto = async()=>{
+        if (tieneNull(myArray)) {
+            console.log("El arreglo contiene elementos con valor null");
+          } else {
+            console.log("El arreglo no contiene elementos con valor null");
+            const dataAtributo = new FormData();
+            // for (let i = 0; i < myArray.length; i++) {
+            //     dataAtributo.append(i, myArray[i]);
+            // }
+            dataAtributo.append("idAS", idAS);
+            dataAtributo.append("array", myArray);
+            const url = `${BASE_URL}abdiel/atributos/get_producto`
+            const options = {
+            method:'POST',
+            body: dataAtributo
+            };
+            const responseProducto = await fetchPost(url, options);
+            if (responseProducto !== null){
+                // console.log(responseAtributo.atributos);
+                //  setAtributos(responseAtributo.atributos);
+                 
+                console.log("== PRODUCTO c  ==", responseProducto)
+                  
+              }else{
+                console.log("== PRODUCTO null  ==", responseProducto);
+
+              }
+
+          }
+    }
+
+    useEffect(() => {
+        console.log("my array", myArray);
+        
+        actualizaProducto();
+      }, [myArray])
+
+
+   const [producto, setProducto ] = useState(null);
+    
+
+    const AtributoSelector = (props) => { 
+        const { idAtr, nombreAtr, index} =props;
+
    
-//   const [sucursales, setSucursales] = useState();
-//   useEffect(() => {
-//               const sucursal = `http://sdiqro.store/api/SucursalesGet/getSucursalesQro`
+            const [ detalles, setDetalles] = useState([]);
+        
 
-//               fetch(sucursal)
-//               .then(response => response.json())
-//               .then((resultado)=> {
-//                   setSucursales(resultado.Registro)
-//               })
-//               .catch((error) => {
-//                   // console.log("error",error)
-//               })
-//   console.log("sucurasales", sucursales)
-//   },[]);
+            const getOpciones = async(idAtr)=>{
+                const dataOpciones = new FormData();
+                dataOpciones.append("idAtr", idAtr);
+                const url = `${BASE_URL}abdiel/atributos/get_detalle`
+                const options = {
+                  method:'POST',
+                  body: dataOpciones
+                };
+                const responseOpciones = await fetchPost(url, options);
+                if (responseOpciones !== null){
+                  //  console.log("responseOpciones.atributos",responseOpciones.atributos);
+                  setDetalles(responseOpciones.atributos)
+                //  console.log("detalle", detalles);
+                  
+                    
+                }else{
+                    setDetalles([])
+                }
+               
+                
+            }
+
+            useEffect(() => {
+              getOpciones(idAtr);
+            }, [idAtr]);
+
+            const atributoHandle = (atr)=>{
+                 
+                   
+                    const newArray =  [...myArray];
+                    newArray[index] = atr;
+                    setMyArray(newArray);
+                   
+                    
+                 
+                    //console.log("CategoriaAtriburto HANDLE", categoriaAtributo)
+            }
+
+
+
+        return(
+            <Center>
+                <Box maxW="300">
+                    <Select selectedValue={myArray[index]} minWidth="200" accessibilityLabel={String(idAtr)} placeholder={nombreAtr + ":" + idAtr} _selectedItem={{
+                    bg: "teal.600",
+                    endIcon: <CheckIcon size="5" />
+                    }} mt={1} onValueChange={ (itemValue) =>{
+                        //setValor(itemValue)
+                        atributoHandle(itemValue)
+                    }
+                      
+                        
+                       }>
+                    { detalles.length>0 ?
+                                    detalles.map( (detalle, index)=>{
+                                        return(
+                                            <Select.Item key={index}
+                                            label={detalle.nombreDAtr} 
+                                            value={detalle.idDAtr} />
+                                        )
+                                    } )
+                    :  <Select.Item label="Revisa tu coneccion a internet" value={null} />}
+                    
+
+                    
+                    
+                    </Select>
+                    
+            </Box>
+            <Text>{ "id atributo: " +myArray[index]}</Text>
+        </Center>
+        )
+    }
+
+
 
 
     return(
@@ -73,38 +265,37 @@ const DetalleProductoas   = (props) => {
                 uri: `http://sdiqro.store/static/imgServicios/${image}`
                 }} alt="Alternate Text" size="xl" />
             </Center>
+            {/** ATRIBUTOS SELECT */}
+            
+
+            { atributos.length>0 ?
+                atributos.map( (atributo, index)=>{
+                    return(
+                        <AtributoSelector key={index} 
+                        idAtr={atributo.idAtr}  nombreAtr={atributo.nombreAtr}
+                        index={index}
+                        />
+                    )
+                } )
+             : <Text> TEST</Text>}
+            
+
                 {/** color, talla y precio */}
             <Stack direction={"row"} justifyContent={"space-between"} mx={"5%"} my={2}  flex={1}>
-                <Stack direction={"column"}>
-                    <Text bold>
-                        Color:
-                    </Text>
-                    <HStack>
-                        <Pressable  h={6} w={6} mx={1}>
-                            <Center bg={"#ff0000"} flex={1} borderRadius={100} shadow={6}/>
-                        </Pressable>
-                        <Pressable  h={6} w={6} mx={1}>
-                            <Center bg={"#00ff00"} flex={1} borderRadius={100} shadow={6}/>
-                        </Pressable>
-                        <Pressable  h={6} w={6} mx={1}>
-                            <Center bg={"#0000ff"} flex={1} borderRadius={100} shadow={6}/>
-                        </Pressable>
-                    </HStack>
-                    <Text bold mt={2}>Talla:</Text>
-                    <Center>
-                        <Box w={32} h={6} borderWidth={1}>
-                        
-                        </Box>
-                    </Center>
-
-                </Stack>
-                <Stack direction={"column"}>
-                    <Text bold fontSize={"lg"}>$130</Text>
-
-                </Stack>
+                <VStack>
+                    <Text>Atributos</Text>
+                   
+                </VStack>
+                <VStack >
+                    <Text>Precio menudeo: $300 </Text>
+                    <Text>Precio medio mayoreo: $250 </Text>
+                    <Text>Precio mayoreo: $200 </Text>
+                </VStack>
+                
                 
 
             </Stack>
+
             <Divider w="90%" mx="5%" bg={colors.azul} h={0.5}/>
             {/** STOCK */}
             <Text bold ml={5} mt={1}> Stock:</Text>
@@ -134,21 +325,21 @@ const DetalleProductoas   = (props) => {
             <Stack direction={"row"} justifyContent="space-around">
 
                 {/**BOTON CANTIDAD */}
-                    <HStack ml={"10%"} my={1} bg={colors.azul} borderRadius={10}>
-                        <Pressable onPress={decrementCount}  py={2} px={0.5} >
-                            <Entypo name="minus" size={16} color="#fff"  />
-                        </Pressable>
-                        <Center>
+                    <HStack ml={5} my={1} bg={colors.blanco} borderRadius={10} borderWidth={2} borderColor={colors.azul}>
+                        <Center px={2}>
+                            <Text bold>Cantidad: </Text>
+                        </Center>
+                        
+                        <Center w={16}>
                         <TextInput
+                        
                             value={count}
                             onChangeText={(text) => setCount(parseInt(text))}
                             keyboardType="numeric"
                         />
                         </Center>
                         
-                        <Pressable onPress={incrementCount}  py={2} px={0.5}>
-                            <Entypo name="plus" size={16} color={"#fff"}  />
-                        </Pressable>
+                       
                     </HStack>
                         {/**BOTON AGREGAR */}
                     <Pressable bg={colors.azul} borderRadius={10} w="30%" h={9} >
@@ -160,7 +351,7 @@ const DetalleProductoas   = (props) => {
                         </Center>
                     </Pressable>
                     {/**FAVORITO */}
-                   <Pressable onPress={()=>handleIconPress()} mr={10}>
+                   <Pressable onPress={()=>handleIconPress(idAS, idU)} mr={10}>
                         <Center>
                             { selected===true ?
                             <Icon as={AntDesign} name="heart"   mt={2} size={6} color={colors.rosa}/> :
@@ -178,4 +369,4 @@ const DetalleProductoas   = (props) => {
     );
 };
 
-export default DetalleProductoas;
+export default DetalleProducto;
