@@ -13,6 +13,7 @@ const ProductoComponent = (props)=>{
     const BASE_URL =URL.BASE_URL;
     const { nombre, precio, id, image, impreso, idAS , idU, desS} =props;
 
+
     const detalleCategorias= (item, impreso, image,idAS, nombre, idU, desS) => {
         navigation.navigate("DetalleProducto", {
           id: item,
@@ -50,9 +51,8 @@ const ProductoComponent = (props)=>{
     }
 
      useEffect( ()=>{
-        
         checked();
-     });
+     },[selected]);
 
 
 

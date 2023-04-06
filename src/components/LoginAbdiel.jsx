@@ -3,8 +3,10 @@ import { View, Center, FormControl, Input, Pressable, Icon, Text } from "native-
 import { MaterialIcons} from '@expo/vector-icons'; 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ProcesandoLoginL from "../components/Componentes/procesando/ProcesandoLoginL.js";
+import { useNavigation } from '@react-navigation/native';
 
 const LoginAbdiel = ()=>{
+  const navigation =useNavigation();
     const [loading , setLoading] = useState(false)
     const [correo, setCorreo] = useState('test@gmail.com');
     const [inputCorreo, setInputCorreo]  = useState(true);
@@ -57,11 +59,18 @@ const LoginAbdiel = ()=>{
                       if(resultado.status == true){
   
                         setLoading(false)
-                        console.log("login resultado", resultado.id);
-                         storeData(resultado.id)
+                        console.log("login resultado", resultado);
+                         storeData(resultado.idU)
+                         storeCarrito(resultado.idC.id)
+                        storeSucursal(resultado.idC.idSuc)
                         
-                        
-                        alert(`Inicio de sesión exitoso. ID: ${resultado.id}`);
+                        alert(`Inicio de sesión exitoso. ID: ${resultado.idU} 
+                        Carrito: ${resultado.idC.id}`);
+
+                        navigation.reset({
+                          index: 0,
+                          routes: [{ name: 'Home' }],
+                      });
                             
                       }else{
                         setLoading(false)
@@ -85,12 +94,32 @@ const LoginAbdiel = ()=>{
     
   
       }
-      console.log("ID USUARIO", id);
+   
       const storeData = async (value) => {
         try {
           await AsyncStorage.setItem('@id_user', value);
           let idAsync =  await AsyncStorage.getItem("@id_user");
-          console.log("exito async",idAsync );
+          console.log("exito async idU",idAsync );
+        } catch (e) {
+          console.log("error async", e);
+        }
+      }
+
+      const storeCarrito = async (value) => {
+        try {
+          await AsyncStorage.setItem('@id_carrito', value);
+          let idAsync =  await AsyncStorage.getItem("@id_carrito");
+          console.log("exito async idC",idAsync );
+        } catch (e) {
+          console.log("error async", e);
+        }
+      }
+
+      const storeSucursal = async (value) => {
+        try {
+          await AsyncStorage.setItem('@id_sucursal', value);
+          let idAsync =  await AsyncStorage.getItem("@id_sucursal");
+          console.log("exito async sucursal",idAsync );
         } catch (e) {
           console.log("error async", e);
         }

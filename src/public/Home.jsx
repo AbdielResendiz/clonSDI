@@ -68,7 +68,7 @@ const [loader, setLoader ]= useState(true);
     };
     const res = await fetchPost(url, options);
     setNoImpresos(res.data);
-   console.log("res", res.data);
+   //console.log("res", res.data);
     setLoader(false);
     
   }
@@ -123,7 +123,7 @@ const [loader, setLoader ]= useState(true);
               precio = {impreso.precioS}
               image={impreso.image_url}
               idAS={impreso.idAS}
-              impreso={true}
+              impreso={1}
               idU={idU}
               desS={impreso.desS}/>
             ) 
@@ -150,7 +150,7 @@ const [loader, setLoader ]= useState(true);
               key={index} nombre={noImpreso.nombreAgrupaS} id={noImpreso.idS}
               precio = {noImpreso.precioS}
               image={noImpreso.image_url}
-              impreso={false}
+              impreso={0}
               idAS={noImpreso.idAS}
               idU={idU}
               desS={noImpreso.desS}/>

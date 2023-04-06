@@ -13,7 +13,7 @@ const checkFav = async(idU, idAS)=>{
       body: dataFav
     };
     const res = await fetchPost(url, options);
-    console.log("check:", res);
+    //console.log("check:", res);
     return res;
    // 
     

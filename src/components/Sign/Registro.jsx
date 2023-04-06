@@ -371,13 +371,17 @@ const FormRegistro = (props) => {
              <HStack>
                 <FormControl.Label mt={3} mx={3}>Sucursal: </FormControl.Label>
                 <Box maxW="300">
-                    <Select selectedValue={sucursal} minWidth="200" accessibilityLabel="Choose Service" placeholder="Choose Service" _selectedItem={{
+                    <Select selectedValue={sucursal} minWidth="200" accessibilityLabel="Escoge una sucursal" placeholder="Choose Service" _selectedItem={{
                         bg: "teal.600",
                         endIcon: <CheckIcon size="5" />
                     }} mt={1} onValueChange={itemValue => setSucursal(itemValue)}>
-                        <Select.Item label="Matriz" value="ux" />
-                        <Select.Item label="Plaza Río" value="web" />
-                        <Select.Item label="San Juan del Río" value="cross" />
+                      {sucursales.map( (sucursal, index)=>{
+                                        return(
+                                            <Select.Item key={index}
+                                            label={sucursal.nombreSuc} 
+                                            value={sucursal.idSuc} />
+                                        )
+                                    } )}
                         
                     </Select>
                 </Box>
