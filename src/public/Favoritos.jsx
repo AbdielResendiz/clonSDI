@@ -22,7 +22,7 @@ const Favoritos = () => {
           if(value !== null) {
             //console.log("idU async: ", value);
             setIdU(value);
-            getFav(value);
+            getFav(value); 
           }
         } catch(e) {
           console.log("error async home", e);
@@ -41,6 +41,7 @@ const Favoritos = () => {
         const responseFav = await fetchPost(url, options);
         if (responseFav !== null){
           setFavoritos(responseFav.data);
+          console.log(responseFav.data)
         }else{
           setFavoritos([]);
         }
@@ -53,8 +54,8 @@ const Favoritos = () => {
       useEffect(() => {
         getData();
         
-        //console.log("favoritos: " ,favoritos)
-      }, [favoritos])
+        console.log("favoritos: " ,favoritos)
+      }, [idU])
 
 
 
@@ -69,10 +70,12 @@ const Favoritos = () => {
             return(
               <Favoritocomponent
               key={index} nombre={impreso.nombreAgrupaS} id={impreso.idAS}
-              precio = {impreso.precioS}
+              precioNormal = {impreso.precioS}
+              precioImpreso = {impreso.precioImpreso}
               image={impreso.image_url}
               idAS={impreso.idAS}
-              impreso={true}
+              impreso={impreso.impresion}
+              noImpreso={impreso.noImpreso}
               idU={idU}/>
             ) 
           } )

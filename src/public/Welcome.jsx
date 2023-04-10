@@ -1,4 +1,4 @@
-import { NativeBaseProvider, Text, View, Center, Box, Container, Image, Pressable } from "native-base"
+import { NativeBaseProvider, Text, View, Center, Box, Container, Image, Pressable, ScrollView } from "native-base"
 import { useEffect, useState } from "react";
 //import { TouchableOpacity } from "react-native";
 import colors from "../colors";
@@ -15,13 +15,14 @@ useEffect( ()=>{
 
     return(
         <NativeBaseProvider>
-            <View bg={colors.blanco} flex={1}>
+            <View bg={colors.blanco} >
+                <ScrollView>
                 {/**LOGO */}
                 <Center >
-                    <Box mt={4} bg="white">
+                    <Box  >
                         <Container>
                             <Image source={{uri: `https://sdiqro.com/wp-content/uploads/2022/05/sdi-logo.png`}} 
-                            alt="" w={300} h={200} resizeMode="contain" />
+                            alt="" size="2xl" resizeMode="contain"  my={-10} />
                         </Container>
                     </Box>
                 </Center>
@@ -50,7 +51,7 @@ useEffect( ()=>{
 
 
 
-
+                </ScrollView>
             </View>
         </NativeBaseProvider>
     )

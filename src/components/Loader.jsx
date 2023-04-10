@@ -11,7 +11,7 @@ const Loader = ()=>{
           alignItems: 'center',
           
         }}>
-            <View bg="white" flex={1}>
+            <View bg="white" flex={1} h="100%">
 
             
             <Center my="50%" >

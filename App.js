@@ -38,6 +38,7 @@ import ListaFactura from './src/private/ListaFactura';
 import Welcome from './src/public/Welcome';
 import Password from './src/private/Password';
 
+
 const Stack = createStackNavigator();
 
 export default function App(props) {
@@ -65,6 +66,10 @@ useEffect(() => {
 if (!fontLoaded) {
   return null;
 }
+
+
+
+
 
 
 const IrInicio = () => {

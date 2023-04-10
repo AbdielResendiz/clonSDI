@@ -2,15 +2,14 @@ import { Box, Pressable, Icon, Center, Image, Text, Stack} from "native-base";
 import {  AntDesign } from '@expo/vector-icons'; 
 import colors from "../colors";
 import { useNavigation } from '@react-navigation/native';
-import { useEffect, useState } from "react";
 import eliminarFav from "../helper/eliminarFav";
 import { Alert } from "react-native";
 const FavoritoComponent = (props)=>{
     const navigation =useNavigation();
 
-    const { nombre, precio, id, image, impreso, idAS , idU} =props;
+    const { nombre, precioNormal, precioImpreso, id, image, impreso, noImpreso,  idAS , idU} =props;
 
-    const detalleCategorias= (item, impreso, image,idAS, nombre, idU) => {
+    const detalleProducto= (item, impreso, image,idAS, nombre, idU) => {
         navigation.navigate("DetalleProducto", {
           id: item,
           impreso: impreso,
@@ -18,10 +17,43 @@ const FavoritoComponent = (props)=>{
           idAS: idAS,
           nombre: nombre,
           idU : idU
-          
-          
+  
         }); 
       };
+
+
+      const favoritoNavegador = ()=>{
+        switch (true) {
+          case (impreso==1 && noImpreso==1):
+            console.log("LOS DOS IMPRESOS")
+            Alert.alert('El producto puede ser con impresión o sin ella',
+             '¿Cual opción deseas ver?' , [
+              {
+                text: 'Impreso',
+                onPress: () => detalleProducto(id, impreso, image, idAS, nombre),
+                
+              },
+              {text: 'No impreso', onPress: () => detalleProducto(id, 0, image, idAS, nombre)},
+            ]);
+            
+            break;
+
+          case (impreso==1 && noImpreso==0):
+            console.log("SOLO IMPRESO")
+            detalleProducto(id, impreso, image, idAS, nombre)
+            
+            break;
+
+          case (impreso==0 && noImpreso==1):
+            console.log("SOLO NO IMPRESO")
+            detalleProducto(id, impreso, image, idAS, nombre)
+            break;
+        
+          default:
+            break;
+        }
+
+      }
 
 
 
@@ -51,14 +83,36 @@ const FavoritoComponent = (props)=>{
                 
                 <Image source={{
                 uri: `http://sdiqro.store/static/imgServicios/${image}`
-                }} alt="Alternate Text" size="lg" mt={4} mx={1} />
+                }} alt="Alternate Text" size="lg" mt={4} mx={1} resizeMode="contain" />
                 <Stack direction={"column"}   flex={1} mt={2}>
-                    <Text  pt={1}> {nombre}</Text>
-                    <Text bold fontSize={"lg"}>${precio}</Text>
+                    <Text bold pt={1}> {nombre}</Text>
+                    {
+                      impreso==1 ? 
+                      ( <Stack direction={"row"}>
+                         <Text  fontSize={"sm"}>Precio sin impresión: </Text>
+                        <Text bold fontSize={"md"}>${precioNormal}</Text>
+                      </Stack>
+                        
+                      ) 
+                      :
+                      null
+                    }
+                    {
+                      noImpreso==1 ? 
+                      ( <Stack direction={"row"}>
+                         <Text  fontSize={"sm"}>Precio con impresión: </Text>
+                        <Text bold fontSize={"md"}>${precioImpreso}</Text>
+                      </Stack>
+                        
+                      ) 
+                      :
+                      null
+                    }
+                   
                     <Box my={1} >
                  
                      <Pressable bg={colors.azul} borderRadius={10} w={24} h={9}
-                     onPress={()=>detalleCategorias(id, impreso, image, idAS, nombre)} >
+                     onPress={()=>favoritoNavegador()} >
                         <Center >
                             <Stack direction={"row"} mt={1}>
                                 
