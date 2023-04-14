@@ -8,7 +8,7 @@ import agregarFav from '../helper/agregarFav';
 import eliminarFav from '../helper/eliminarFav';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Alert } from 'react-native';
-import URL from '../helper/URL';
+import URL from '../helper/URL'; 
 import fetchPost from '../helper/fetchPost';
 
 const DetalleProducto   = (props) => {
@@ -22,6 +22,8 @@ const DetalleProducto   = (props) => {
     const nombre = props.route.params.nombre;
     const idU = props.route.params.idU;
     console.log("idAgrupacion", idAS);
+    console.log("impreso PROPS ====", impreso);
+    
     const[ idCarrito, setIdCarrito ] = useState(null);
 
     const getData = async () => {

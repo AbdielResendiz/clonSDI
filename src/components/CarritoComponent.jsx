@@ -1,6 +1,6 @@
-import { Box, Icon, Stack , Image, Text, Center, Button, Pressable} from "native-base";
+import { Box, Icon, Stack , Image, Text, Center, Pressable} from "native-base";
 import colors from "../colors";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { FontAwesome5 } from '@expo/vector-icons'; 
 import URL from "../helper/URL";
 import fetchPost from "../helper/fetchPost";

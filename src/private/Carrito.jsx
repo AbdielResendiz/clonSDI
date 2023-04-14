@@ -19,6 +19,7 @@ const Carrito = (props) => {
       const[ idCarrito, setIdCarrito ] = useState(null);
       const [ carrito, setCarrito ] = useState([]);
       const [ total, setTotal ] = useState(null);
+      const [ load, setLoad ] = useState(true)
       
 
      
@@ -36,6 +37,7 @@ const Carrito = (props) => {
           setCarrito(responseFav.data);
           //console.log("TOTAL", responseFav.total)
           setTotal(responseFav.total)
+          setLoad(false)
         }else{
           setCarrito([]);
         }
@@ -71,8 +73,11 @@ const Carrito = (props) => {
 
     return(
         <NativeBaseProvider>
+          {
+            load ? <Loader/> :
+          
             <View flex={1} bg={colors.blanco} >
-            <Text bold fontSize={20} ml={5} mt={3}>Carrito</Text>
+            
             <Box minH={48} maxH={96}>
             { carrito.length > 0 ? 
                     <ScrollView  >    
@@ -117,7 +122,7 @@ const Carrito = (props) => {
             </Pressable>
 
             </View>
-
+          }
         </NativeBaseProvider>
     );
 };

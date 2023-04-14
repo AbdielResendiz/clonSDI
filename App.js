@@ -37,6 +37,7 @@ import DetalleCompra from './src/private/DetalleCompra'
 import ListaFactura from './src/private/ListaFactura';
 import Welcome from './src/public/Welcome';
 import Password from './src/private/Password';
+import DetallePedido from './src/private/DetallePedido';
 
 
 const Stack = createStackNavigator();
@@ -74,7 +75,10 @@ if (!fontLoaded) {
 
 const IrInicio = () => {
   setSelected(0)
-  navigationRef.navigate('Home');
+  navigationRef.reset({
+    index: 0,
+    routes: [{ name: 'Home' }],
+});
 };
 
 const IrPedidos = () => {
@@ -89,7 +93,7 @@ const IrCarrito = () => {
 
 const IrCuenta = () => {
   setSelected(3)
-  navigationRef.navigate('TestingLogin');
+  navigationRef.navigate('CuentaMenu');
 };
 
 const HeaderRightCustom = ()=>{
@@ -258,6 +262,7 @@ const HeaderLeftCustom = ()=>{
            backgroundColor: colors.azul,
          },
          headerShadowVisible: true,
+         headerLeft: () =>(null),
          headerRight: () => (
           <View style={{flexDirection: 'row'}}>
           <TouchableOpacity onPress={()=>navigationRef.navigate("Buscar")} style={{marginRight:20}}>
@@ -356,6 +361,17 @@ const HeaderLeftCustom = ()=>{
          ),
         }}/>
          <Stack.Screen name="DetalleCompra" component={DetalleCompra}  options={{title: 'Detalle de pedido',
+         headerTintColor:colors.blanco,
+         headerStyle: {
+           backgroundColor: colors.azul,
+         },
+         headerShadowVisible: true,
+         headerRight: () => (
+           <HeaderRightCustom/>
+         ),
+        }}/>
+
+        <Stack.Screen name="DetallePedido" component={DetallePedido}  options={{title: 'Detalle de pedido',
          headerTintColor:colors.blanco,
          headerStyle: {
            backgroundColor: colors.azul,

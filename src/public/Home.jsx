@@ -57,7 +57,7 @@ const [loader, setLoader ]= useState(true);
     getData();
     getImpresos();
     getNoImpresos();
-    
+    console.log("idU: ", idU)
   },[])
 
   const [ noImpresos, setNoImpresos ] = useState([]);
@@ -106,7 +106,7 @@ const [loader, setLoader ]= useState(true);
 
         </Center>  
         <ScrollView>
-      <Box>
+      <Box> 
         <Stack direction={"row"} justifyContent={"space-between"} mx={9} my={1}>
           <Text bold >Más vendidos impresos</Text>
           <Pressable onPress={()=>detalleCategorias(false, "http://sdiqro.store/abdiel/Productos/ver_impresos", idU)}>

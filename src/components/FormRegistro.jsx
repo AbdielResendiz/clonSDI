@@ -1,48 +1,37 @@
 import React, { useState,useEffect } from "react";
 import {TouchableOpacity} from "react-native"
 import {  Ionicons,MaterialCommunityIcons,MaterialIcons} from '@expo/vector-icons'; 
-import { Icon, Text, Center,ScrollView, View, Input,FormControl,NativeBaseProvider, Checkbox, Box, Select, CheckIcon, HStack} from "native-base";
-import colors from "../../colors";
-import { useFetch, URL } from "../API/useFetch";
-
+import { Icon, Text, Center,ScrollView, View, Input,FormControl, Box, Select, CheckIcon} from "native-base";
+import CheckBox from "expo-checkbox";
+import { URL } from "./API/useFetch";
+import { Alert } from "react-native";
+import { useNavigation } from '@react-navigation/native';
 const FormRegistro = (props) => {
 
-
- 
     const [sucursales, setSucursales] = useState([]);
-    
-    
-   
+    const navigation =useNavigation();
    
     useEffect(() => {
                 const sucursal = `${URL.BASE_URL}SucursalesGet/getSucursalesQro`
- 
                 fetch(sucursal)
                 .then(response => response.json())
                 .then((resultado)=> {
                     setSucursales(resultado.Registro)
                 })
                 .catch((error) => {
-                    // console.log("error",error)
+                    console.log("error",error)
                 })
-    
     },[]);
-
-   
 
     //values 
     const [agree, setAgree]                           = useState(false);
-    const [usuario, setUsuario]                       = useState('');
-    const [apellido, setApellido]                     = useState('');
-    const [celular, setCelular]                       = useState('');
-    const [sucursal, setSucursal]                     = useState('');
-    const [correo, setCorreo]                         = useState('');
-    const [password, setPassword]                     = useState('');
-    const [passwordConfirmar, setPasswordConfirmar]   = useState('');
-
-
-
-
+    const [usuario, setUsuario]                       = useState('usuario');
+    const [apellido, setApellido]                     = useState('apellido');
+    const [celular, setCelular]                       = useState('123424242');
+    const [sucursal, setSucursal]                     = useState('9');
+    const [correo, setCorreo]                         = useState('test@gmail.com');
+    const [password, setPassword]                     = useState('12345/');
+    const [passwordConfirmar, setPasswordConfirmar]   = useState('12345/');
 
     const ChangeTC = () => {
         if(agree == true){
@@ -51,7 +40,6 @@ const FormRegistro = (props) => {
             setAgree(true)
         }
     }
-
 
     const [formNombre,   setFormNombre]                       = useState(false);
     const [formApellido, setFormApellido]                     = useState(false);
@@ -63,97 +51,55 @@ const FormRegistro = (props) => {
     const [checkFormBothpass, setFormcheckBothpass]           = useState(false);
     const validRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-   
 
     const Validarform =  (s) => {
-
-   
-
             if(usuario == ''){
                 setFormNombre(true)
-                
             }else{
-                
                 setFormNombre(false)
             }
-    
             if (apellido == '' || apellido.length <= 0){
-               
-               
                 setFormApellido(true)
-              
-               
-               
-
             }else{
-              
-                
                 setFormApellido(false)
-               
             }
     
             if(celular == '' || (celular.length == 10 || celular.length <= 10)){
-              
                 setFormCelular(true)
-                
             }else{
-                
                 setFormCelular(false)
             }
-    
             if(sucursal == null || sucursal == ''){
-               
                 setFormSucursal(true)
             }else{
-               
                 setFormSucursal(false)
             }
-    
             if(correo == '' || !correo.match(validRegex)){
-               
                 setFormCorreo(true)
-           
-            
-             
             }else{
                 setFormCorreo(false)
-               
             }
-
             if(!password == null || password.length <= 5 || !ERPass.test(password)){
-             
                 setFormPassword(true)
             }else{
                 setFormPassword(false)
-              
             }
-
             if(!passwordConfirmar == null || passwordConfirmar.length <= 5 || !ERPass.test(passwordConfirmar)){
                 // console.log("pass", passwordConfirmar)
                 setFormPasswordConfirmar(true)
-               
                 if(passwordConfirmar != password){
                     setFormcheckBothpass(true)
                     // console.log("no son iguales s")
-
                 }else{
                     setFormcheckBothpass(false)
                     // console.log("son iguales s")
                 }
-
-
             }else{
                 setFormPasswordConfirmar(false)
-             
                 setAgree(true)
             }
-
-
-
             if((inputNombre == false && inputApellido == false && inputTelefono == false && inputSucursal == false && inputCorreo == false && inputPassword == false && inputPasswordConfirmar == false))
             {
-               
-
                 setBandera(false)
                 console.log("inputNombre", usuario)
                 console.log("inputApellido", apellido)
@@ -185,10 +131,18 @@ const FormRegistro = (props) => {
                 .then((resultado)=> {
                     console.log("resultado",resultado)
                     if(resultado.resultado == true){
-                        alert("Registro exitoso")
+                        Alert.alert('Registro exitoso', 'Ahora puedes iniciar sesión', [
+                            
+                            {text: 'OK', onPress: () => navigation.reset({
+                                index: 0,
+                                routes: [{ name: 'Home' }],
+                            })},
+                          ]);
                     
-                          setTimeout(miFuncion, 3000);
                           
+                          
+                    }else{
+                        alert("Error en registro")
                     }
                 })
                 .catch((error) => {
@@ -358,6 +312,8 @@ const FormRegistro = (props) => {
                     onChangeText={(val) => {setCelular(val)}}
                     autoCapitalize='none'
                     value={celular}
+                    maxLength={10}
+                    
                     InputLeftElement={<Icon as={MaterialCommunityIcons} name="cellphone" size={5} color="#FE308E" m={3} mr={5}/>} size={5} color="muted.400" />
 
                 {formCelular == true ? (  <FormControl.ErrorMessage leftIcon={<MaterialIcons name="error-outline" size={24} color="red" />}>
@@ -367,25 +323,30 @@ const FormRegistro = (props) => {
             {/*termina form celular */}
 
 
-             {/*Sucursal */}
-             <HStack>
+            {/*Sucursal */}
+            <FormControl isInvalid={inputSucursal} w="75%" maxW="300px" pt={1}>
                 <FormControl.Label mt={3} mx={3}>Sucursal: </FormControl.Label>
                 <Box maxW="300">
                     <Select selectedValue={sucursal} minWidth="200" accessibilityLabel="Escoge una sucursal" placeholder="Choose Service" _selectedItem={{
                         bg: "teal.600",
                         endIcon: <CheckIcon size="5" />
                     }} mt={1} onValueChange={itemValue => setSucursal(itemValue)}>
-                      {sucursales.map( (sucursal, index)=>{
+                        { sucursales.length>0 ? (
+                      sucursales.map( (sucursal, index)=>{
                                         return(
                                             <Select.Item key={index}
                                             label={sucursal.nombreSuc} 
                                             value={sucursal.idSuc} />
                                         )
-                                    } )}
+                                    } )
+                                    ): null}
                         
                     </Select>
                 </Box>
-            </HStack>
+                {formSucursal  == true ? (  <FormControl.ErrorMessage leftIcon={<MaterialIcons name="error-outline" size={24} color="red" />}>
+                    El campo sucursal es obligatorio
+                </FormControl.ErrorMessage>):(null)} 
+                </FormControl>
             {/*termina form sucursal*/}
 
             {/*Email */}
@@ -420,7 +381,7 @@ const FormRegistro = (props) => {
                      onChangeText={(val) => {setPassword(val)}}
                      autoCapitalize='none'
                      value={password} 
-
+                     type="password"              
 
                     InputLeftElement={<Icon as={MaterialIcons} name="lock" size={5} color="#FE308E" m={3}/>} size={5} color="muted.400" />
                  {formPassword == true ? (  <FormControl.ErrorMessage leftIcon={<MaterialIcons name="error-outline" size={24} color="red" />}>
@@ -438,9 +399,10 @@ const FormRegistro = (props) => {
                     keyboardType='default'
                     onChangeText={(val) => {setPasswordConfirmar(val)}}
                     autoCapitalize='none'
-                    value={passwordConfirmar}  
+                    value={passwordConfirmar} 
+                    type="password" 
                     InputLeftElement={<Icon as={MaterialIcons} name="lock" size={5} color="#FE308E" m={3}/>} size={5} color="muted.400" />
-
+                    
 
                 {formPasswordConfirmar == true ? (<FormControl.ErrorMessage leftIcon={<MaterialIcons name="error-outline" size={24} color="red" />}>
                     El campo contraseña es obligatorio
@@ -462,19 +424,17 @@ const FormRegistro = (props) => {
             </FormControl>
             
 
-            <View flexDirection={"row"}>   
-                <Center>
-                    <Checkbox
-                    style={{ marginTop: 20}}
-                    accessibilityLabel="Condiciones"
-                    value={agree}
-                    onChange={() => ChangeTC()}
-                    color={agree ? "#FE308E" : colors.rosa}
-                    />
-                    <Text>
-                            He leído y acepto los terminos y condiciones
-                    </Text>
-                </Center> 
+             <View flexDirection={"row"}>   
+                   <Center><CheckBox
+                        style={{ marginTop: 20}}
+                        value={agree}
+                        onValueChange={() => ChangeTC()}
+                        color={agree ? "#FE308E" : undefined}
+                        />
+                        <Text>
+                                He leído y acepto los terminos y condiciones
+                        </Text>
+                        </Center> 
              </View>
 
 
@@ -494,4 +454,4 @@ const FormRegistro = (props) => {
 
 
 
-export {FormRegistro};
+export default FormRegistro;
