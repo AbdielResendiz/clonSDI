@@ -97,7 +97,11 @@ const Carrito = (props) => {
 
                       }
                     </ScrollView>
-                    : <Text alignSelf={"center"} mt={10} fontSize={24}>No tienes favoritos por ahora</Text>
+
+                    :
+                    <Center>
+                    <Text alignSelf={"center"} mt={20} fontSize={24}>No tienes favoritos por ahora</Text>
+                    </Center> 
             }
             </Box>
             <Divider bg={colors.azul} borderRadius={100} h={1} w="80%" alignSelf={"center"} my={1}/>
@@ -108,7 +112,9 @@ const Carrito = (props) => {
                    
                    </Text>
             </Box>
+            { carrito.length <= 0 ? null : 
 
+            
             <Pressable alignItems="center" onPress={()=>navegacion("Recoleccion")}>
                 <Center h="35" my={1} w="50%" bg={colors.azul} borderRadius={20} mx={7} >  
                     <HStack>
@@ -117,6 +123,7 @@ const Carrito = (props) => {
                     </HStack>
                 </Center>
             </Pressable>
+            }
 
             </View>
           }

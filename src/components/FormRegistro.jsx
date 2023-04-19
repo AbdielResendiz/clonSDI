@@ -23,6 +23,9 @@ const FormRegistro = (props) => {
                 })
     },[]);
 
+
+    
+
     //values 
     const [agree, setAgree]                           = useState(false);
     const [usuario, setUsuario]                       = useState('usuario');

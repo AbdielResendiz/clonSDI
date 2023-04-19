@@ -39,6 +39,7 @@ import Welcome from './src/public/Welcome';
 import Password from './src/private/Password';
 import DetallePedido from './src/private/DetallePedido';
 import PagoStripe from './src/private/PagoStripe';
+import RecepcionPedidos from './src/private/RecepcionPedidos';
 
 
 const Stack = createStackNavigator();
@@ -415,8 +416,21 @@ const HeaderLeftCustom = ()=>{
          ),
         }}/>  
 
+        <Stack.Screen name="RecepcionPedidos" component={RecepcionPedidos}  options={{title: 'Tutorial para recepcion de pedidos',
+         headerTintColor:colors.blanco,
+         headerStyle: {
+           backgroundColor: colors.azul,
+         },
+         headerShadowVisible: true,
+         headerRight: () => (
+           <HeaderRightCustom/>
+         ),
+        }}/>
+
         <Stack.Screen name="TestingLogin" component={TestingLogin} ></Stack.Screen>
       </Stack.Navigator>
+
+      
 
       {showFooter ? (
         <View style={{height:55, marginBottom:12}} >

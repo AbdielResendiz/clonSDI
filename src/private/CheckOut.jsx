@@ -7,9 +7,11 @@ import Loader from '../components/Loader';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import CheckOutComponent from '../components/CheckOutComponent';
 import { Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 
 const CheckOut = (props) => {
+  const navigation =useNavigation();
     const BASE_URL= URL.BASE_URL
     // const idVenta = props.route.params.id;
     // const total = props.route.params.tot;
@@ -131,12 +133,15 @@ const CheckOut = (props) => {
 
   const alertExito = ()=>{
     Alert.alert('Pago realizado', 'Se aprobó tu pago, puedes ver información del pedido en el apartado Pedidos ', [
-      {
-        text: 'Ir a Mis Pedidos',
-        onPress: () => props.navigation.navigate("Pedidos"),
+      // {
+      //   text: 'Ir a Mis Pedidos',
+      //   onPress: () => props.navigation.navigate("Pedidos"),
         
-      },
-      {text: 'Ir al Inicio', onPress: () => props.navigation.navigate("Home")},
+      // },
+      {text: 'Aceptar', onPress: () => navigation.reset({
+        index: 0,
+        routes: [{ name: 'Home' }],
+    }),},
     ],{ cancelable: false },);
   }
 
@@ -145,7 +150,10 @@ const CheckOut = (props) => {
     Alert.alert('Error en pago', 'Ocurrió un error en el pago, intentalo más tarde', [
       {
         text: 'Aceptar',
-        onPress: () => props.navigation.navigate("Home"),
+        onPress: () => navigation.reset({
+          index: 0,
+          routes: [{ name: 'Home' }],
+      }),
         
       },
      // {text: 'OK', onPress: () => console.log('OK Pressed')},
