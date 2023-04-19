@@ -38,6 +38,7 @@ import ListaFactura from './src/private/ListaFactura';
 import Welcome from './src/public/Welcome';
 import Password from './src/private/Password';
 import DetallePedido from './src/private/DetallePedido';
+import PagoStripe from './src/private/PagoStripe';
 
 
 const Stack = createStackNavigator();
@@ -329,7 +330,7 @@ const HeaderLeftCustom = ()=>{
          ),
         }}/>
 
-        <Stack.Screen name="SeleccionarTarjeta" component={SeleccionarTarjeta}  options={{title: 'Seleccionar Tarjeta',
+        <Stack.Screen name="SeleccionarTarjeta" component={SeleccionarTarjeta}  options={{title: 'Pago',
          headerTintColor:colors.blanco,
          headerStyle: {
            backgroundColor: colors.azul,
@@ -402,6 +403,17 @@ const HeaderLeftCustom = ()=>{
            <HeaderRightCustom/>
          ),
         }}/>
+
+      <Stack.Screen name="PagoStripe" component={PagoStripe}  options={{title: 'Pago stripe',
+         headerTintColor:colors.blanco,
+         headerStyle: {
+           backgroundColor: colors.azul,
+         },
+         headerShadowVisible: true,
+         headerRight: () => (
+           <HeaderRightCustom/>
+         ),
+        }}/>  
 
         <Stack.Screen name="TestingLogin" component={TestingLogin} ></Stack.Screen>
       </Stack.Navigator>

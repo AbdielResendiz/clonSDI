@@ -58,9 +58,6 @@ const Carrito = (props) => {
         }
     }
 
-    const getTotal = () => {
-
-    }
 
     useEffect(() => {
         getData();

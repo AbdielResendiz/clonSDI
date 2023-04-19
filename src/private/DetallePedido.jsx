@@ -60,7 +60,7 @@ const DetallePedido = (props) => {
                     <CheckOutComponent
                     key={index}
                     nombre={p.nombreS}
-                    imagen={p.image_url}
+                    image={p.image_url}
                     cantidad={p.Cantidad}
                     precio={p.PrecioUnitario}
                     subtotal={p.subtotal}

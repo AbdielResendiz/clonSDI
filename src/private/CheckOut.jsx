@@ -1,44 +1,213 @@
 import React, { useState, useEffect } from 'react';
-import { NativeBaseProvider, ScrollView, Text, View , Box, Center, HStack, Icon, Divider} from "native-base";
+import { NativeBaseProvider, ScrollView, Text , Box, Center,  Divider, Pressable} from "native-base";
 import colors from '../colors';
+import fetchPost from '../helper/fetchPost';
+import URL from '../helper/URL';
+import Loader from '../components/Loader';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import CheckOutComponent from '../components/CheckOutComponent';
-import { Pressable } from 'react-native';
-import { Ionicons } from '@expo/vector-icons'; 
-
+import { Alert } from 'react-native';
 
 
 const CheckOut = (props) => {
-    const navegacion= (item) => {
-        props.navigation.navigate(item);
-      }; 
+    const BASE_URL= URL.BASE_URL
+    // const idVenta = props.route.params.id;
+    // const total = props.route.params.tot;
+     const idSuc = props.route.params.idSuc;
+     const nombreSuc = props.route.params.nombreS;
+    // console.log("id venta:", idVenta)
+    const [ pedidos, setPedidos ] = useState([])
+    const [load, setLoad ] = useState(false)
+    const [idU, setIdU] = useState(null)
+
+    const getIdU = async () => {
+      try {
+        const value = await AsyncStorage.getItem('@id_user')
+        if(value !== null) {
+          console.log("idU async: ", value);
+          setIdU(value);
+          getData();
+        }
+      } catch(e) {
+        console.log("error async home", e);
+      }
+    }
+
+    const pagarTest = async()=>{
+        const dataPedido= new FormData();
+        dataPedido.append("idU", idU);
+        dataPedido.append("total", total);
+        dataPedido.append("idSuc", idSuc);
+        dataPedido.append("comentario", "testing pago");
+        dataPedido.append("idC", idCarrito);
+        const url = `${BASE_URL}abdiel/pedidos/nuevo_pedido`
+        const options = {
+          method:'POST',
+          body: dataPedido
+        };
+        const res = await fetchPost(url, options);
+        if (res === true){
+           console.log("resultado PAGO: ", res)
+           alertExito();
+          // setLoad(false);
+          }else{
+            console.log("resultado PAGO: ", res)
+            alertError();
+          }
+        console.log("res", res.resultado);
+        
+      }
+
+
+       useEffect(() => {
+       
+     //    getPedidos()
+        console.log("idSuc:", idSuc)
+       
+      }, [])
+
+
+//CARRITOO
+      const[ idCarrito, setIdCarrito ] = useState(null);
+      const [ carrito, setCarrito ] = useState([]);
+      const [ total, setTotal ] = useState(null);
+     
+      
+
+     
+      const getCarrito = async(value)=>{
+        
+        const dataFav = new FormData();
+        dataFav.append("idC", value);
+        const url = `${BASE_URL}abdiel/carrito/contenido_carrito`
+        const options = {
+          method:'POST',
+          body: dataFav
+        };
+        const responseFav = await fetchPost(url, options);
+        if (responseFav !== null){
+          setCarrito(responseFav.data);
+          //console.log("TOTAL", responseFav.total)
+          setTotal(responseFav.total)
+          //pagarTest();
+          setLoad(false)
+        }else{
+          setCarrito([]);
+        }
+       
+        //console.log("res", responseFav.data);
+        //setLoader(false);
+        
+      }
+      const getData = async () => {
+        try {
+        const value = await AsyncStorage.getItem('@id_carrito')
+        if(value !== null) {
+            setIdCarrito(value);
+            getCarrito(value);
+        }
+        } catch(e) {
+        console.log("error id carrito", e)
+        }
+    }
+
+
+    useEffect(() => {
+        getIdU();
+      console.log("id carrito: ", idCarrito)
+      console.log("total: ", total);
+      console.log("carrito contenido: ", carrito);
+      
+      
+      
+    }, [carrito.length]) 
+    
+  //FIN CARRITO
+
+
+
+  ///ALERTS
+
+
+  const alertExito = ()=>{
+    Alert.alert('Pago realizado', 'Se aprobó tu pago, puedes ver información del pedido en el apartado Pedidos ', [
+      {
+        text: 'Ir a Mis Pedidos',
+        onPress: () => props.navigation.navigate("Pedidos"),
+        
+      },
+      {text: 'Ir al Inicio', onPress: () => props.navigation.navigate("Home")},
+    ],{ cancelable: false },);
+  }
+
+
+  const alertError = ()=>{
+    Alert.alert('Error en pago', 'Ocurrió un error en el pago, intentalo más tarde', [
+      {
+        text: 'Aceptar',
+        onPress: () => props.navigation.navigate("Home"),
+        
+      },
+     // {text: 'OK', onPress: () => console.log('OK Pressed')},
+    ], { cancelable: false },);
+  }
+
+
 
     return(
         <NativeBaseProvider>
-            <ScrollView flex={1} bg={colors.blanco} >
-            <Text bold fontSize={20} ml={5} mt={3}>Checkout</Text>
-            <ScrollView w="98%" h={96} showsVerticalScrollIndicator={true} persistentScrollbar={true}>    
-                <CheckOutComponent/>
-                <CheckOutComponent/>
-                <CheckOutComponent/>
-                <CheckOutComponent/>
-            </ScrollView>
+          { load ?  <Loader/> : 
+            <Box flex={1} bg={colors.blanco} >
+          
+          <Box minH={48} maxH={96}>
+            { carrito.length > 0 ? 
+                    <ScrollView  >    
+                        { carrito.map( (producto, index)=>{
+                        return(
+                        <CheckOutComponent
+                        key={index} 
+                        nombre={producto.nombreS} 
+                        id={producto.id}
+                        idS={producto.idS}
+                        precio = {producto.PrecioCarrito}
+                        cantidad = {producto.cantidad}
+                        image={producto.image_url}
+                        sucursal={producto.nombreSuc}
+                        impreso={producto.impreso}
+                        idU={producto.idSuc}
+                        subtotal={producto.subtotalCarrito}/>
+                        ) 
+                      } )
+
+                      }
+                    </ScrollView>
+                    : <Text alignSelf={"center"} mt={10} fontSize={24}>No tienes favoritos por ahora</Text>
+            }
+            </Box>
+            
             <Divider bg={colors.azul} borderRadius={100} h={1} w="80%" alignSelf={"center"} my={1}/>
             <Center h="70" w="85%"  mx={7} >  
-                <Text fontSize={22} bold>Total: $ 600.00</Text>
-                <Text fontSize={18} >Recolección: Sucursal Matriz </Text>
+                <Text fontSize={22} bold>Total con IVA: {total}</Text>
+                <Text fontSize={18} >Recolección: Sucursal {nombreSuc} </Text>
             </Center>
-
-            <Pressable alignItems="center" onPress={()=>navegacion("ConfirmaPago")}>
-                <Center h="35" my={1} w="50%" bg={colors.azul} borderRadius={20} mx={7} >  
-                    <HStack>
-                        <Icon as={Ionicons} name="wallet"  size={6} color={"white"} />
-                        <Text fontSize={16} color={"white"} bold  mx={3}>Pagar</Text>
-                    </HStack>
-                </Center>
+        
+            <Pressable justifyContent={"center"} alignItems={"center"} w="80%" mx="10%" bg={colors.azul} h={12} 
+                borderRadius={50} my={4}  onPress={()=>pagarTest()}>
+                    <Text bold fontSize={"lg"}  color={colors.blanco}> Pagar Testing </Text>
+                
             </Pressable>
 
-            </ScrollView>
+            <Pressable justifyContent={"center"} alignItems={"center"} w="80%" mx="10%" bg={colors.azul} h={12} 
+                borderRadius={50} my={4}  onPress={()=>alert("en proceso")}>
+                    <Text bold fontSize={"lg"}  color={colors.blanco}> Pagar con stripe </Text>
+                
+            </Pressable>
 
+            </Box>
+
+            
+           
+          }
         </NativeBaseProvider>
     );
 };

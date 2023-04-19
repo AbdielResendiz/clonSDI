@@ -133,16 +133,24 @@ const FormRegistro = (props) => {
                     if(resultado.resultado == true){
                         Alert.alert('Registro exitoso', 'Ahora puedes iniciar sesión', [
                             
-                            {text: 'OK', onPress: () => navigation.reset({
+                            {text: 'Ir a inicio', onPress: () => navigation.reset({
                                 index: 0,
                                 routes: [{ name: 'Home' }],
                             })},
+                            {
+                              text: 'Iniciar sesión', onPress: () => navigation.navigate("Welcome")  
+                            },
                           ]);
                     
                           
                           
                     }else{
-                        alert("Error en registro")
+                        
+                        Alert.alert('Error en registro', `${resultado.mensaje}`, [
+                            
+                            {text: 'OK', onPress: () => console.log("ok error")
+                            },
+                          ]);
                     }
                 })
                 .catch((error) => {

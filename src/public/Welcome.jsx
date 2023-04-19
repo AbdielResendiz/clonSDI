@@ -3,10 +3,11 @@ import { useEffect, useState } from "react";
 //import { TouchableOpacity } from "react-native";
 import colors from "../colors";
 import LoginAbdiel from "../components/LoginAbdiel";
-import RegistroAbdiel from "../components/RegistroAbdiel";
+//import RegistroAbdiel from "../components/RegistroAbdiel";
 import FormRegistro from "../components/FormRegistro";
 
 const Welcome = (props)=>{
+    const  state  =props
 
 const [ show, setShow ] = useState(true);
 
