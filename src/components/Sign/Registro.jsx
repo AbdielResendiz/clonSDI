@@ -226,44 +226,29 @@ const FormRegistro = (props) => {
         console.log("Agree",agree)
         if(usuario.length <= 0){
             setInputNombre(true)
-          
-           
         }else{
             setInputNombre(false)
-            
-
         }
         if(apellido.length <= 0){
-
-           
             setInputApellido(true)
         }else{
             setInputApellido(false)
-
         }
         if(celular.length == 10 && celular.length <= 10 ){
-          
             setInputTelefono(false)
         }else{
             setInputTelefono(true)
-
-        
         }
         if(sucursal == null || sucursal == ''){
-            
             setInputSucursal(true)
         }else{
             setInputSucursal(false)
-
-           
         }
         if(!correo.match(validRegex)){
            
             setInputCorreo(true)
         }else{
             setInputCorreo(false)
-
-           
         }
         if((!password == null || password.length <= 5 || !ERPass.test(password))){
          

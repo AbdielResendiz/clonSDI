@@ -41,6 +41,15 @@ import DetallePedido from './src/private/DetallePedido';
 import PagoStripe from './src/private/PagoStripe';
 import RecepcionPedidos from './src/private/RecepcionPedidos';
 
+//instrucciones de impresion
+import Lonas from './src/private/instrucciones/Lonas';
+import Botones from './src/private/instrucciones/Botones';
+import Canvas from './src/private/instrucciones/Canvas';
+import Credenciales from './src/private/instrucciones/Credenciales';
+import Dft from './src/private/instrucciones/Dft';
+import Offset from './src/private/instrucciones/Offset';
+import Stand from './src/private/instrucciones/Stand';
+import Viniles from './src/private/instrucciones/Viniles';
 
 const Stack = createStackNavigator();
 
@@ -416,7 +425,90 @@ const HeaderLeftCustom = ()=>{
          ),
         }}/>  
 
-        <Stack.Screen name="RecepcionPedidos" component={RecepcionPedidos}  options={{title: 'Tutorial para recepcion de pedidos',
+        <Stack.Screen name="RecepcionPedidos" component={RecepcionPedidos}  options={{title: 'Recepcion de pedidos',
+         headerTintColor:colors.blanco,
+         headerStyle: {
+           backgroundColor: colors.azul,
+         },
+         headerShadowVisible: true,
+         headerRight: () => (
+           <HeaderRightCustom/>
+         ),
+        }}/>
+
+        {/** INSTRUCCIONES IMPRESION */}
+
+        <Stack.Screen name="Lonas" component={Lonas}  options={{title: 'Lonas',
+         headerTintColor:colors.blanco,
+         headerStyle: {
+           backgroundColor: colors.azul,
+         },
+         headerShadowVisible: true,
+         headerRight: () => (
+           <HeaderRightCustom/>
+         ),
+        }}/>
+         <Stack.Screen name="Botones" component={Botones}  options={{title: 'Botones',
+         headerTintColor:colors.blanco,
+         headerStyle: {
+           backgroundColor: colors.azul,
+         },
+         headerShadowVisible: true,
+         headerRight: () => (
+           <HeaderRightCustom/>
+         ),
+        }}/>
+         <Stack.Screen name="Canvas" component={Canvas}  options={{title: 'Canvas',
+         headerTintColor:colors.blanco,
+         headerStyle: {
+           backgroundColor: colors.azul,
+         },
+         headerShadowVisible: true,
+         headerRight: () => (
+           <HeaderRightCustom/>
+         ),
+        }}/>
+         <Stack.Screen name="Credenciales" component={Credenciales}  options={{title: 'Credenciales',
+         headerTintColor:colors.blanco,
+         headerStyle: {
+           backgroundColor: colors.azul,
+         },
+         headerShadowVisible: true,
+         headerRight: () => (
+           <HeaderRightCustom/>
+         ),
+        }}/>
+         <Stack.Screen name="Dft" component={Dft}  options={{title: 'DFT',
+         headerTintColor:colors.blanco,
+         headerStyle: {
+           backgroundColor: colors.azul,
+         },
+         headerShadowVisible: true,
+         headerRight: () => (
+           <HeaderRightCustom/>
+         ),
+        }}/>
+         <Stack.Screen name="Offset" component={Offset}  options={{title: 'OFFSET',
+         headerTintColor:colors.blanco,
+         headerStyle: {
+           backgroundColor: colors.azul,
+         },
+         headerShadowVisible: true,
+         headerRight: () => (
+           <HeaderRightCustom/>
+         ),
+        }}/>
+         <Stack.Screen name="Stand" component={Stand}  options={{title: 'Stand',
+         headerTintColor:colors.blanco,
+         headerStyle: {
+           backgroundColor: colors.azul,
+         },
+         headerShadowVisible: true,
+         headerRight: () => (
+           <HeaderRightCustom/>
+         ),
+        }}/>
+         <Stack.Screen name="Viniles" component={Viniles}  options={{title: 'Viniles',
          headerTintColor:colors.blanco,
          headerStyle: {
            backgroundColor: colors.azul,

@@ -1,7 +1,7 @@
 import { Box, Divider, Icon, NativeBaseProvider, Pressable, Text, View, Stack } from 'native-base';
 
 import colors from '../colors';
-import { FontAwesome5, Ionicons, Entypo, MaterialCommunityIcons } from '@expo/vector-icons'; 
+import { FontAwesome5, Entypo, MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Loader from '../components/Loader';
@@ -48,7 +48,7 @@ const CuentaMenu=(props)=> {
             <Pressable w="90%" mx="5%" flexDirection={"row"} my={3} onPress={()=>navegacion(nav)}>
                 <Icon as={as} name={name} mx={2} mt={1} size="lg"  color="black"  />
                 
-                <Text bold color={colors.gris}  ml={2} fontSize="xl">{text}</Text>
+                <Text bold color={colors.gris}  ml={2} fontSize="xl" style={{ whiteSpace: 'pre-wrap' }}>{text}</Text>
                 
             </Pressable>
             
@@ -122,19 +122,12 @@ const CuentaMenu=(props)=> {
            <PerfilButton as={FontAwesome5} name="user-alt" text="Mi Perfil" nav="Perfil"/>
            <Divider h={0.5} bg={colors.gris} w="90%" mx="5%"/>
 
-            {/* <PerfilButton as={FontAwesome5} name="copy" text="Facturación" nav="Factura"/>
-            <Divider h={0.5} bg={colors.gris} w="90%" mx="5%"/> */}
-
-            {/* <PerfilButton as={Ionicons} name="card" text="Mis tarjetas" nav="Tarjetas"/>
-            <Divider h={0.5} bg={colors.gris} w="90%" mx="5%"/> */}
-
-            {/* <PerfilButton as={Ionicons} name="notifications-outline" text="Mis compras" nav="Notificaciones"/>
-            <Divider h={0.5} bg={colors.gris} w="90%" mx="5%"/> */}
+           
 
             <PerfilButton as={FontAwesome5} name="question-circle" text="Preguntas frecuentes" nav="FAQ"/>
             <Divider h={0.5} bg={colors.gris} w="90%" mx="5%"/>
 
-            <PerfilButton as={MaterialCommunityIcons} name="printer-check" text="Tutorial para recepción de pedidos" nav="RecepcionPedidos"/>
+            <PerfilButton as={MaterialCommunityIcons} name="printer-check" text={"Instrucciones para \n recepción de pedidos"} nav="RecepcionPedidos"/>
             <Divider h={0.5} bg={colors.gris} w="90%" mx="5%"/>
 
             <Pressable w="90%" mx="5%" flexDirection={"row"} my={3} onPress={()=> salirAviso()}>

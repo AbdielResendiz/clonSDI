@@ -100,7 +100,7 @@ const Carrito = (props) => {
 
                     :
                     <Center>
-                    <Text alignSelf={"center"} mt={20} fontSize={24}>No tienes favoritos por ahora</Text>
+                    <Text alignSelf={"center"} mt={20} fontSize={24}>No tienes productos en tu carrito.</Text>
                     </Center> 
             }
             </Box>
