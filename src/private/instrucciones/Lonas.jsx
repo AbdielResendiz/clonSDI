@@ -1,31 +1,58 @@
 import React from 'react';
-import { Divider, NativeBaseProvider, Stack, Text, View } from 'native-base';
+import {  NativeBaseProvider, ScrollView, Text, View } from 'native-base';
 import colors from '../../colors';
 import InstruccionesComponente from './InstruccionesComponente';
 import GuardarComponente from './GuardarComponente';
 import NotaComponent from './NotaComponent';
-import { AntDesign } from '@expo/vector-icons'; 
+        
 
 const Lonas = () => {
   return (
     <NativeBaseProvider>
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text fontSize={42} bold color={colors.azul}>  LONA </Text>
-            <InstruccionesComponente numero="01" 
-            titulo="Archivo en JPG o PDF"
-            parentesis="Cualquier otro formato podría causar modificaciones y sería bajo responsabilidad del cliete el dejarlo" 
-            />           
-            <Divider/>
-            <InstruccionesComponente numero="" 
-            titulo=""
-            parentesis="" 
-            />
-            <Text color={colors.azul} bold fontSize={20} alignSelf={"flex-end"} mr={5}>¿Cómo guardar el archivo?</Text>
-            <GuardarComponente as={AntDesign} name="caretright" text="Siempre guardar al tamaño final de impresión"
-             />
-             <NotaComponent
-             nota="El ancho del material es de 320cm, si la lona rebasa los 315cm en X y Y, se debe partir en las partes que sean necesarias."
-             />
+        <View style={{ flex: 1 }}>
+        <Text fontSize={42} bold color={colors.azul} alignSelf={"flex-end"} mr={10}>  LONA </Text>
+            <ScrollView>
+                <InstruccionesComponente numero="01" 
+                titulo="Archivo en JPG o PDF"
+                parentesis="(Cualquier otro formato podría causar modificaciones y sería bajo responsabilidad del cliete el dejarlo)" 
+                />           
+                <InstruccionesComponente numero="02" 
+                titulo="Diseño a la medida"
+                parentesis="(Sino está a la medida, debe autorizar el cliente el deformarlo, sino está de acuerdo debe proporcionar el archivo correcto)" 
+                />
+                 <InstruccionesComponente numero="03" 
+                titulo="Trabajado en CMYK"
+                parentesis="(Si el archivo no tiene este modo de color, al momento de imprimir podría variar los tonos)" 
+                />
+                <InstruccionesComponente numero="04" 
+                titulo="Resolución a 300DPOS"
+                parentesis="(Si el archivo viene a 300dpis el archivo no debe medir más de 300x300cm ya sea que este a escala o no)" 
+                />
+
+                <InstruccionesComponente numero="05" 
+                titulo="Resolución a 80DPIS"
+                parentesis="(Si el archivo viene a 80dpis el archivo no debe estar a escala, debe ser el tamaño real)" 
+                />
+                <InstruccionesComponente numero="06" 
+                titulo="Textos pequeños"
+                parentesis="(Si el diseño tiene textos pequeños y/o delgados, cuidar que no
+                sean menores a 8mm de lo contraio no serán muy legibles)" 
+                />
+
+
+                <Text color={colors.azul} bold fontSize={20} alignSelf={"flex-end"} mr={5}>¿Cómo guardar el archivo?</Text>
+                <GuardarComponente text="Siempre guardar al tamaño final de impresión" />
+                <GuardarComponente text="A 80dpis." />
+                <GuardarComponente text="En JPG." />
+                <GuardarComponente text="Si tiene áreas blancas al filo del diseño, poner un stroke en negro para deliimitar el diseño." />
+
+                <NotaComponent
+                nota="El ancho del material es de 320cm, si la lona rebasa los 315cm en X y Y, se debe partir en las partes que sean necesarias."
+                />
+
+            </ScrollView>
+            
+           
         </View>
     </NativeBaseProvider>
   );
