@@ -1,29 +1,19 @@
 import React, { useState,useEffect } from "react";
 import {TouchableOpacity} from "react-native"
-<<<<<<< HEAD
-import {  Ionicons,MaterialCommunityIcons,FontAwesome5,MaterialIcons} from '@expo/vector-icons'; 
-import { Icon,NativeBaseProvider,Checkbox,Select, Text,Box, Center,Container,ScrollView, Image, View, Button, useSafeArea,CheckIcon, Input,FormControl, HStack,} from "native-base";
-=======
 import {  Ionicons,MaterialCommunityIcons,MaterialIcons} from '@expo/vector-icons'; 
 import { Icon, Text, Center,ScrollView, View, Input,FormControl,NativeBaseProvider, Checkbox, Box, Select, CheckIcon, HStack} from "native-base";
 import colors from "../../colors";
 import { useFetch, URL } from "../API/useFetch";
->>>>>>> origin
 
 
-import { useFetch, URL } from "../API/useFetch";
-import colors from "../../colors";
+
+
 
 const FormRegistro = () => {
 
 
  
-<<<<<<< HEAD
-    const [sucursales, setSucursales] = useState(null);
-    const [bandera, setBandera] = useState(false)
-=======
     const [sucursales, setSucursales] = useState([]);
->>>>>>> origin
     
     const [agree, setAgree]                           = useState(false);
     const [usuario, setUsuario]                       = useState('');
@@ -360,19 +350,6 @@ const FormRegistro = () => {
             {/*termina form celular */}
 
 
-<<<<<<< HEAD
-            {/*Sucursal */}
-            <HStack>
-                <FormControl.Label mt={3} mx={3}>Sucursal: </FormControl.Label>
-                <Box maxW="300">
-                    <Select selectedValue={sucursal} minWidth="200" accessibilityLabel="Choose Service" placeholder="Choose Service" _selectedItem={{
-                        bg: "teal.600",
-                        endIcon: <CheckIcon size="5" />
-                    }} mt={1} onValueChange={itemValue => setSucursal(itemValue)}>
-                        <Select.Item label="Matriz" value="ux" />
-                        <Select.Item label="Plaza Río" value="web" />
-                        <Select.Item label="San Juan del Río" value="cross" />
-=======
              {/*Sucursal */}
              <HStack>
                 <FormControl.Label mt={3} mx={3}>Sucursal: </FormControl.Label>
@@ -388,7 +365,6 @@ const FormRegistro = () => {
                                             value={sucursal.idSuc} />
                                         )
                                     } )}
->>>>>>> origin
                         
                     </Select>
                 </Box>

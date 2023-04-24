@@ -51,6 +51,11 @@ import Offset from './src/private/instrucciones/Offset';
 import Stand from './src/private/instrucciones/Stand';
 import Viniles from './src/private/instrucciones/Viniles';
 
+
+//Stripe
+
+import PasarelaStripe from './src/private/Stripe/PasarelaStripe';
+
 const Stack = createStackNavigator();
 
 export default function App(props) {
@@ -509,6 +514,16 @@ const HeaderLeftCustom = ()=>{
          ),
         }}/>
          <Stack.Screen name="Viniles" component={Viniles}  options={{title: 'Viniles',
+         headerTintColor:colors.blanco,
+         headerStyle: {
+           backgroundColor: colors.azul,
+         },
+         headerShadowVisible: true,
+         headerRight: () => (
+           <HeaderRightCustom/>
+         ),
+        }}/>
+         <Stack.Screen name="PasarelaStripe" component={PasarelaStripe}  options={{title: 'PasarelaStripe',
          headerTintColor:colors.blanco,
          headerStyle: {
            backgroundColor: colors.azul,
