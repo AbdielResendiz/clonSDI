@@ -12,7 +12,7 @@ import URL from '../helper/URL';
 import fetchPost from '../helper/fetchPost';
 
 const DetalleProducto   = (props) => {
-    const NUMERIC_PATTERN = /^[0-9]*$/;
+    
     const BASE_URL = URL.BASE_URL;
     const id = props.route.params.id;
     const desS = props.route.params.desS;
@@ -25,6 +25,8 @@ const DetalleProducto   = (props) => {
     console.log("impreso PROPS ====", impreso);
     
     const[ idCarrito, setIdCarrito ] = useState(null);
+    const[ unidad, setUnidad ] = useState("Cantidad");
+    const [idUnidad, setIdUnidad] = useState(null)
 
     const getData = async () => {
         try {
@@ -128,6 +130,10 @@ const DetalleProducto   = (props) => {
           //  console.log("GET RESPOSE FULL : ", responseAtributo);
             console.log("GET DETALLE PRODUCTO : ", responseAtributo.producto[0]);
             setProducto(responseAtributo.producto[0]);
+            console.log(" !!! NOMBRE UNNIDAS !!!",responseAtributo.producto[0].nombreUni );
+            
+            setUnidad(responseAtributo.producto[0].nombreUni)
+            setIdUnidad(responseAtributo.producto[0].idUnidad)
             console.log("GET INVENTARIO : ", responseAtributo.inventario);
             console.log("¿¿Impreso???==",responseAtributo.mensaje)
             setInventario(responseAtributo.inventario)
@@ -345,9 +351,9 @@ const DetalleProducto   = (props) => {
     }
 
     const [ nombrePrecio, setNombrePrecio ] = useState(null);
-    const [ precioFinal , setPrecioFinal  ] = useState(null);
+    const [ precioFinal , setPrecioFinal  ] = useState(0.00);
 
-    const [ subtotal, setSubtotal ] = useState(null);
+    const [ subtotal, setSubtotal ] = useState(0.00);
     useEffect(() => {
         console.log("===Producto===", producto);
        
@@ -375,7 +381,7 @@ const DetalleProducto   = (props) => {
     },[count]);
     
     const notNumber=()=>{
-        if (!Number.isInteger(count)){
+        if (isNaN(count) ){
            console.log("COUNT NO ES NUMERO !!!!! ",count )
            
         }else{
@@ -411,7 +417,8 @@ const DetalleProducto   = (props) => {
     }, [subtotal])
 
     const [ btn, setBtn ]= useState(false)
-    function toInteger(value) {
+    const NUMERIC_PATTERN = /^[0-9]*$/;
+    const toInteger=(value)=> {
         let check = NUMERIC_PATTERN.test(value);
         console.log("@@@@@ es numero?", check)
         if (check) {
@@ -427,6 +434,84 @@ const DetalleProducto   = (props) => {
           
         }
       }
+
+    const NUMERIC_PATTERN_DECIMAL = /^(\d+)?(\.\d+)?$/;
+
+    const toDecimal=(value)=> {
+    let check = NUMERIC_PATTERN_DECIMAL.test(value);
+    console.log("@@@@@ es numero?", check)
+    if (check) {
+        const decimal = parseFloat(value);
+        setCount(decimal);
+        setBtn(true);
+    } else {
+        Alert.alert('Cantidad incorrecta', 'Escribe un número decimal válido.', [
+        { text: 'OK', onPress: () => console.log("boton ok") },
+        ]);
+    }
+    }
+    const [ alto, setAlto] = useState(0);
+    const [ ancho, setAncho] = useState(0);
+
+
+    const toDecimalAlto=(value)=> {
+        let checkAlto = NUMERIC_PATTERN_DECIMAL.test(value);
+        console.log("@@@@@ es numero?", checkAlto)
+        if (checkAlto) {
+            const decimal = parseFloat(value);
+            setAlto(decimal);
+          //  setBtn(true);
+        } else {
+            Alert.alert('Cantidad incorrecta', 'Escribe un número decimal válido.', [
+            { text: 'OK', onPress: () => console.log("boton ok") },
+            ]);
+        }
+        }
+
+
+    function toDecimalAncho(value) {
+        let checkAncho = NUMERIC_PATTERN_DECIMAL.test(value);
+        console.log("@@@@@ es numero?", checkAncho)
+        if (checkAncho) {
+            const decimal = parseFloat(value);
+            setAncho(decimal);
+            //setBtn(true);
+        } else {
+            Alert.alert('Cantidad incorrecta', 'Escribe un número decimal válido.', [
+            { text: 'OK', onPress: () => console.log("boton ok") },
+            ]);
+        }
+        }
+
+
+
+
+    const handleMetroCuadrado= (alto, ancho)=>{
+        let checkAlto = NUMERIC_PATTERN_DECIMAL.test(alto);
+        let checkAncho = NUMERIC_PATTERN_DECIMAL.test(ancho);
+        if (checkAlto && checkAncho){
+            let m2 = alto * ancho;
+            console.log("METROS CUADRADOS:", m2);
+            setCount(m2)
+            
+        }else{
+            Alert.alert('Medidas incorrecta', 'Escribe valores de medida validos.', [
+                { text: 'OK', onPress: () => console.log("boton ok") },
+                ]);
+        }
+     }
+
+     useEffect(() => {
+        console.log("UseEffect alto", alto);
+        console.log("UseEffect ancho", ancho);
+        if(alto>0 && ancho>0){
+           
+            handleMetroCuadrado(alto, ancho);
+        }else{
+            null
+        }
+    }, [alto, ancho]);
+     
  
     return(
         <NativeBaseProvider >
@@ -449,12 +534,12 @@ const DetalleProducto   = (props) => {
           (
             <Stack direction={"row"} >
                 <Text bold ml={5}>Precios:</Text>
-                <VStack flex={1} mx="5%" mt={1} p={2} px={4} bg={colors.grisclaro} borderRadius={10} shadow={6} mb={2}>
+                <VStack flex={1} mr="3%" mt={1} p={2} px={4} bg={colors.grisclaro} borderRadius={10} shadow={6} mb={2}>
                     
                 
                     <Text>Normal: {producto !==null ? ("$" + producto.precioS) : ""} </Text>
-                    <Text>A partir de {producto.cantidadMedioMayoreo} piezas: {producto !==null ? ("$" + producto.precioMedioMayoreo) : ""} </Text>
-                    <Text>A partir de {producto.cantidadMayoreo} piezas:  {producto !==null ? ("$" + producto.precioMayoreo) : ""} </Text>
+                    <Text>A partir de {producto.cantidadMedioMayoreo} {unidad}: {producto !==null ? ("$" + producto.precioMedioMayoreo) : ""} </Text>
+                    <Text>A partir de {producto.cantidadMayoreo} {unidad}:  {producto !==null ? ("$" + producto.precioMayoreo) : ""} </Text>
                 </VStack>
             </Stack>
           )  :
@@ -482,31 +567,100 @@ const DetalleProducto   = (props) => {
             </Box> 
                 {/**BOTONES DEL FINAL */}
                 <Stack direction={"column"} >
-
-                    {/**BOTON CANTIDAD */}
                     
-                    <Stack direction={"row"} space={3}>
-                        <HStack ml={5} my={1} bg={colors.blanco} borderRadius={10} borderWidth={2} shadow={6} borderColor={colors.azul}>
-                            <Center pl={2}>
-                                <Text bold>Cantidad: </Text>
-                            </Center>
-                            
-                            <Center w={16}>
-                            <TextInput
-                            
-                                value={count}
-                                onChangeText={(text) => toInteger(text)}
-                               // onChangeText={(text) => setCount(parseInt(text))}
-                                keyboardType="numeric"
-                            />
-                            </Center>
-                        </HStack>
+                    {/**BOTON CANTIDAD  */}
+                    
 
-                        <Stack direction={"column"} >
-                            <Text>Precio {nombrePrecio}: ${precioFinal}</Text>
-                            <Text> Subtotal: ${subtotal}</Text>
+                    
+                    {
+                        idUnidad == 4 ? 
+                        (
+                         <Stack direction={"row"} space={3}>
+                            <HStack ml={5} my={1} bg={colors.blanco} borderRadius={10} borderWidth={2} shadow={6} w={40} borderColor={colors.azul}>
+                                <Center pl={2}>
+                                    <Text bold>Alto (m): </Text>
+                                </Center>
+                                
+                                <Center w={20}>
+                                <TextInput
+                                    value={alto}
+                                    onChangeText={(text) => toDecimalAlto(text)}
+                                    keyboardType="numeric"
+                                />
+                                </Center>
+                            </HStack>
+        
+                            <HStack ml={3} my={1} bg={colors.blanco} borderRadius={10} borderWidth={2} shadow={6} w={40} borderColor={colors.azul}>
+                                <Center pl={2}>
+                                    <Text bold>Ancho (m): </Text>
+                                </Center>
+                                
+                                <Center w={20}>
+                                <TextInput
+                                    value={ancho}
+                                    onChangeText={(text) => toDecimalAncho(text)}
+                                    keyboardType="numeric"
+                                />
+                                </Center>
+                            </HStack>
+                         </Stack>
+                        ) 
+                        : 
+                        idUnidad == 5 ?
+                        (
+                         <Stack direction={"row"} space={3}>
+                            <HStack ml={5} my={1} bg={colors.blanco} borderRadius={10} borderWidth={2} shadow={6} w={56} borderColor={colors.azul}>
+                                <Center pl={2}>
+                                    <Text bold>{unidad}: </Text>
+                                </Center>
+                                
+                                <Center w={20}>
+                                <TextInput
+                                    value={count}
+                                    onChangeText={(text) => toDecimal(text)}
+                                    keyboardType="numeric"
+                                />
+                                </Center>
+                            </HStack>
+                         </Stack>
+                        )
+                        :
+                        (
+                         <Stack direction={"row"} space={3}>
+                            <HStack ml={5} my={1} bg={colors.blanco} borderRadius={10} borderWidth={2} shadow={6} w={48} borderColor={colors.azul}>
+                                <Center pl={2}>
+                                    <Text bold>{unidad}: </Text>
+                                </Center>
+                                
+                                <Center w={20}>
+                                <TextInput
+                                    value={count}
+                                    onChangeText={(text) => toInteger(text)}
+                                 
+                                    keyboardType="numeric"
+                                />
+                                </Center>
+                            </HStack>
+                         </Stack>
+                        )
+                    }
 
-                        </Stack>
+                    {
+                    idUnidad==4 ?
+                    (
+                        <Text ml={8} mt={2} bold>Metros cuadrados: {count.toFixed(2)}</Text>
+                    ) :
+                    null
+                    }
+
+
+
+                    {/**FIN BOTON CANTIDAD */}
+
+                    <Stack direction={"column"} mx={10} borderRadius={10} borderWidth={1} shadow={6}  borderColor={colors.rosa} bg={colors.blanco} py={1}>
+                            <Text fontSize={"md"} bold mx={4}>Precio {nombrePrecio}: ${precioFinal}</Text>
+                            <Text fontSize={"md"} bold mx={4}>Subtotal: ${subtotal.toFixed(2)}</Text>
+
                     </Stack>
                     
 
