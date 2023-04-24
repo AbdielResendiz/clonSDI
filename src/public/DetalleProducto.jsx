@@ -24,9 +24,10 @@ const DetalleProducto   = (props) => {
     console.log("idAgrupacion", idAS);
     console.log("impreso PROPS ====", impreso);
     
-    const[ idCarrito, setIdCarrito ] = useState(null);
-    const[ unidad, setUnidad ] = useState("Cantidad");
-    const [idUnidad, setIdUnidad] = useState(null)
+    const [ idCarrito, setIdCarrito ] = useState(null);
+    const [ unidad, setUnidad ] = useState("Cantidad");
+    const [ idUnidad, setIdUnidad ] = useState(null)
+    const [ comentario, setComentario ] = useState(null);
 
     const getData = async () => {
         try {
@@ -130,12 +131,12 @@ const DetalleProducto   = (props) => {
           //  console.log("GET RESPOSE FULL : ", responseAtributo);
             console.log("GET DETALLE PRODUCTO : ", responseAtributo.producto[0]);
             setProducto(responseAtributo.producto[0]);
-            console.log(" !!! NOMBRE UNNIDAS !!!",responseAtributo.producto[0].nombreUni );
+            //console.log(" !!! NOMBRE UNNIDAS !!!",responseAtributo.producto[0].nombreUni );
             
             setUnidad(responseAtributo.producto[0].nombreUni)
             setIdUnidad(responseAtributo.producto[0].idUnidad)
-            console.log("GET INVENTARIO : ", responseAtributo.inventario);
-            console.log("¿¿Impreso???==",responseAtributo.mensaje)
+            //console.log("GET INVENTARIO : ", responseAtributo.inventario);
+            //console.log("¿¿Impreso???==",responseAtributo.mensaje)
             setInventario(responseAtributo.inventario)
         }else{
             setProducto([]);
@@ -239,6 +240,7 @@ const DetalleProducto   = (props) => {
         dataCar.append("idSuc", sucursal );
         dataCar.append("impreso", impreso);
         dataCar.append("precio",precioFinal );
+        dataCar.append("comentario", comentario);
         
         const url = `${BASE_URL}abdiel/carrito/add_item`
         const options = {
@@ -493,6 +495,10 @@ const DetalleProducto   = (props) => {
             let m2 = alto * ancho;
             console.log("METROS CUADRADOS:", m2);
             setCount(m2)
+            let mensaje = `Medidas: Ancho = ${ancho}.  Alto= ${alto}` 
+            console.log("mensaje:  ", mensaje)
+            setComentario(mensaje);
+            setBtn(true);
             
         }else{
             Alert.alert('Medidas incorrecta', 'Escribe valores de medida validos.', [
