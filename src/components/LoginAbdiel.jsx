@@ -1,18 +1,23 @@
 import React, { useState,useEffect } from "react";
 import { View, Center, FormControl, Input, Pressable, Icon, Text } from "native-base";
 import { MaterialIcons} from '@expo/vector-icons'; 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import ProcesandoLoginL from "../components/Componentes/procesando/ProcesandoLoginL.js";
+import { useNavigation } from '@react-navigation/native';
 
 const LoginAbdiel = ()=>{
+  const navigation =useNavigation();
     const [loading , setLoading] = useState(false)
-    const [correo, setCorreo] = useState('');
+    const [correo, setCorreo] = useState('test@gmail.com');
     const [inputCorreo, setInputCorreo]  = useState(true);
     const [formCorreo, setFormCorreo] = useState(false);
     const [inputPassword, setInputPassword] = useState(true);
     const [formPassword, setFormPassword] = useState(false);
-    const [password, setPassword] = useState('');
+    const [password, setPassword] = useState('12345');
     const validRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const [ id, setId ] = useState();
 
-    const Validarform = ()  => {
+    const Validarform = async()  => {
         if(correo == '' || !correo.match(validRegex)){
                  
           setFormCorreo(true)
@@ -44,7 +49,7 @@ const LoginAbdiel = ()=>{
   
                function miFuncion() {
            
-                  fetch("http://sdiqro.store/api/Login/inicio_sesion",
+                  fetch("http://sdiqro.store/abdiel/Login/inicio_sesion",
                   {method: 'POST',
                     body: Form
                   })
@@ -54,7 +59,18 @@ const LoginAbdiel = ()=>{
                       if(resultado.status == true){
   
                         setLoading(false)
-                        alert("Sesion iniciada");
+                        console.log("login resultado", resultado);
+                         storeData(resultado.idU)
+                         storeCarrito(resultado.idC.id)
+                        storeSucursal(resultado.idC.idSuc)
+                        
+                        alert(`Inicio de sesión exitoso. ID: ${resultado.idU} 
+                        Carrito: ${resultado.idC.id}`);
+
+                        navigation.reset({
+                          index: 0,
+                          routes: [{ name: 'Home' }],
+                      });
                             
                       }else{
                         setLoading(false)
@@ -66,7 +82,7 @@ const LoginAbdiel = ()=>{
                       console.log("Error login",error)
                   })
               }
-              setTimeout(miFuncion, 4000);
+              setTimeout(miFuncion, 2000);
         }
         else{
            
@@ -74,8 +90,39 @@ const LoginAbdiel = ()=>{
           
   
         }
+      
     
   
+      }
+   
+      const storeData = async (value) => {
+        try {
+          await AsyncStorage.setItem('@id_user', value);
+          let idAsync =  await AsyncStorage.getItem("@id_user");
+          console.log("exito async idU",idAsync );
+        } catch (e) {
+          console.log("error async", e);
+        }
+      }
+
+      const storeCarrito = async (value) => {
+        try {
+          await AsyncStorage.setItem('@id_carrito', value);
+          let idAsync =  await AsyncStorage.getItem("@id_carrito");
+          console.log("exito async idC",idAsync );
+        } catch (e) {
+          console.log("error async", e);
+        }
+      }
+
+      const storeSucursal = async (value) => {
+        try {
+          await AsyncStorage.setItem('@id_sucursal', value);
+          let idAsync =  await AsyncStorage.getItem("@id_sucursal");
+          console.log("exito async sucursal",idAsync );
+        } catch (e) {
+          console.log("error async", e);
+        }
       }
   
       return(
@@ -112,6 +159,7 @@ const LoginAbdiel = ()=>{
                        onChangeText={(val) => {setPassword(val)}}
                        autoCapitalize='none'
                        value={password} 
+                       type="password"
   
   
                       InputLeftElement={<Icon as={MaterialIcons} name="lock" size={5} color="#FE308E" m={3}/>} size={5} color="muted.400" />

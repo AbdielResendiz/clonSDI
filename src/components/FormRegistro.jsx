@@ -1,39 +1,49 @@
 import React, { useState,useEffect } from "react";
 import {TouchableOpacity} from "react-native"
-<<<<<<< HEAD
-import {  Ionicons,MaterialCommunityIcons,FontAwesome5,MaterialIcons} from '@expo/vector-icons'; 
-import { Icon,NativeBaseProvider,Checkbox,Select, Text,Box, Center,Container,ScrollView, Image, View, Button, useSafeArea,CheckIcon, Input,FormControl, HStack,} from "native-base";
-=======
 import {  Ionicons,MaterialCommunityIcons,MaterialIcons} from '@expo/vector-icons'; 
-import { Icon, Text, Center,ScrollView, View, Input,FormControl,NativeBaseProvider, Checkbox, Box, Select, CheckIcon, HStack} from "native-base";
-import colors from "../../colors";
-import { useFetch, URL } from "../API/useFetch";
->>>>>>> origin
+import { Icon, Text, Center,ScrollView, View, Input,FormControl, Box, Select, CheckIcon} from "native-base";
+import CheckBox from "expo-checkbox";
+import { URL } from "./API/useFetch";
+import { Alert } from "react-native";
+import { useNavigation } from '@react-navigation/native';
+const FormRegistro = (props) => {
 
-
-import { useFetch, URL } from "../API/useFetch";
-import colors from "../../colors";
-
-const FormRegistro = () => {
-
-
- 
-<<<<<<< HEAD
-    const [sucursales, setSucursales] = useState(null);
-    const [bandera, setBandera] = useState(false)
-=======
     const [sucursales, setSucursales] = useState([]);
->>>>>>> origin
-    
-    const [agree, setAgree]                           = useState(false);
-    const [usuario, setUsuario]                       = useState('');
-    const [apellido, setApellido]                     = useState('');
-    const [celular, setCelular]                       = useState('');
-    const [sucursal, setSucursal]                     = useState('');
-    const [correo, setCorreo]                         = useState('');
-    const [password, setPassword]                     = useState('');
-    const [passwordConfirmar, setPasswordConfirmar]   = useState('');
+    const navigation =useNavigation();
    
+    useEffect(() => {
+                const sucursal = `${URL.BASE_URL}SucursalesGet/getSucursalesQro`
+                fetch(sucursal)
+                .then(response => response.json())
+                .then((resultado)=> {
+                    setSucursales(resultado.Registro)
+                })
+                .catch((error) => {
+                    console.log("error",error)
+                })
+    },[]);
+
+
+    
+
+    //values 
+    const [agree, setAgree]                           = useState(false);
+    const [usuario, setUsuario]                       = useState('usuario');
+    const [apellido, setApellido]                     = useState('apellido');
+    const [celular, setCelular]                       = useState('123424242');
+    const [sucursal, setSucursal]                     = useState('9');
+    const [correo, setCorreo]                         = useState('test@gmail.com');
+    const [password, setPassword]                     = useState('12345/');
+    const [passwordConfirmar, setPasswordConfirmar]   = useState('12345/');
+
+    const ChangeTC = () => {
+        if(agree == true){
+            setAgree(false)
+        }else{
+            setAgree(true)
+        }
+    }
+
     const [formNombre,   setFormNombre]                       = useState(false);
     const [formApellido, setFormApellido]                     = useState(false);
     const [formCelular, setFormCelular]                       = useState(false);
@@ -44,138 +54,55 @@ const FormRegistro = () => {
     const [checkFormBothpass, setFormcheckBothpass]           = useState(false);
     const validRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    const [inputNombre, setInputNombre]     = useState(true);
-    const [inputApellido, setInputApellido] = useState(true);
-    const [inputTelefono, setInputTelefono] = useState(true);
-    const [inputSucursal, setInputSucursal] = useState(true);
-    const [inputCorreo, setInputCorreo]     = useState(true);
-    const [inputPassword, setInputPassword] = useState(true);
-    const [inputPasswordConfirmar, setInputPasswordConfirmar] = useState(true);
-    
-    const ERPass = /[!@#$%^&*()\-_=+{}[\]|\:;"'<>,.?/]/;
 
-
-    useEffect(() => {
-                const sucursal = `${URL.BASE_URL}SucursalesGet/getSucursalesQro`
- 
-                fetch(sucursal)
-                .then(response => response.json())
-                .then((resultado)=> {
-                    setSucursales(resultado.Registro)
-                })
-                .catch((error) => {
-                    // console.log("error",error)
-                })
-    
-    },[]);
-
-   
-
-    //values 
-  
-
-
-
-
-
-    const ChangeTC = () => {
-        if(agree == true){
-            setAgree(false)
-        }else{
-            setAgree(true)
-        }
-    }
-
-
-
-
-    const Validarform =  () => {
-
+    const Validarform =  (s) => {
             if(usuario == ''){
                 setFormNombre(true)
-                
             }else{
-                
                 setFormNombre(false)
             }
-    
             if (apellido == '' || apellido.length <= 0){
-               
-               
                 setFormApellido(true)
-              
-               
-               
-
             }else{
-              
-                
                 setFormApellido(false)
-               
             }
     
             if(celular == '' || (celular.length == 10 || celular.length <= 10)){
-              
                 setFormCelular(true)
-                
             }else{
-                
                 setFormCelular(false)
             }
-    
             if(sucursal == null || sucursal == ''){
-               
                 setFormSucursal(true)
             }else{
-               
                 setFormSucursal(false)
             }
-    
             if(correo == '' || !correo.match(validRegex)){
-               
                 setFormCorreo(true)
-           
-            
-             
             }else{
                 setFormCorreo(false)
-               
             }
-
             if(!password == null || password.length <= 5 || !ERPass.test(password)){
-             
                 setFormPassword(true)
             }else{
                 setFormPassword(false)
-              
             }
-
             if(!passwordConfirmar == null || passwordConfirmar.length <= 5 || !ERPass.test(passwordConfirmar)){
                 // console.log("pass", passwordConfirmar)
                 setFormPasswordConfirmar(true)
-               
                 if(passwordConfirmar != password){
                     setFormcheckBothpass(true)
                     // console.log("no son iguales s")
-
                 }else{
                     setFormcheckBothpass(false)
                     // console.log("son iguales s")
                 }
-
-
             }else{
                 setFormPasswordConfirmar(false)
-             
                 setAgree(true)
             }
-
-
-
             if((inputNombre == false && inputApellido == false && inputTelefono == false && inputSucursal == false && inputCorreo == false && inputPassword == false && inputPasswordConfirmar == false))
             {
-               
-
                 setBandera(false)
                 console.log("inputNombre", usuario)
                 console.log("inputApellido", apellido)
@@ -207,10 +134,26 @@ const FormRegistro = () => {
                 .then((resultado)=> {
                     console.log("resultado",resultado)
                     if(resultado.resultado == true){
-                        alert("Registro exitoso")
+                        Alert.alert('Registro exitoso', 'Ahora puedes iniciar sesión', [
+                            
+                            {text: 'Ir a inicio', onPress: () => navigation.reset({
+                                index: 0,
+                                routes: [{ name: 'Home' }],
+                            })},
+                            {
+                              text: 'Iniciar sesión', onPress: () => navigation.navigate("Welcome")  
+                            },
+                          ]);
                     
-                          setTimeout(miFuncion, 3000);
                           
+                          
+                    }else{
+                        
+                        Alert.alert('Error en registro', `${resultado.mensaje}`, [
+                            
+                            {text: 'OK', onPress: () => console.log("ok error")
+                            },
+                          ]);
                     }
                 })
                 .catch((error) => {
@@ -230,8 +173,17 @@ const FormRegistro = () => {
     }
 
   
- 
+    const [inputNombre, setInputNombre]     = useState(true);
+    const [inputApellido, setInputApellido] = useState(true);
+    const [inputTelefono, setInputTelefono] = useState(true);
+    const [inputSucursal, setInputSucursal] = useState(true);
+    const [inputCorreo, setInputCorreo]     = useState(true);
+    const [inputPassword, setInputPassword] = useState(true);
+    const [inputPasswordConfirmar, setInputPasswordConfirmar] = useState(true);
+    
+    const ERPass = /[!@#$%^&*()\-_=+{}[\]|\:;"'<>,.?/]/;
 
+    const [bandera, setBandera] = useState(false)
 
 
       useEffect(() => {
@@ -239,29 +191,44 @@ const FormRegistro = () => {
         console.log("Agree",agree)
         if(usuario.length <= 0){
             setInputNombre(true)
+          
+           
         }else{
             setInputNombre(false)
+            
+
         }
         if(apellido.length <= 0){
+
+           
             setInputApellido(true)
         }else{
             setInputApellido(false)
+
         }
         if(celular.length == 10 && celular.length <= 10 ){
+          
             setInputTelefono(false)
         }else{
             setInputTelefono(true)
+
+        
         }
         if(sucursal == null || sucursal == ''){
+            
             setInputSucursal(true)
         }else{
             setInputSucursal(false)
+
+           
         }
         if(!correo.match(validRegex)){
            
             setInputCorreo(true)
         }else{
             setInputCorreo(false)
+
+           
         }
         if((!password == null || password.length <= 5 || !ERPass.test(password))){
          
@@ -296,13 +263,18 @@ const FormRegistro = () => {
                 setInputPasswordConfirmar(false)
             }
         }
+
+
+
         //true  es error
         //false es correcto
+
+
     }, [usuario,apellido,celular,sucursal,correo,password,passwordConfirmar,bandera,inputNombre,inputApellido,inputTelefono,inputSucursal,inputCorreo,inputPassword,inputPasswordConfirmar,agree]);
 
  return (
+  
   <>
-  <View>
     <ScrollView>
             <Center>
 
@@ -351,6 +323,8 @@ const FormRegistro = () => {
                     onChangeText={(val) => {setCelular(val)}}
                     autoCapitalize='none'
                     value={celular}
+                    maxLength={10}
+                    
                     InputLeftElement={<Icon as={MaterialCommunityIcons} name="cellphone" size={5} color="#FE308E" m={3} mr={5}/>} size={5} color="muted.400" />
 
                 {formCelular == true ? (  <FormControl.ErrorMessage leftIcon={<MaterialIcons name="error-outline" size={24} color="red" />}>
@@ -360,39 +334,30 @@ const FormRegistro = () => {
             {/*termina form celular */}
 
 
-<<<<<<< HEAD
             {/*Sucursal */}
-            <HStack>
-                <FormControl.Label mt={3} mx={3}>Sucursal: </FormControl.Label>
-                <Box maxW="300">
-                    <Select selectedValue={sucursal} minWidth="200" accessibilityLabel="Choose Service" placeholder="Choose Service" _selectedItem={{
-                        bg: "teal.600",
-                        endIcon: <CheckIcon size="5" />
-                    }} mt={1} onValueChange={itemValue => setSucursal(itemValue)}>
-                        <Select.Item label="Matriz" value="ux" />
-                        <Select.Item label="Plaza Río" value="web" />
-                        <Select.Item label="San Juan del Río" value="cross" />
-=======
-             {/*Sucursal */}
-             <HStack>
+            <FormControl isInvalid={inputSucursal} w="75%" maxW="300px" pt={1}>
                 <FormControl.Label mt={3} mx={3}>Sucursal: </FormControl.Label>
                 <Box maxW="300">
                     <Select selectedValue={sucursal} minWidth="200" accessibilityLabel="Escoge una sucursal" placeholder="Choose Service" _selectedItem={{
                         bg: "teal.600",
                         endIcon: <CheckIcon size="5" />
                     }} mt={1} onValueChange={itemValue => setSucursal(itemValue)}>
-                      {sucursales.map( (sucursal, index)=>{
+                        { sucursales.length>0 ? (
+                      sucursales.map( (sucursal, index)=>{
                                         return(
                                             <Select.Item key={index}
                                             label={sucursal.nombreSuc} 
                                             value={sucursal.idSuc} />
                                         )
-                                    } )}
->>>>>>> origin
+                                    } )
+                                    ): null}
                         
                     </Select>
                 </Box>
-            </HStack>
+                {formSucursal  == true ? (  <FormControl.ErrorMessage leftIcon={<MaterialIcons name="error-outline" size={24} color="red" />}>
+                    El campo sucursal es obligatorio
+                </FormControl.ErrorMessage>):(null)} 
+                </FormControl>
             {/*termina form sucursal*/}
 
             {/*Email */}
@@ -427,7 +392,7 @@ const FormRegistro = () => {
                      onChangeText={(val) => {setPassword(val)}}
                      autoCapitalize='none'
                      value={password} 
-
+                     type="password"              
 
                     InputLeftElement={<Icon as={MaterialIcons} name="lock" size={5} color="#FE308E" m={3}/>} size={5} color="muted.400" />
                  {formPassword == true ? (  <FormControl.ErrorMessage leftIcon={<MaterialIcons name="error-outline" size={24} color="red" />}>
@@ -445,9 +410,10 @@ const FormRegistro = () => {
                     keyboardType='default'
                     onChangeText={(val) => {setPasswordConfirmar(val)}}
                     autoCapitalize='none'
-                    value={passwordConfirmar}  
+                    value={passwordConfirmar} 
+                    type="password" 
                     InputLeftElement={<Icon as={MaterialIcons} name="lock" size={5} color="#FE308E" m={3}/>} size={5} color="muted.400" />
-
+                    
 
                 {formPasswordConfirmar == true ? (<FormControl.ErrorMessage leftIcon={<MaterialIcons name="error-outline" size={24} color="red" />}>
                     El campo contraseña es obligatorio
@@ -469,19 +435,17 @@ const FormRegistro = () => {
             </FormControl>
             
 
-            <View flexDirection={"row"}>   
-                <Center>
-                    <Checkbox
-                    style={{ marginTop: 20}}
-                    accessibilityLabel="Condiciones"
-                    value={agree}
-                    onChange={() => ChangeTC()}
-                    color={agree ? "#FE308E" : colors.rosa}
-                    />
-                    <Text>
-                            He leído y acepto los terminos y condiciones
-                    </Text>
-                </Center> 
+             <View flexDirection={"row"}>   
+                   <Center><CheckBox
+                        style={{ marginTop: 20}}
+                        value={agree}
+                        onValueChange={() => ChangeTC()}
+                        color={agree ? "#FE308E" : undefined}
+                        />
+                        <Text>
+                                He leído y acepto los terminos y condiciones
+                        </Text>
+                        </Center> 
              </View>
 
 
@@ -493,12 +457,12 @@ const FormRegistro = () => {
 
             </Center>
     </ScrollView>
-    </View>
     </>
+    
   )
 }
 
 
 
 
-export {FormRegistro};
+export default FormRegistro;

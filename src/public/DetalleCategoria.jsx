@@ -3,7 +3,7 @@ import {  StyleSheet, TouchableOpacity, View } from 'react-native';
 import { NativeBaseProvider, Box, Text, Stack, Pressable, Center, ScrollView, VStack, HStack } from 'native-base';
 import colors from '../colors';
 import { FontAwesome5, Entypo } from '@expo/vector-icons'; 
-
+import Loader from '../components/Loader';
 import SwiperList from '../components/SwiperList';
 import ProductoComponent2 from '../components/ProductoComponent2';
 import ScrollSubCategorias from '../components/ScrollSubCategorias';
@@ -18,8 +18,11 @@ export default function DetalleCategoria(props) {
 
   const estado = props.route.params.estado;
   const urlCat = props.route.params.url;
+  const idU = props.route.params.user;
+  console.log("idU categoria", idU);
   console.log("link" , urlCat);
   console.log("ESTADO ===", estado);
+  const [ loader, setLoader ] = useState(true);
 
  
 
@@ -51,6 +54,7 @@ export default function DetalleCategoria(props) {
     const res1 = await fetchPost(url, options);
     setCategorias(res1.data);
     console.log("Categorias", res1.data);
+    setLoader(false);
     
   }
   useEffect(() => {
@@ -66,8 +70,10 @@ export default function DetalleCategoria(props) {
     });
   };
 
+  
   return (
     <NativeBaseProvider >
+      {loader===true?  <Loader/> : 
       <Box flex={1} bg={colors.grisbg}>
         <Box h={"20%"}>
             <SwiperList/>
@@ -113,7 +119,10 @@ export default function DetalleCategoria(props) {
                           <ProductoComponent2 
                           key={index} nombre={item.nombreS} id={item.idS}
                           precio={item.precioS} 
-                          image={item.image_url}/>
+                          image={item.image_url}
+                          idAS={item.idAS}
+                          impreso={estado}
+                          idU={idU}/>
                         );
                         }
                     })}
@@ -130,7 +139,9 @@ export default function DetalleCategoria(props) {
                           <ProductoComponent2 
                           key={index} nombre={item.nombreS} id={item.idS}
                           precio={item.precioS} 
-                          image={item.image_url}/>
+                          image={item.image_url}
+                          idAS={item.idAS}
+                          idU={idU}/>
                         );
                         }
                     })}
@@ -142,6 +153,7 @@ export default function DetalleCategoria(props) {
            </Center>
         
       </Box>
+      }
     </NativeBaseProvider>
   );
 }

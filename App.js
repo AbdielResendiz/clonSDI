@@ -36,6 +36,20 @@ import ConfirmaPago from './src/private/ConfirmaPago';
 import DetalleCompra from './src/private/DetalleCompra'
 import ListaFactura from './src/private/ListaFactura';
 import Welcome from './src/public/Welcome';
+import Password from './src/private/Password';
+import DetallePedido from './src/private/DetallePedido';
+import PagoStripe from './src/private/PagoStripe';
+import RecepcionPedidos from './src/private/RecepcionPedidos';
+
+//instrucciones de impresion
+import Lonas from './src/private/instrucciones/Lonas';
+import Botones from './src/private/instrucciones/Botones';
+import Canvas from './src/private/instrucciones/Canvas';
+import Credenciales from './src/private/instrucciones/Credenciales';
+import Dft from './src/private/instrucciones/Dft';
+import Offset from './src/private/instrucciones/Offset';
+import Stand from './src/private/instrucciones/Stand';
+import Viniles from './src/private/instrucciones/Viniles';
 
 const Stack = createStackNavigator();
 
@@ -66,9 +80,16 @@ if (!fontLoaded) {
 }
 
 
+
+
+
+
 const IrInicio = () => {
   setSelected(0)
-  navigationRef.navigate('Home');
+  navigationRef.reset({
+    index: 0,
+    routes: [{ name: 'Home' }],
+});
 };
 
 const IrPedidos = () => {
@@ -83,7 +104,7 @@ const IrCarrito = () => {
 
 const IrCuenta = () => {
   setSelected(3)
-  navigationRef.navigate('TestingLogin');
+  navigationRef.navigate('CuentaMenu');
 };
 
 const HeaderRightCustom = ()=>{
@@ -252,6 +273,7 @@ const HeaderLeftCustom = ()=>{
            backgroundColor: colors.azul,
          },
          headerShadowVisible: true,
+         headerLeft: () =>(null),
          headerRight: () => (
           <View style={{flexDirection: 'row'}}>
           <TouchableOpacity onPress={()=>navigationRef.navigate("Buscar")} style={{marginRight:20}}>
@@ -318,7 +340,7 @@ const HeaderLeftCustom = ()=>{
          ),
         }}/>
 
-        <Stack.Screen name="SeleccionarTarjeta" component={SeleccionarTarjeta}  options={{title: 'Seleccionar Tarjeta',
+        <Stack.Screen name="SeleccionarTarjeta" component={SeleccionarTarjeta}  options={{title: 'Pago',
          headerTintColor:colors.blanco,
          headerStyle: {
            backgroundColor: colors.azul,
@@ -360,7 +382,133 @@ const HeaderLeftCustom = ()=>{
          ),
         }}/>
 
+        <Stack.Screen name="DetallePedido" component={DetallePedido}  options={{title: 'Detalle de pedido',
+         headerTintColor:colors.blanco,
+         headerStyle: {
+           backgroundColor: colors.azul,
+         },
+         headerShadowVisible: true,
+         headerRight: () => (
+           <HeaderRightCustom/>
+         ),
+        }}/>
+
         <Stack.Screen name="ListaFactura" component={ListaFactura}  options={{title: 'Facturación',
+         headerTintColor:colors.blanco,
+         headerStyle: {
+           backgroundColor: colors.azul,
+         },
+         headerShadowVisible: true,
+         headerRight: () => (
+           <HeaderRightCustom/>
+         ),
+        }}/>
+        <Stack.Screen name="Password" component={Password}  options={{title: 'Cambiar contraseña',
+         headerTintColor:colors.blanco,
+         headerStyle: {
+           backgroundColor: colors.azul,
+         },
+         headerShadowVisible: true,
+         headerRight: () => (
+           <HeaderRightCustom/>
+         ),
+        }}/>
+
+      <Stack.Screen name="PagoStripe" component={PagoStripe}  options={{title: 'Pago stripe',
+         headerTintColor:colors.blanco,
+         headerStyle: {
+           backgroundColor: colors.azul,
+         },
+         headerShadowVisible: true,
+         headerRight: () => (
+           <HeaderRightCustom/>
+         ),
+        }}/>  
+
+        <Stack.Screen name="RecepcionPedidos" component={RecepcionPedidos}  options={{title: 'Recepcion de pedidos',
+         headerTintColor:colors.blanco,
+         headerStyle: {
+           backgroundColor: colors.azul,
+         },
+         headerShadowVisible: true,
+         headerRight: () => (
+           <HeaderRightCustom/>
+         ),
+        }}/>
+
+        {/** INSTRUCCIONES IMPRESION */}
+
+        <Stack.Screen name="Lonas" component={Lonas}  options={{title: 'Lonas',
+         headerTintColor:colors.blanco,
+         headerStyle: {
+           backgroundColor: colors.azul,
+         },
+         headerShadowVisible: true,
+         headerRight: () => (
+           <HeaderRightCustom/>
+         ),
+        }}/>
+         <Stack.Screen name="Botones" component={Botones}  options={{title: 'Botones',
+         headerTintColor:colors.blanco,
+         headerStyle: {
+           backgroundColor: colors.azul,
+         },
+         headerShadowVisible: true,
+         headerRight: () => (
+           <HeaderRightCustom/>
+         ),
+        }}/>
+         <Stack.Screen name="Canvas" component={Canvas}  options={{title: 'Canvas',
+         headerTintColor:colors.blanco,
+         headerStyle: {
+           backgroundColor: colors.azul,
+         },
+         headerShadowVisible: true,
+         headerRight: () => (
+           <HeaderRightCustom/>
+         ),
+        }}/>
+         <Stack.Screen name="Credenciales" component={Credenciales}  options={{title: 'Credenciales',
+         headerTintColor:colors.blanco,
+         headerStyle: {
+           backgroundColor: colors.azul,
+         },
+         headerShadowVisible: true,
+         headerRight: () => (
+           <HeaderRightCustom/>
+         ),
+        }}/>
+         <Stack.Screen name="Dft" component={Dft}  options={{title: 'DFT',
+         headerTintColor:colors.blanco,
+         headerStyle: {
+           backgroundColor: colors.azul,
+         },
+         headerShadowVisible: true,
+         headerRight: () => (
+           <HeaderRightCustom/>
+         ),
+        }}/>
+         <Stack.Screen name="Offset" component={Offset}  options={{title: 'OFFSET',
+         headerTintColor:colors.blanco,
+         headerStyle: {
+           backgroundColor: colors.azul,
+         },
+         headerShadowVisible: true,
+         headerRight: () => (
+           <HeaderRightCustom/>
+         ),
+        }}/>
+         <Stack.Screen name="Stand" component={Stand}  options={{title: 'Stand',
+         headerTintColor:colors.blanco,
+         headerStyle: {
+           backgroundColor: colors.azul,
+         },
+         headerShadowVisible: true,
+         headerRight: () => (
+           <HeaderRightCustom/>
+         ),
+        }}/>
+         <Stack.Screen name="Viniles" component={Viniles}  options={{title: 'Viniles',
          headerTintColor:colors.blanco,
          headerStyle: {
            backgroundColor: colors.azul,
@@ -373,6 +521,8 @@ const HeaderLeftCustom = ()=>{
 
         <Stack.Screen name="TestingLogin" component={TestingLogin} ></Stack.Screen>
       </Stack.Navigator>
+
+      
 
       {showFooter ? (
         <View style={{height:55, marginBottom:12}} >

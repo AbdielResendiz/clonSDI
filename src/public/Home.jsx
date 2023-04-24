@@ -1,27 +1,44 @@
-import { StatusBar } from 'expo-status-bar';
-import {  StyleSheet, TouchableOpacity, View } from 'react-native';
-import { NativeBaseProvider, Box, Text, Stack, Pressable, Center, ScrollView, useSafeArea } from 'native-base';
+
+import { NativeBaseProvider, Box, Text, Stack, Pressable, Center, ScrollView } from 'native-base';
 import colors from '../colors';
 import fetchPost from '../helper/fetchPost';
 import SwiperList from '../components/SwiperList';
 import ProductoComponent from '../components/ProductoComponent';
 import URL from '../helper/URL';
 import { useState, useEffect } from 'react';
+import Loader from '../components/Loader';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Home(props) {
   const BASE_URL =URL.BASE_URL;
  // console.log(BASE_URL)
 
+ const [ idU, setIdU ] = useState(null);
+
+
+ const getData = async () => {
+  try {
+    const value = await AsyncStorage.getItem('@id_user')
+    if(value !== null) {
+      console.log("idU async: ", value);
+      setIdU(value);
+    }
+  } catch(e) {
+    console.log("error async home", e);
+  }
+}
+
   const navegacion= (item) => {
     props.navigation.navigate(item);
   }; 
 
+const [loader, setLoader ]= useState(true);
 
-
-  const detalleCategorias= (item, link) => {
+  const detalleCategorias= (item, link, user) => {
     props.navigation.navigate("DetalleCategoria", {
       estado: item,
       url: link,
+      user: user
     });
   };
 
@@ -37,9 +54,11 @@ export default function Home(props) {
     
   }
   useEffect(() => {
+    getData();
     getImpresos();
-    
-  }, [])
+    getNoImpresos();
+    console.log("idU: ", idU)
+  },[])
 
   const [ noImpresos, setNoImpresos ] = useState([]);
   const getNoImpresos = async()=>{
@@ -49,17 +68,17 @@ export default function Home(props) {
     };
     const res = await fetchPost(url, options);
     setNoImpresos(res.data);
-    console.log("res", res.data);
+   //console.log("res", res.data);
+    setLoader(false);
     
   }
-  useEffect(() => {
-    getNoImpresos();
-    
-  }, [])
+
+
   
  
   return (
     <NativeBaseProvider >
+      {loader===true ? <Loader/> : 
       <Box h={"100%"} bg={colors.blanco}>
         <Box h={"20%"}>
         <SwiperList/>
@@ -71,14 +90,14 @@ export default function Home(props) {
         <Center w={"95%"} ml={3}>
         <Stack direction={"row"}>
           <Pressable h={10} w={"40%"} bg={colors.blanco} shadow={6} 
-          borderRadius={10} m={3} onPress={()=>detalleCategorias(true, "http://sdiqro.store/abdiel/Productos/ver_impresos")}>
+          borderRadius={10} m={3} onPress={()=>detalleCategorias(true, "http://sdiqro.store/abdiel/Productos/ver_impresos", idU)}>
             <Center h={"100%"} w={"100%"}>
               <Text bold>Impresos</Text>
             </Center>
           </Pressable>
 
           <Pressable h={10} w={"40%"} bg={colors.blanco} shadow={6} 
-          borderRadius={10} m={3} onPress={()=>detalleCategorias(false, "http://sdiqro.store/abdiel/Productos/ver_noimpresos")}>
+          borderRadius={10} m={3} onPress={()=>detalleCategorias(false, "http://sdiqro.store/abdiel/Productos/ver_noimpresos", idU)}>
             <Center h={"100%"} w={"100%"}>
               <Text bold>No Impresos</Text>
             </Center>
@@ -87,10 +106,10 @@ export default function Home(props) {
 
         </Center>  
         <ScrollView>
-      <Box>
+      <Box> 
         <Stack direction={"row"} justifyContent={"space-between"} mx={9} my={1}>
           <Text bold >Más vendidos impresos</Text>
-          <Pressable onPress={()=>detalleCategorias(false, "http://sdiqro.store/abdiel/Productos/ver_impresos")}>
+          <Pressable onPress={()=>detalleCategorias(false, "http://sdiqro.store/abdiel/Productos/ver_impresos", idU)}>
             <Text color={"#ff0000"}> Ver más</Text>
           </Pressable>
 
@@ -100,10 +119,13 @@ export default function Home(props) {
           { impresos.map( (impreso, index)=>{
             return(
               <ProductoComponent 
-              key={index} nombre={impreso.nombreS} id={impreso.idS}
-              precio={impreso.precioS} 
+              key={index} nombre={impreso.nombreAgrupaS} id={impreso.idS}
+              precio = {impreso.precioS}
               image={impreso.image_url}
-              impreso={true}/>
+              idAS={impreso.idAS}
+              impreso={1}
+              idU={idU}
+              desS={impreso.desS}/>
             ) 
           } )
 
@@ -115,7 +137,7 @@ export default function Home(props) {
       <Box my={3}>
         <Stack direction={"row"} justifyContent={"space-between"} mx={9} my={1}>
           <Text bold >Más vendidos no impresos</Text>
-          <Pressable onPress={()=>detalleCategorias(false, "http://sdiqro.store/abdiel/Productos/ver_noimpresos")}>
+          <Pressable onPress={()=>detalleCategorias(false, "http://sdiqro.store/abdiel/Productos/ver_noimpresos", idU)}>
             <Text color={"#ff0000"}> Ver más</Text>
           </Pressable>
 
@@ -125,10 +147,13 @@ export default function Home(props) {
         { noImpresos.map( (noImpreso, index)=>{
             return(
               <ProductoComponent 
-              key={index} nombre={noImpreso.nombreS} id={noImpreso.idS}
-              precio={noImpreso.precioS} 
+              key={index} nombre={noImpreso.nombreAgrupaS} id={noImpreso.idS}
+              precio = {noImpreso.precioS}
               image={noImpreso.image_url}
-              impreso={false}/>
+              impreso={0}
+              idAS={noImpreso.idAS}
+              idU={idU}
+              desS={noImpreso.desS}/>
             ) 
           } )
 
@@ -140,6 +165,7 @@ export default function Home(props) {
         
         
       </Box>
+      }
     </NativeBaseProvider>
   );
 }
