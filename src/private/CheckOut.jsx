@@ -19,7 +19,7 @@ const CheckOut = (props) => {
      const nombreSuc = props.route.params.nombreS;
     // console.log("id venta:", idVenta)
     const [ pedidos, setPedidos ] = useState([])
-    const [load, setLoad ] = useState(false)
+    const [load, setLoad ] = useState(true)
     const [idU, setIdU] = useState(null)
 
     const getIdU = async () => {
@@ -51,7 +51,7 @@ const CheckOut = (props) => {
         if (res === true){
            console.log("resultado PAGO: ", res)
            alertExito();
-          // setLoad(false);
+           setLoad(false);
           }else{
             console.log("resultado PAGO: ", res)
             alertError();
@@ -189,7 +189,7 @@ const CheckOut = (props) => {
 
                       }
                     </ScrollView>
-                    : <Text alignSelf={"center"} mt={10} fontSize={24}>No tienes favoritos por ahora</Text>
+                    : null
             }
             </Box>
             

@@ -495,7 +495,7 @@ const DetalleProducto   = (props) => {
             let m2 = alto * ancho;
             console.log("METROS CUADRADOS:", m2);
             setCount(m2)
-            let mensaje = `Medidas: Ancho = ${ancho}.  Alto= ${alto}` 
+            let mensaje = `Ancho: ${ancho}m.  Alto: ${alto}m.` 
             console.log("mensaje:  ", mensaje)
             setComentario(mensaje);
             setBtn(true);

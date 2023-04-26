@@ -5,21 +5,18 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import URL from "../helper/URL";
 import fetchPost from "../helper/fetchPost";
 import { Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const CarritoComponent= (props)=>{
      //inicia funciones para contar
+     const navigation =useNavigation();
+    const navegacion= (item) => {
+        navigation.navigate(item);
+      };
 
-     const { nombre, precio, id, image, impreso, idAS , idU, cantidad, sucursal, subtotal, idS} =props;
+     const { nombre, precio, id, image, impreso, idAS , idU, cantidad, sucursal, subtotal, comentario} =props;
      const [ count, setCount ] = useState(1);
-     const incrementCount = () => {
-       setCount(count + 1);
-     };
-   
-     const decrementCount = () => {
-       if (count > 1) {
-         setCount(count - 1);
-       }
-     };
+  
     // console.log("impreso?", impreso)
     const eliminarItem = async()=>{
         const BASE_URL= URL.BASE_URL;
@@ -51,7 +48,7 @@ const CarritoComponent= (props)=>{
                 },
                 {
                     text: 'Ir a inicio',
-                    onPress: () => props.navigation.navigate("Home") //props.navigation.navigate("Welcome"),
+                    onPress: () => navegacion("Home") //props.navigation.navigate("Welcome"),
                   
                 }
 
@@ -78,19 +75,24 @@ const CarritoComponent= (props)=>{
 
 
     return(
-        <Box h={40} w={"90%"} mx={"5%"}  my={2} shadow={6} bg="white" borderRadius={20} >
+        <Box h={48} w={"90%"} mx={"5%"}  my={2} shadow={6} bg="white" borderRadius={20} borderColor={"#dddddd"} borderWidth={2}>
             <Stack direction={"row"}> 
              
                 <Image source={{
                 uri: `http://sdiqro.store/static/imgServicios/${image}`
                 }} alt="Alternate Text" size="xl" mt={2} mx={2} resizeMode="contain"/>
                 <Stack direction={"column"} justifyContent={"center"}  w="150" mt={2}>
-                    <Text bold> {nombre}</Text>
-                    <Text>Producto {impreso==0 ? "no impreso" : "impreso"}</Text>
-                    <Text>Sucursal: {sucursal}</Text>
-                    <Text >Precio unitario: ${precio}</Text>
-                    <Text>Cantidad: {cantidad}</Text>
-                    <Text>Subtotal: ${subtotal}</Text>
+                    <Text bold fontSize={"lg"}> {nombre}</Text>
+                    <Text bold>Producto {impreso==0 ? "no impreso" : "impreso"}</Text>
+                    <Text>Sucursal: <Text bold>{sucursal} </Text> </Text>
+                    <Text >Precio unitario: <Text bold> ${precio}</Text></Text>
+                    <Text>Cantidad: <Text bold> {cantidad} </Text> </Text>
+                    <Text>Subtotal: <Text bold>${subtotal}</Text></Text>
+                    {comentario !==  "null" ? 
+                     <Text>Medidas: <Text bold>{comentario}</Text></Text>
+                     : null
+                    }
+                   
                 </Stack>
                 <Center  >
                     <Pressable bgColor={colors.rosa} p={2} borderRadius={10} shadow={6} onPress={()=> previoEliminar() }>

@@ -1,5 +1,5 @@
 import React from 'react';
-import {  NativeBaseProvider, ScrollView, Text, View } from 'native-base';
+import {  Image, NativeBaseProvider, ScrollView, Text, View } from 'native-base';
 import colors from '../../colors';
 import InstruccionesComponente from './InstruccionesComponente';
 import GuardarComponente from './GuardarComponente';
@@ -24,6 +24,7 @@ const Canvas = () => {
                 titulo="Resolución no menor  100DPOS"
                 parentesis="(Si el archivo viene a 100dpis el archivo no debe estar a escala, debe ser tamaño real. Si tiene textos pequeños dejar resolución entre 200DPIS y 300DPIS)" 
                 />
+             
                
                 
 

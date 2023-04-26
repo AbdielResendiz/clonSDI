@@ -5,6 +5,7 @@ import Boton from '../components/Boton';
 import { Fontisto } from '@expo/vector-icons'; 
 import fetchPost from '../helper/fetchPost';
 import URL from '../helper/URL';
+import Loader from '../components/Loader';
 const Recoleccion = (props) => {
     const BASE_URL = URL.BASE_URL;
     const navegacion= (item) => {
@@ -13,6 +14,7 @@ const Recoleccion = (props) => {
     const [ sucursales, setSucursales ] = useState([]);
     const [isChecked, setIsChecked] = useState("");
     const [nombre, setNombre] = useState("");
+    const [ loading, setLoading ] = useState(true);
 
     const handleClick = (id, nombre) => {
         setIsChecked(id);
@@ -32,7 +34,8 @@ const Recoleccion = (props) => {
         const response = await fetchPost(url, options);
         if (response !== null){
           setSucursales(response);
-          //console.log(response)
+            //console.log(response)
+            setLoading(false);
         }else{
         setSucursales([]);
         
@@ -60,6 +63,7 @@ const Recoleccion = (props) => {
 
     return(
         <NativeBaseProvider>
+          { loading ? <Loader/> :
             <View flex={1} bg={colors.blanco}>
                 <Text bold fontSize={"xl"} ml={5} my={3}>¿Dónde deseas recoger tus productos?</Text>
                 <Box w="90%" mx="5%" bg={colors.blanco} h={96} shadow={6} my={4} borderRadius={20} > 
@@ -74,6 +78,7 @@ const Recoleccion = (props) => {
                             <Fontisto name="shopping-store" size={24} color="black" />
                         </Center>
                         
+                        
                         <Stack  w="70%">
                             <Text fontWeight={500} fontSize={"lg"}> 
                                Sucursal {item.nombreSuc}
@@ -86,6 +91,8 @@ const Recoleccion = (props) => {
                             </Text>
                             <Divider m={2}/>
                         </Stack>
+
+
                         <Center>
                             <Checkbox isChecked={isChecked===item.idSuc } 
                             onChange={()=>handleClick(item.idSuc, item.nombreSuc)}
@@ -99,6 +106,7 @@ const Recoleccion = (props) => {
                    
                    }
                 </Box>
+
                 <Pressable justifyContent={"center"} alignItems={"center"} w="80%" mx="10%" bg={colors.azul} h={12} 
                 borderRadius={50} my={4}  onPress={()=>checkPago(isChecked, nombre)}>
                     <Text bold fontSize={"lg"}  color={colors.blanco}> Siguiente </Text>
@@ -106,6 +114,7 @@ const Recoleccion = (props) => {
                 </Pressable>
 
             </View>
+          }   
         </NativeBaseProvider>
     );
 };

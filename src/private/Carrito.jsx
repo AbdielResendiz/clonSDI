@@ -75,7 +75,7 @@ const Carrito = (props) => {
           
             <View flex={1} bg={colors.blanco} >
             
-            <Box minH={48} maxH={96}>
+            <Box h={"78%"}>
             { carrito.length > 0 ? 
                     <ScrollView  >    
                         { carrito.map( (producto, index)=>{
@@ -91,7 +91,9 @@ const Carrito = (props) => {
                         sucursal={producto.nombreSuc}
                         impreso={producto.impreso}
                         idU={producto.idSuc}
+                        comentario = {producto.comentario}
                         subtotal={producto.subtotalCarrito}/>
+                        
                         ) 
                       } )
 
@@ -105,7 +107,7 @@ const Carrito = (props) => {
             }
             </Box>
             <Divider bg={colors.azul} borderRadius={100} h={1} w="80%" alignSelf={"center"} my={1}/>
-            <Box h="70" w="85%"  mx={7} alignItems={"flex-end"} >  
+            <Box mb={4} w="85%"  mx={7} alignItems={"flex-end"} >  
                
                 <Text fontSize={22} bold>
                   { total!==null ? `Total: $${total}` : ""}
@@ -116,7 +118,7 @@ const Carrito = (props) => {
 
             
             <Pressable alignItems="center" onPress={()=>navegacion("Recoleccion")}>
-                <Center h="35" my={1} w="50%" bg={colors.azul} borderRadius={20} mx={7} >  
+                <Center h={12} my={1} w="50%" bg={colors.azul} borderRadius={20} mx={7} >  
                     <HStack>
                         <Icon as={Ionicons} name="wallet"  size={6} color={"white"} />
                         <Text fontSize={16} color={"white"} bold  mx={3}>Pagar</Text>
