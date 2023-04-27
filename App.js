@@ -50,6 +50,10 @@ import Dft from './src/private/instrucciones/Dft';
 import Offset from './src/private/instrucciones/Offset';
 import Stand from './src/private/instrucciones/Stand';
 import Viniles from './src/private/instrucciones/Viniles';
+import VinilCorte from './src/private/instrucciones/viniles/VinilCorte';
+import VinilImpreso from './src/private/instrucciones/viniles/VinilImpreso';
+import VinilRegistro from './src/private/instrucciones/viniles/VinilRegistro';
+import VinilTextil from './src/private/instrucciones/viniles/VinilTextil';
 
 const Stack = createStackNavigator();
 
@@ -509,6 +513,47 @@ const HeaderLeftCustom = ()=>{
          ),
         }}/>
          <Stack.Screen name="Viniles" component={Viniles}  options={{title: 'Viniles',
+         headerTintColor:colors.blanco,
+         headerStyle: {
+           backgroundColor: colors.azul,
+         },
+         headerShadowVisible: true,
+         headerRight: () => (
+           <HeaderRightCustom/>
+         ),
+        }}/>
+
+        <Stack.Screen name="VinilImpreso" component={VinilImpreso}  options={{title: 'Vinil impreso',
+         headerTintColor:colors.blanco,
+         headerStyle: {
+           backgroundColor: colors.azul,
+         },
+         headerShadowVisible: true,
+         headerRight: () => (
+           <HeaderRightCustom/>
+         ),
+        }}/>
+        <Stack.Screen name="VinilTextil" component={VinilTextil}  options={{title: 'Vinil textil impreso',
+         headerTintColor:colors.blanco,
+         headerStyle: {
+           backgroundColor: colors.azul,
+         },
+         headerShadowVisible: true,
+         headerRight: () => (
+           <HeaderRightCustom/>
+         ),
+        }}/>
+        <Stack.Screen name="VinilRegistro" component={VinilRegistro}  options={{title: 'Vinil corte a registro',
+         headerTintColor:colors.blanco,
+         headerStyle: {
+           backgroundColor: colors.azul,
+         },
+         headerShadowVisible: true,
+         headerRight: () => (
+           <HeaderRightCustom/>
+         ),
+        }}/>
+        <Stack.Screen name="VinilCorte" component={VinilCorte}  options={{title: 'Viniles corte textil',
          headerTintColor:colors.blanco,
          headerStyle: {
            backgroundColor: colors.azul,

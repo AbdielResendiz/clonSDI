@@ -25,7 +25,7 @@ const Lonas = () => {
                 parentesis="(Si el archivo no tiene este modo de color, al momento de imprimir podría variar los tonos)" 
                 />
                 <InstruccionesComponente numero="04" 
-                titulo="Resolución a 300DPOS"
+                titulo="Resolución a 300DPIS"
                 parentesis="(Si el archivo viene a 300dpis el archivo no debe medir más de 300x300cm ya sea que este a escala o no)" 
                 />
 
@@ -49,7 +49,32 @@ const Lonas = () => {
                 <NotaComponent
                 nota="El ancho del material es de 320cm, si la lona rebasa los 315cm en X y Y, se debe partir en las partes que sean necesarias."
                 />
-
+                <Text color={colors.rosa} bold fontSize={24} alignSelf={"flex-end"} mr={5}>¿Cómo nombrar archivos de lona?</Text>
+                <InstruccionesComponente numero="  " 
+                titulo="BLANCA"
+                parentesis="Estatus, Medida, Cantidad, Nombre, Acabados"
+                />
+                <InstruccionesComponente numero="  " 
+                titulo="MATE / MESH / TRANSLUCIDA"
+                parentesis="Estatus, Material, Cantidad, Medida, Nombre, Acabados" 
+                />
+                <InstruccionesComponente numero="  " 
+                titulo="VINIL MICROPERFORADO"
+                parentesis="(Este se imprime en el plotter de lona) Estatus, Material, Cantidad, Medida, Nombre" 
+                />
+                <InstruccionesComponente numero="  " 
+                titulo="ACABADOS"
+                parentesis="Los acabados normales son bastilla y ojillos cada metro a proporción, a excepción de la translucida, lo normal es para tensar. Cuando se requiere diferente a lo normal se usan los diguientes acrónimos:" 
+                />
+                <GuardarComponente text=" S-B: Se usa cuando la lona no lleva ojillos" />
+                <GuardarComponente text="P-T: Se usa cuando se necesita un área extra de lona sin acabados que sirve para tensar (normalmente son 8cm aprox)" />
+                <GuardarComponente text="P-O: Se usa cuando el cliente nesesita un numero especifico de ojillos diferente a lo normal." />
+                <GuardarComponente text="P-A: se usa cuando se las especificaciones son más comple- mas, ejemplo, “bolsas”, “ojillos y área de tenzado”, “ojillos y bolsas”..." />
+                <GuardarComponente text="SinAcabados: se usa cuando no se requieren ojillos, ni basti- lla, ni bolsas, ni área de tenzado." />
+                <Text ml={10} mt={5} mb={3} bold fontSize={16}>Ejemplo:</Text>
+                <GuardarComponente text="Si solo es una lona blanca con servicio normal y acabados normales: 100x100 fulanito.Jpg" />
+                <GuardarComponente text="Si son 2 lonas blancas iguales con servicio urgente y acabado especial: urge 2 100x100 fulanito s-b.Jpg" />
+                <GuardarComponente text="Si es una lona no blanca con servicio normal y acabados normales: mesh 100x100 fulanito.Jpg" />
             </ScrollView>
             
            
