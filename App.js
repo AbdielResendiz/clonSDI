@@ -1,4 +1,5 @@
 import 'react-native-gesture-handler';
+import * as Notifications from 'expo-notifications';
 import * as React from 'react';
 import * as Font from 'expo-font';
 import {NavigationContainer, useNavigationContainerRef} from '@react-navigation/native';
@@ -54,8 +55,18 @@ import VinilCorte from './src/private/instrucciones/viniles/VinilCorte';
 import VinilImpreso from './src/private/instrucciones/viniles/VinilImpreso';
 import VinilRegistro from './src/private/instrucciones/viniles/VinilRegistro';
 import VinilTextil from './src/private/instrucciones/viniles/VinilTextil';
+import NotificacionesTesting from './src/private/NotificacionesTest';
 
 const Stack = createStackNavigator();
+//notificaciones
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
+});
+
 
 export default function App(props) {
   const [selected, setSelected] = useState(0);
@@ -564,7 +575,7 @@ const HeaderLeftCustom = ()=>{
          ),
         }}/>
 
-        <Stack.Screen name="TestingLogin" component={TestingLogin} ></Stack.Screen>
+        <Stack.Screen name="NotificacionesTesting" component={NotificacionesTesting} ></Stack.Screen>
       </Stack.Navigator>
 
       
