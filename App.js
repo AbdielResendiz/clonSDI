@@ -1,19 +1,20 @@
 import 'react-native-gesture-handler';
 import * as Notifications from 'expo-notifications';
-import * as React from 'react';
+//import * as React from 'react';
+import messaging from '@react-native-firebase/messaging';
 import * as Font from 'expo-font';
 import {NavigationContainer, useNavigationContainerRef} from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Perfil from './src/private/Perfil';
 import Home from './src/public/Home';
 import {Image, NativeBaseProvider, Box, HStack, Center, Pressable, Icon, Text} from 'native-base';
-import { View, TouchableOpacity, StyleSheet} from 'react-native';
+import { View, TouchableOpacity, Alert} from 'react-native';
 import { FontAwesome,  AntDesign , MaterialCommunityIcons, Ionicons, Entypo} from '@expo/vector-icons'; 
 import Pedidos from './src/private/Pedidos';
 
 import baseColor from './src/private/api/baseColor';
 import styles from './src/styles/styles';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Carrito from './src/private/Carrito';
 import Sign from './src/public/Sign';
 import colors from './src/colors';
@@ -69,83 +70,145 @@ Notifications.setNotificationHandler({
 
 
 export default function App(props) {
+  //notificaciones
+  const requestUserPermission = async()=>{
+    const authStatus = await messaging().requestPermission();
+    const enabled =
+      authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+      authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+  
+    if (enabled) {
+      console.log('Authorization status:', authStatus);
+    }
+  }
+
+  useEffect( () =>{
+    if(requestUserPermission()){
+      //return FCM token
+      messaging().getToken().then(token => {
+        console.log(token);
+      });
+    }else{
+      console.log("Error token FCM: ", authStatus); 
+    }
+    // Check whether an initial notification is available
+    messaging()
+      .getInitialNotification()
+      .then( async (remoteMessage) => {
+        if (remoteMessage) {
+          console.log(
+            'Notification caused app to open from quit state:',
+            remoteMessage.notification,
+          );
+        }
+    });
+
+    //App running, but background
+    // Assume a message-notification contains a "type" property in the data payload of the screen to open
+
+     messaging().onNotificationOpenedApp( async(remoteMessage) => {
+      console.log(
+        'Notification caused app to open from background state:',
+        remoteMessage.notification,
+      );
+     // navigation.navigate(remoteMessage.data.type); //para navegar ? quiza despues se use
+    });
+
+    // Register background handler
+    messaging().setBackgroundMessageHandler(async remoteMessage => {
+      console.log('Message handled in the background!', remoteMessage);
+    });
+
+    //Comprobar si hay una notificación inicial disponible
+        const unsubscribe = messaging().onMessage(async remoteMessage => {
+      Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
+    });
+
+    return unsubscribe;
+
+  }, [])
+
+
+
+  //FIN NOTIFICACIONES
+
   const [selected, setSelected] = useState(0);
   const [showFooter, setShowFooter] = useState(true);
 
 
 
-const navigationRef = useNavigationContainerRef();
-//variable para cambiar COLOR
-//const color = baseColor.color;
-//const color = "#FF0000";
+  const navigationRef = useNavigationContainerRef();
+  //variable para cambiar COLOR
+  //const color = baseColor.color;
+  //const color = "#FF0000";
 
-const [fontLoaded, setFontLoaded] = useState(false);
-//CARGAR FUENTE, EDITAR SI QUIERE INSTALAR OTRA FUENTE
-useEffect(() => {
-  async function loadFont() {
-    await Font.loadAsync({
-      'CircularApp': require('./assets/fonts/Circular/Circular.ttf'),
-    });
-    setFontLoaded(true);
+  const [fontLoaded, setFontLoaded] = useState(false);
+  //CARGAR FUENTE, EDITAR SI QUIERE INSTALAR OTRA FUENTE
+  useEffect(() => {
+    async function loadFont() {
+      await Font.loadAsync({
+        'CircularApp': require('./assets/fonts/Circular/Circular.ttf'),
+      });
+      setFontLoaded(true);
+    }
+    loadFont();
+  }, []);
+  if (!fontLoaded) {
+    return null;
   }
-  loadFont();
-}, []);
-if (!fontLoaded) {
-  return null;
-}
 
 
 
 
 
 
-const IrInicio = () => {
-  setSelected(0)
-  navigationRef.reset({
-    index: 0,
-    routes: [{ name: 'Home' }],
-});
-};
+  const IrInicio = () => {
+    setSelected(0)
+    navigationRef.reset({
+      index: 0,
+      routes: [{ name: 'Home' }],
+  });
+  };
 
-const IrPedidos = () => {
-  setSelected(1)
-  navigationRef.navigate('Pedidos');
-};
-const IrCarrito = () => {
-  setSelected(2)
-  navigationRef.navigate('Carrito');
-};
+  const IrPedidos = () => {
+    setSelected(1)
+    navigationRef.navigate('Pedidos');
+  };
+  const IrCarrito = () => {
+    setSelected(2)
+    navigationRef.navigate('Carrito');
+  };
 
 
-const IrCuenta = () => {
-  setSelected(3)
-  navigationRef.navigate('CuentaMenu');
-};
+  const IrCuenta = () => {
+    setSelected(3)
+    navigationRef.navigate('CuentaMenu');
+  };
 
-const HeaderRightCustom = ()=>{
-  return(
-    <View style={{flexDirection: 'row'}}>
-           <TouchableOpacity onPress={()=>navigationRef.navigate("Buscar")} style={{marginRight:20}}>
-             <FontAwesome name="search" size={24} color={baseColor.colorFont2} />
-           </TouchableOpacity>
+  const HeaderRightCustom = ()=>{
+    return(
+      <View style={{flexDirection: 'row'}}>
+            <TouchableOpacity onPress={()=>navigationRef.navigate("Buscar")} style={{marginRight:20}}>
+              <FontAwesome name="search" size={24} color={baseColor.colorFont2} />
+            </TouchableOpacity>
 
-           <TouchableOpacity onPress={()=>navigationRef.navigate("Favoritos")} style={{marginRight:12}}>
-             <FontAwesome name="heart" size={24} color={baseColor.colorFont2} />
-           </TouchableOpacity>
-         </View>
-  )
-}
+            <TouchableOpacity onPress={()=>navigationRef.navigate("Favoritos")} style={{marginRight:12}}>
+              <FontAwesome name="heart" size={24} color={baseColor.colorFont2} />
+            </TouchableOpacity>
+          </View>
+    )
+  }
 
-const HeaderLeftCustom = ()=>{
-  return(
-        <NativeBaseProvider>
-             <Image source={{uri: `https://sdiqro.com/wp-content/uploads/2022/05/sdi-logo.png`}} 
-             alt="Alternate Text" w={100} h={12} resizeMode="contain" />
+  const HeaderLeftCustom = ()=>{
+    return(
+          <NativeBaseProvider>
+              <Image source={{uri: `https://sdiqro.com/wp-content/uploads/2022/05/sdi-logo.png`}} 
+              alt="Alternate Text" w={100} h={12} resizeMode="contain" />
 
-             
-           </NativeBaseProvider>
-  )
-}
+              
+            </NativeBaseProvider>
+    )
+  }
   
   return (
     <NavigationContainer ref={navigationRef} >

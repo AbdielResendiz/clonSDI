@@ -27,7 +27,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.abdielrv.SDI"
+      "package": "store.sdiqro.sdi"
     },
     "web": {
       "favicon": "./assets/favicon.png"
