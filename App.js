@@ -1,12 +1,13 @@
 import 'react-native-gesture-handler';
 import * as React from 'react';
 import * as Font from 'expo-font';
+
 import {NavigationContainer, useNavigationContainerRef} from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Perfil from './src/private/Perfil';
 import Home from './src/public/Home';
 import {Image, NativeBaseProvider, Box, HStack, Center, Pressable, Icon, Text} from 'native-base';
-import { View, TouchableOpacity, StyleSheet} from 'react-native';
+import { View, TouchableOpacity, StyleSheet, Alert} from 'react-native';
 import { FontAwesome,  AntDesign , MaterialCommunityIcons, Ionicons, Entypo} from '@expo/vector-icons'; 
 import Pedidos from './src/private/Pedidos';
 
@@ -54,10 +55,77 @@ import VinilCorte from './src/private/instrucciones/viniles/VinilCorte';
 import VinilImpreso from './src/private/instrucciones/viniles/VinilImpreso';
 import VinilRegistro from './src/private/instrucciones/viniles/VinilRegistro';
 import VinilTextil from './src/private/instrucciones/viniles/VinilTextil';
+import messaging from '@react-native-firebase/messaging';
 
 const Stack = createStackNavigator();
 
 export default function App(props) {
+
+
+  //notificaciones
+  const requestUserPermission = async ()=>{
+    const authStatus = await messaging().requestPermission();
+    const enabled =
+     authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+      authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+
+    if (enabled) {
+      console.log('Authorization status:', authStatus);
+    }
+  }
+
+  useEffect(() => {
+    if(requestUserPermission() ){
+      //return token fcm
+      messaging().getToken().then(token=> {
+        console.log("token fcm", token);
+      })
+    }else{
+      console.log("ERROR FCM", authStatus);
+    }
+
+    // Check whether an initial notification is available
+    messaging()
+      .getInitialNotification()
+      .then( async(remoteMessage) => {
+        if (remoteMessage) {
+          console.log(
+            'Notification caused app to open from quit state:',
+            remoteMessage.notification,
+          );
+        }
+    });
+
+      // Assume a message-notification contains a "type" property in the data payload of the screen to open
+      messaging().onNotificationOpenedApp( async(remoteMessage) => {
+        console.log(
+          'Notification caused app to open from background state:',
+          remoteMessage.notification,
+        );
+      });
+
+      // Register background handler
+      messaging().setBackgroundMessageHandler(async remoteMessage => {
+        console.log('Message handled in the background!', remoteMessage);
+      });
+
+      const unsubscribe = messaging().onMessage(async remoteMessage => {
+        Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
+      });
+  
+      return unsubscribe;
+
+
+
+  }, []);
+  
+
+
+
+  //Fin notificaciones
+
+
+
   const [selected, setSelected] = useState(0);
   const [showFooter, setShowFooter] = useState(true);
 
@@ -128,7 +196,7 @@ const HeaderRightCustom = ()=>{
 const HeaderLeftCustom = ()=>{
   return(
         <NativeBaseProvider>
-             <Image source={{uri: `https://sdiqro.com/wp-content/uploads/2022/05/sdi-logo.png`}} 
+             <Image source={require("./assets/iconT.png")}
              alt="Alternate Text" w={100} h={12} resizeMode="contain" />
 
              

@@ -2,6 +2,7 @@
   "expo": {
     "name": "SDI",
     "slug": "SDI",
+    "bareWorkflow": true,
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -23,11 +24,13 @@
       "bundleIdentifier": "store.sdiqro.sdi"
     },
     "android": {
+      "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.abdielrv.SDI"
+      "package": "store.sdiqro.sdi",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/favicon.png"

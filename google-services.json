@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "729203585231",
+    "project_id": "sdiqro-594ed",
+    "storage_bucket": "sdiqro-594ed.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:729203585231:android:dbb5944c27498a25ba07ba",
+        "android_client_info": {
+          "package_name": "store.sdiqro.sdi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "729203585231-7oh27rsuf8vjh01iims3k3pu481502t7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "store.sdiqro.sdi",
+            "certificate_hash": "628a6f7769a77887e2ca8ffebd93e6190811cac6"
+          }
+        },
+        {
+          "client_id": "729203585231-8ukbtfb7q04qs4unn1a4opavoirs8e99.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "store.sdiqro.sdi",
+            "certificate_hash": "2aeedba77422dd58fade7f98cf13417749639052"
+          }
+        },
+        {
+          "client_id": "729203585231-e7qulf5r4vfvqljudrkd9ekko4i8roup.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6VbxhKeN1eWgchLFsdtMIWPYyPDKW-v4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "729203585231-e7qulf5r4vfvqljudrkd9ekko4i8roup.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

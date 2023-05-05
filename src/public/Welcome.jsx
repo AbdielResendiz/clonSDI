@@ -23,7 +23,7 @@ useEffect( ()=>{
                 <Center >
                     <Box  >
                         <Container>
-                            <Image source={{uri: `https://sdiqro.com/wp-content/uploads/2022/05/sdi-logo.png`}} 
+                            <Image source={require("../../assets/icon.png")}
                             alt="" size="2xl" resizeMode="contain"  my={-10} />
                         </Container>
                     </Box>
