@@ -56,6 +56,8 @@ import VinilImpreso from './src/private/instrucciones/viniles/VinilImpreso';
 import VinilRegistro from './src/private/instrucciones/viniles/VinilRegistro';
 import VinilTextil from './src/private/instrucciones/viniles/VinilTextil';
 import messaging from '@react-native-firebase/messaging';
+//Stripe
+import PasarelaStripe from './src/private/Stripe/PasarelaStripe';
 
 const Stack = createStackNavigator();
 
@@ -622,6 +624,17 @@ const HeaderLeftCustom = ()=>{
          ),
         }}/>
         <Stack.Screen name="VinilCorte" component={VinilCorte}  options={{title: 'Viniles corte textil',
+         headerTintColor:colors.blanco,
+         headerStyle: {
+           backgroundColor: colors.azul,
+         },
+         headerShadowVisible: true,
+         headerRight: () => (
+           <HeaderRightCustom/>
+         ),
+        }}/>
+
+        <Stack.Screen name="PasarelaStripe" component={PasarelaStripe}  options={{title: 'PasarelaStripe',
          headerTintColor:colors.blanco,
          headerStyle: {
            backgroundColor: colors.azul,

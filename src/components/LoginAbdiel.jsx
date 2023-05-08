@@ -8,12 +8,12 @@ import { useNavigation } from '@react-navigation/native';
 const LoginAbdiel = ()=>{
   const navigation =useNavigation();
     const [loading , setLoading] = useState(false)
-    const [correo, setCorreo] = useState('test@gmail.com');
+    const [correo, setCorreo] = useState('');
     const [inputCorreo, setInputCorreo]  = useState(true);
     const [formCorreo, setFormCorreo] = useState(false);
     const [inputPassword, setInputPassword] = useState(true);
     const [formPassword, setFormPassword] = useState(false);
-    const [password, setPassword] = useState('12345');
+    const [password, setPassword] = useState('');
     const validRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const [ id, setId ] = useState();
 
