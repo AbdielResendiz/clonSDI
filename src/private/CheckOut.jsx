@@ -125,10 +125,7 @@ const CheckOut = (props) => {
     }, [carrito.length]) 
     
   //FIN CARRITO
-  const goStripe = ()=>{
-    console.log("go stripe")
-    navigation.navigate("PasarelaStripe")
-  }
+
 
 
 
@@ -163,6 +160,11 @@ const CheckOut = (props) => {
       },
      // {text: 'OK', onPress: () => console.log('OK Pressed')},
     ], { cancelable: false },);
+  }
+
+  const goStripe = ()=>{
+    console.log("go stripe")
+    navigation.navigate("PasarelaStripe")
   }
 
 
@@ -211,7 +213,7 @@ const CheckOut = (props) => {
             </Pressable>
 
             <Pressable justifyContent={"center"} alignItems={"center"} w="80%" mx="10%" bg={colors.azul} h={12} 
-                borderRadius={50} my={4}  onPress={()=>goStripe()}>
+                borderRadius={50} my={4}   onPress={()=> goStripe()}>
                     <Text bold fontSize={"lg"}  color={colors.blanco}> Pagar con stripe </Text>
                 
             </Pressable>

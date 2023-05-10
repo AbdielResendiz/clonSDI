@@ -55,9 +55,9 @@ import VinilCorte from './src/private/instrucciones/viniles/VinilCorte';
 import VinilImpreso from './src/private/instrucciones/viniles/VinilImpreso';
 import VinilRegistro from './src/private/instrucciones/viniles/VinilRegistro';
 import VinilTextil from './src/private/instrucciones/viniles/VinilTextil';
-import messaging from '@react-native-firebase/messaging';
-//Stripe
-import PasarelaStripe from './src/private/Stripe/PasarelaStripe';
+//import messaging from '@react-native-firebase/messaging';
+ import PasarelaStripe from './src/private/Stripe/PasarelaStripe';
+
 
 const Stack = createStackNavigator();
 
@@ -65,61 +65,61 @@ export default function App(props) {
 
 
   //notificaciones
-  const requestUserPermission = async ()=>{
-    const authStatus = await messaging().requestPermission();
-    const enabled =
-     authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
-      authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+  // const requestUserPermission = async ()=>{
+  //   const authStatus = await messaging().requestPermission();
+  //   const enabled =
+  //    authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+  //     authStatus === messaging.AuthorizationStatus.PROVISIONAL;
 
-    if (enabled) {
-      console.log('Authorization status:', authStatus);
-    }
-  }
+  //   if (enabled) {
+  //     console.log('Authorization status:', authStatus);
+  //   }
+  // }
 
-  useEffect(() => {
-    if(requestUserPermission() ){
-      //return token fcm
-      messaging().getToken().then(token=> {
-        console.log("token fcm", token);
-      })
-    }else{
-      console.log("ERROR FCM", authStatus);
-    }
+  // useEffect(() => {
+  //   if(requestUserPermission() ){
+  //     //return token fcm
+  //     messaging().getToken().then(token=> {
+  //       console.log("token fcm", token);
+  //     })
+  //   }else{
+  //     console.log("ERROR FCM", authStatus);
+  //   }
 
-    // Check whether an initial notification is available
-    messaging()
-      .getInitialNotification()
-      .then( async(remoteMessage) => {
-        if (remoteMessage) {
-          console.log(
-            'Notification caused app to open from quit state:',
-            remoteMessage.notification,
-          );
-        }
-    });
+  //   // Check whether an initial notification is available
+  //   messaging()
+  //     .getInitialNotification()
+  //     .then( async(remoteMessage) => {
+  //       if (remoteMessage) {
+  //         console.log(
+  //           'Notification caused app to open from quit state:',
+  //           remoteMessage.notification,
+  //         );
+  //       }
+  //   });
 
-      // Assume a message-notification contains a "type" property in the data payload of the screen to open
-      messaging().onNotificationOpenedApp( async(remoteMessage) => {
-        console.log(
-          'Notification caused app to open from background state:',
-          remoteMessage.notification,
-        );
-      });
+  //     // Assume a message-notification contains a "type" property in the data payload of the screen to open
+  //     messaging().onNotificationOpenedApp( async(remoteMessage) => {
+  //       console.log(
+  //         'Notification caused app to open from background state:',
+  //         remoteMessage.notification,
+  //       );
+  //     });
 
-      // Register background handler
-      messaging().setBackgroundMessageHandler(async remoteMessage => {
-        console.log('Message handled in the background!', remoteMessage);
-      });
+  //     // Register background handler
+  //     messaging().setBackgroundMessageHandler(async remoteMessage => {
+  //       console.log('Message handled in the background!', remoteMessage);
+  //     });
 
-      const unsubscribe = messaging().onMessage(async remoteMessage => {
-        Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
-      });
+  //     const unsubscribe = messaging().onMessage(async remoteMessage => {
+  //       Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
+  //     });
   
-      return unsubscribe;
+  //     return unsubscribe;
 
 
 
-  }, []);
+  // }, []);
   
 
 
@@ -592,6 +592,16 @@ const HeaderLeftCustom = ()=>{
            <HeaderRightCustom/>
          ),
         }}/>
+         <Stack.Screen name="PasarelaStripe" component={PasarelaStripe}  options={{title: 'Paga con Stripe',
+         headerTintColor:colors.blanco,
+         headerStyle: {
+           backgroundColor: colors.azul,
+         },
+         headerShadowVisible: true,
+         headerRight: () => (
+           <HeaderRightCustom/>
+         ),
+        }}/>
 
         <Stack.Screen name="VinilImpreso" component={VinilImpreso}  options={{title: 'Vinil impreso',
          headerTintColor:colors.blanco,
@@ -634,16 +644,7 @@ const HeaderLeftCustom = ()=>{
          ),
         }}/>
 
-        <Stack.Screen name="PasarelaStripe" component={PasarelaStripe}  options={{title: 'PasarelaStripe',
-         headerTintColor:colors.blanco,
-         headerStyle: {
-           backgroundColor: colors.azul,
-         },
-         headerShadowVisible: true,
-         headerRight: () => (
-           <HeaderRightCustom/>
-         ),
-        }}/>
+       
 
         <Stack.Screen name="TestingLogin" component={TestingLogin} ></Stack.Screen>
       </Stack.Navigator>

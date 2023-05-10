@@ -5,6 +5,7 @@ import Boton from '../components/Boton';
 import { Fontisto } from '@expo/vector-icons'; 
 import fetchPost from '../helper/fetchPost';
 import URL from '../helper/URL';
+import { Alert } from 'react-native';
 import Loader from '../components/Loader';
 const Recoleccion = (props) => {
     const BASE_URL = URL.BASE_URL;
@@ -59,6 +60,15 @@ const Recoleccion = (props) => {
         });
       };
 
+      const alerta = () =>
+      Alert.alert('No seleccionaste sucursal', 'Favor se elegir una sucursal para recoger el pedido ', [
+        {
+          text: 'Entendido',
+          onPress: () => console.log('Cancel Pressed')
+          
+        }
+      ]);
+
 
 
     return(
@@ -106,12 +116,22 @@ const Recoleccion = (props) => {
                    
                    }
                 </Box>
-
+                { isChecked=="" ? 
+                  <Pressable justifyContent={"center"} alignItems={"center"} w="80%" mx="10%" bg={"#777777"} h={12} 
+                  borderRadius={50} my={4}  onPress={()=>alerta()}>
+                      <Text bold fontSize={"lg"}  color={colors.blanco}> Siguiente </Text>
+                  
+                  </Pressable>
+              :
+              
+              
                 <Pressable justifyContent={"center"} alignItems={"center"} w="80%" mx="10%" bg={colors.azul} h={12} 
                 borderRadius={50} my={4}  onPress={()=>checkPago(isChecked, nombre)}>
                     <Text bold fontSize={"lg"}  color={colors.blanco}> Siguiente </Text>
                 
                 </Pressable>
+              
+                }
 
             </View>
           }   
