@@ -1,17 +1,23 @@
 
 
 import React, { useState } from "react";
-import { View, StyleSheet, TextInput, Button, Alert, Pressable } from "react-native";
+import { View, StyleSheet, Button, Alert } from "react-native";
  import { StripeProvider } from '@stripe/stripe-react-native';
  import { CardField, useConfirmPayment } from "@stripe/stripe-react-native";
- import { NativeBaseProvider, Box, Text, Stack, Image, Center, Input } from "native-base";
+ import { NativeBaseProvider,  Text, Stack, Image, Center, Input } from "native-base";
 import colors from "../../colors";
 
 
 const API_URL = "https://us-central1-sdiqro-594ed.cloudfunctions.net/app";
 
 
-function PasarelaStripe() {
+function PasarelaStripe(props) {
+
+  const idU = props.route.params.id;
+  const total = props.route.params.tot;
+  const idSuc = props.route.params.suc;
+  const idCarrito = props.route.params.car;
+  
     const [email, setEmail] = useState();
     const [cardDetails, setCardDetails] = useState();
     const { confirmPayment, loading } = useConfirmPayment();
@@ -78,7 +84,8 @@ function PasarelaStripe() {
         
         <View flex={1} m={20} backgroundColor={"#ffffff"}>
           <Center my={5}>
-            <Text bold fontSize={18}>Paga tu pedido de forma segura con Stripe</Text>
+            <Text bold fontSize={18}>Paga tu pedido de forma segura con Stripe </Text>
+            <Text>idU:{idU} total: {total}, idSuc:{idSuc}, idCarrito:{idCarrito}</Text>
           </Center>
 
           <Stack direction={"row"} alignSelf={"center"} space={10}>
