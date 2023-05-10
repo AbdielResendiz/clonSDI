@@ -136,6 +136,8 @@ const CuentaMenu=(props)=> {
                     <Text bold color={colors.gris}  ml={2} fontSize="xl">Cerrar Sesión</Text>
                     
                 </Pressable>
+
+                <PerfilButton as={FontAwesome5} name="question-circle" text="Notificaciones" nav="NotificacionesTesting"/>
           
             </Stack>
           </View>

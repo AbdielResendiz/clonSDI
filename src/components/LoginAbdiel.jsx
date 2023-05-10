@@ -4,8 +4,13 @@ import { MaterialIcons} from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ProcesandoLoginL from "../components/Componentes/procesando/ProcesandoLoginL.js";
 import { useNavigation } from '@react-navigation/native';
+import * as Device from 'expo-device';
+import * as Notifications from 'expo-notifications';
+import URL from "../helper/URL.js";
+import fetchPost from "../helper/fetchPost.js";
 
 const LoginAbdiel = ()=>{
+  const BASE_URL= URL.BASE_URL;
   const navigation =useNavigation();
     const [loading , setLoading] = useState(false)
     const [correo, setCorreo] = useState('');
@@ -16,6 +21,51 @@ const LoginAbdiel = ()=>{
     const [password, setPassword] = useState('');
     const validRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const [ id, setId ] = useState();
+
+    //Token Notificaciones
+    const [expoPushToken, setExpoPushToken] = useState('');
+    useEffect(() => {
+      registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
+  
+      // notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+      //   setNotification(notification);
+      // });
+  
+      // responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+      //   console.log(response);
+      });
+       const  registerForPushNotificationsAsync=async()=> {
+        let token;
+      
+        if (Platform.OS === 'android') {
+          await Notifications.setNotificationChannelAsync('default', {
+            name: 'default',
+            importance: Notifications.AndroidImportance.MAX,
+            vibrationPattern: [0, 250, 250, 250],
+            lightColor: '#FF231F7C',
+          });
+        }
+      
+        if (Device.isDevice) {
+          const { status: existingStatus } = await Notifications.getPermissionsAsync();
+          let finalStatus = existingStatus;
+          if (existingStatus !== 'granted') {
+            const { status } = await Notifications.requestPermissionsAsync();
+            finalStatus = status;
+          }
+          if (finalStatus !== 'granted') {
+            alert('Failed to get push token for push notification!');
+            return;
+          }
+          token = (await Notifications.getExpoPushTokenAsync()).data;
+          console.log(token);
+        } else {
+          alert('Must use physical device for Push Notifications');
+        }
+      
+        return token;
+      }
+      //FIN NOTIFICACIONES
 
     const Validarform = async()  => {
         if(correo == '' || !correo.match(validRegex)){
@@ -61,6 +111,7 @@ const LoginAbdiel = ()=>{
                         setLoading(false)
                         console.log("login resultado", resultado);
                          storeData(resultado.idU)
+                         sendToken(resultado.idU)
                          storeCarrito(resultado.idC.id)
                         storeSucursal(resultado.idC.idSuc)
                         
@@ -123,6 +174,30 @@ const LoginAbdiel = ()=>{
         } catch (e) {
           console.log("error async", e);
         }
+      }
+
+      const sendToken = async(idU)=>{
+        
+        const dataFav = new FormData();
+        dataFav.append("idU", idU);
+        dataFav.append("token", expoPushToken);
+        const url = `${BASE_URL}abdiel/perfil/send_token`
+        const options = {
+          method:'POST',
+          body: dataFav
+        };
+        const responseFav = await fetchPost(url, options);
+        console.log("TOKEN?", responseFav);
+        if (responseFav===true){
+          alert("Bienvenido")
+        }else{
+          alert("error en Notificaciones")
+        }
+        
+       
+        //console.log("res", responseFav.data);
+        //setLoader(false);
+        
       }
   
       return(

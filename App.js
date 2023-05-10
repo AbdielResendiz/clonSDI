@@ -1,5 +1,7 @@
 import 'react-native-gesture-handler';
-import * as React from 'react';
+import * as Notifications from 'expo-notifications';
+//import * as React from 'react';
+import messaging from '@react-native-firebase/messaging';
 import * as Font from 'expo-font';
 
 import {NavigationContainer, useNavigationContainerRef} from '@react-navigation/native';
@@ -7,13 +9,13 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Perfil from './src/private/Perfil';
 import Home from './src/public/Home';
 import {Image, NativeBaseProvider, Box, HStack, Center, Pressable, Icon, Text} from 'native-base';
-import { View, TouchableOpacity, StyleSheet, Alert} from 'react-native';
+import { View, TouchableOpacity, Alert} from 'react-native';
 import { FontAwesome,  AntDesign , MaterialCommunityIcons, Ionicons, Entypo} from '@expo/vector-icons'; 
 import Pedidos from './src/private/Pedidos';
 
 import baseColor from './src/private/api/baseColor';
 import styles from './src/styles/styles';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Carrito from './src/private/Carrito';
 import Sign from './src/public/Sign';
 import colors from './src/colors';
@@ -58,8 +60,18 @@ import VinilTextil from './src/private/instrucciones/viniles/VinilTextil';
 //import messaging from '@react-native-firebase/messaging';
  import PasarelaStripe from './src/private/Stripe/PasarelaStripe';
 
+import NotificacionesTesting from './src/private/NotificacionesTest';
 
 const Stack = createStackNavigator();
+//notificaciones
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
+});
+
 
 export default function App(props) {
 
@@ -133,67 +145,67 @@ export default function App(props) {
 
 
 
-const navigationRef = useNavigationContainerRef();
-//variable para cambiar COLOR
-//const color = baseColor.color;
-//const color = "#FF0000";
+  const navigationRef = useNavigationContainerRef();
+  //variable para cambiar COLOR
+  //const color = baseColor.color;
+  //const color = "#FF0000";
 
-const [fontLoaded, setFontLoaded] = useState(false);
-//CARGAR FUENTE, EDITAR SI QUIERE INSTALAR OTRA FUENTE
-useEffect(() => {
-  async function loadFont() {
-    await Font.loadAsync({
-      'CircularApp': require('./assets/fonts/Circular/Circular.ttf'),
-    });
-    setFontLoaded(true);
+  const [fontLoaded, setFontLoaded] = useState(false);
+  //CARGAR FUENTE, EDITAR SI QUIERE INSTALAR OTRA FUENTE
+  useEffect(() => {
+    async function loadFont() {
+      await Font.loadAsync({
+        'CircularApp': require('./assets/fonts/Circular/Circular.ttf'),
+      });
+      setFontLoaded(true);
+    }
+    loadFont();
+  }, []);
+  if (!fontLoaded) {
+    return null;
   }
-  loadFont();
-}, []);
-if (!fontLoaded) {
-  return null;
-}
 
 
 
 
 
 
-const IrInicio = () => {
-  setSelected(0)
-  navigationRef.reset({
-    index: 0,
-    routes: [{ name: 'Home' }],
-});
-};
+  const IrInicio = () => {
+    setSelected(0)
+    navigationRef.reset({
+      index: 0,
+      routes: [{ name: 'Home' }],
+  });
+  };
 
-const IrPedidos = () => {
-  setSelected(1)
-  navigationRef.navigate('Pedidos');
-};
-const IrCarrito = () => {
-  setSelected(2)
-  navigationRef.navigate('Carrito');
-};
+  const IrPedidos = () => {
+    setSelected(1)
+    navigationRef.navigate('Pedidos');
+  };
+  const IrCarrito = () => {
+    setSelected(2)
+    navigationRef.navigate('Carrito');
+  };
 
 
-const IrCuenta = () => {
-  setSelected(3)
-  navigationRef.navigate('CuentaMenu');
-};
+  const IrCuenta = () => {
+    setSelected(3)
+    navigationRef.navigate('CuentaMenu');
+  };
 
-const HeaderRightCustom = ()=>{
-  return(
-    <View style={{flexDirection: 'row'}}>
-           <TouchableOpacity onPress={()=>navigationRef.navigate("Buscar")} style={{marginRight:20}}>
-             <FontAwesome name="search" size={24} color={baseColor.colorFont2} />
-           </TouchableOpacity>
+  const HeaderRightCustom = ()=>{
+    return(
+      <View style={{flexDirection: 'row'}}>
+            <TouchableOpacity onPress={()=>navigationRef.navigate("Buscar")} style={{marginRight:20}}>
+              <FontAwesome name="search" size={24} color={baseColor.colorFont2} />
+            </TouchableOpacity>
 
-           <TouchableOpacity onPress={()=>navigationRef.navigate("Favoritos")} style={{marginRight:12}}>
-             <FontAwesome name="heart" size={24} color={baseColor.colorFont2} />
-           </TouchableOpacity>
-         </View>
-  )
-}
+            <TouchableOpacity onPress={()=>navigationRef.navigate("Favoritos")} style={{marginRight:12}}>
+              <FontAwesome name="heart" size={24} color={baseColor.colorFont2} />
+            </TouchableOpacity>
+          </View>
+    )
+  }
 
 const HeaderLeftCustom = ()=>{
   return(
@@ -201,10 +213,10 @@ const HeaderLeftCustom = ()=>{
              <Image source={require("./assets/iconT.png")}
              alt="Alternate Text" w={100} h={12} resizeMode="contain" />
 
-             
-           </NativeBaseProvider>
-  )
-}
+              
+            </NativeBaseProvider>
+    )
+  }
   
   return (
     <NavigationContainer ref={navigationRef} >

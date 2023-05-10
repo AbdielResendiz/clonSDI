@@ -17,6 +17,10 @@
       "preview3": {
         "developmentClient": true
       },
-      "production": {}
+      "production": {},
+      "development": {
+        "developmentClient": true,
+        "distribution": "internal"
+      }
     }
   }
