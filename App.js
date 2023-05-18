@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 import * as Notifications from 'expo-notifications';
 //import * as React from 'react';
-import messaging from '@react-native-firebase/messaging';
+//import messaging from '@react-native-firebase/messaging';
 import * as Font from 'expo-font';
 
 import {NavigationContainer, useNavigationContainerRef} from '@react-navigation/native';
@@ -60,17 +60,17 @@ import VinilTextil from './src/private/instrucciones/viniles/VinilTextil';
 //import messaging from '@react-native-firebase/messaging';
  import PasarelaStripe from './src/private/Stripe/PasarelaStripe';
 
-import NotificacionesTesting from './src/private/NotificacionesTest';
+
 
 const Stack = createStackNavigator();
 //notificaciones
-Notifications.setNotificationHandler({
-  handleNotification: async () => ({
-    shouldShowAlert: true,
-    shouldPlaySound: false,
-    shouldSetBadge: false,
-  }),
-});
+// Notifications.setNotificationHandler({
+//   handleNotification: async () => ({
+//     shouldShowAlert: true,
+//     shouldPlaySound: false,
+//     shouldSetBadge: false,
+//   }),
+// });
 
 
 export default function App(props) {
@@ -604,7 +604,7 @@ const HeaderLeftCustom = ()=>{
            <HeaderRightCustom/>
          ),
         }}/>
-         <Stack.Screen name="PasarelaStripe" component={PasarelaStripe}  options={{title: 'Paga con Stripe',
+          <Stack.Screen name="PasarelaStripe" component={PasarelaStripe}  options={{title: 'Paga con Stripe',
          headerTintColor:colors.blanco,
          headerStyle: {
            backgroundColor: colors.azul,
@@ -613,7 +613,7 @@ const HeaderLeftCustom = ()=>{
          headerRight: () => (
            <HeaderRightCustom/>
          ),
-        }}/>
+        }}/> 
 
         <Stack.Screen name="VinilImpreso" component={VinilImpreso}  options={{title: 'Vinil impreso',
          headerTintColor:colors.blanco,

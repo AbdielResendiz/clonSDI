@@ -53,6 +53,9 @@ const DetalleProducto   = (props) => {
     useEffect(() => {
       getDataSucursal()
     }, [])
+
+
+    
     
     useEffect(() => {
         getData();
@@ -86,6 +89,15 @@ const DetalleProducto   = (props) => {
     const [ count, setCount ] = useState(0);
    // console.log("count fuera: ", count)
 
+   useEffect(() => {
+    if (count < 1){
+      console.log("es menor a 1");
+      
+    }else{
+      console.log("es mayor a 1");
+      
+    }
+  }, [count]);
     const [atributos, setAtributos] = useState([]);
     const getAtributos = async()=>{
         const dataAtributo = new FormData();
@@ -108,7 +120,7 @@ const DetalleProducto   = (props) => {
     useEffect(() => {
         getAtributos();
         //console.log("atributos", atributos)
-        console.log("Impreso PROPS: ", impreso)
+        //console.log("Impreso PROPS: ", impreso)
     }, []);
 
    const [producto, setProducto ] = useState(null);
@@ -129,7 +141,7 @@ const DetalleProducto   = (props) => {
         const responseAtributo = await fetchPost(url, options);
         if (responseAtributo !== null){
           //  console.log("GET RESPOSE FULL : ", responseAtributo);
-            console.log("GET DETALLE PRODUCTO : ", responseAtributo.producto[0]);
+           // console.log("GET DETALLE PRODUCTO : ", responseAtributo.producto[0]);
             setProducto(responseAtributo.producto[0]);
             //console.log(" !!! NOMBRE UNNIDAS !!!",responseAtributo.producto[0].nombreUni );
             
@@ -146,7 +158,7 @@ const DetalleProducto   = (props) => {
 
 
     useEffect(() => {
-        console.log("producto selecccionado", productoSelect)
+      // console.log("producto selecccionado", productoSelect)
       
         
     }, [productoSelect]);
@@ -248,7 +260,7 @@ const DetalleProducto   = (props) => {
           body: dataCar
         };
         const res = await fetchPost(url, options);
-        console.log("agrega Carrito", res);
+        //console.log("agrega Carrito", res);
         if (res=== true){
             return (
                 Alert.alert('Producto agregado al carrito', 'Se acaban de agregar productos a tu carrito', [
@@ -329,7 +341,7 @@ const DetalleProducto   = (props) => {
                   ]);
             break;
             case (btn):
-                console.log("!!!Compra entra!!!")
+                //console.log("!!!Compra entra!!!")
                 agregarCar();
 
 
@@ -346,7 +358,7 @@ const DetalleProducto   = (props) => {
             
         
             default:
-                console.log("????")
+               // console.log("????")
                 break;
         }
         
@@ -357,7 +369,7 @@ const DetalleProducto   = (props) => {
 
     const [ subtotal, setSubtotal ] = useState(0.00);
     useEffect(() => {
-        console.log("===Producto===", producto);
+        //console.log("===Producto===", producto);
        
     }, [producto])
     
@@ -371,7 +383,7 @@ const DetalleProducto   = (props) => {
 
     // }
     useEffect( ()=>{
-        console.log("count", count)
+      //  console.log("count", count)
         if(producto!==null){
             
             notNumber();
@@ -384,12 +396,12 @@ const DetalleProducto   = (props) => {
     
     const notNumber=()=>{
         if (isNaN(count) ){
-           console.log("COUNT NO ES NUMERO !!!!! ",count )
+          // console.log("COUNT NO ES NUMERO !!!!! ",count )
            
         }else{
-            console.log("COUNT SIII ES NUMERO !!!!! ",count )
+          //  console.log("COUNT SIII ES NUMERO !!!!! ",count )
             switch (true) {
-                case (  count >0 && count < producto.cantidadMedioMayoreo):
+                case (  count >=1 && count < producto.cantidadMedioMayoreo):
                     setNombrePrecio("normal")
                     setPrecioFinal(producto.precioS)
                     setSubtotal((count*producto.precioS))
@@ -404,6 +416,9 @@ const DetalleProducto   = (props) => {
                     setPrecioFinal(producto.precioMayoreo)
                     setSubtotal((count*producto.precioMayoreo))
                     break;
+                case ( count < 1):
+                    setPrecioFinal(producto.precioS)
+                    setSubtotal(1 * producto.precioS)
                 default:
                     console.log("DEFAULT BREACK ")
                     break;
@@ -413,16 +428,16 @@ const DetalleProducto   = (props) => {
     }
 
     useEffect(() => {
-      console.log(subtotal)
-      console.log(precioFinal)
-      console.log(nombrePrecio)
+    //  console.log(subtotal)
+    //  console.log(precioFinal)
+    //  console.log(nombrePrecio)
     }, [subtotal])
 
     const [ btn, setBtn ]= useState(false)
     const NUMERIC_PATTERN = /^[0-9]*$/;
     const toInteger=(value)=> {
         let check = NUMERIC_PATTERN.test(value);
-        console.log("@@@@@ es numero?", check)
+      //  console.log("@@@@@ es numero?", check)
         if (check) {
             const integer = parseInt(value);
             setCount(integer)
@@ -441,7 +456,7 @@ const DetalleProducto   = (props) => {
 
     const toDecimal=(value)=> {
     let check = NUMERIC_PATTERN_DECIMAL.test(value);
-    console.log("@@@@@ es numero?", check)
+  //  console.log("@@@@@ es numero?", check)
     if (check) {
         const decimal = parseFloat(value);
         setCount(decimal);
@@ -458,7 +473,7 @@ const DetalleProducto   = (props) => {
 
     const toDecimalAlto=(value)=> {
         let checkAlto = NUMERIC_PATTERN_DECIMAL.test(value);
-        console.log("@@@@@ es numero?", checkAlto)
+    //    console.log("@@@@@ es numero?", checkAlto)
         if (checkAlto) {
             const decimal = parseFloat(value);
             setAlto(decimal);
@@ -473,7 +488,7 @@ const DetalleProducto   = (props) => {
 
     function toDecimalAncho(value) {
         let checkAncho = NUMERIC_PATTERN_DECIMAL.test(value);
-        console.log("@@@@@ es numero?", checkAncho)
+      //  console.log("@@@@@ es numero?", checkAncho)
         if (checkAncho) {
             const decimal = parseFloat(value);
             setAncho(decimal);
@@ -493,10 +508,10 @@ const DetalleProducto   = (props) => {
         let checkAncho = NUMERIC_PATTERN_DECIMAL.test(ancho);
         if (checkAlto && checkAncho){
             let m2 = alto * ancho;
-            console.log("METROS CUADRADOS:", m2);
+        //    console.log("METROS CUADRADOS:", m2);
             setCount(m2)
             let mensaje = `Ancho: ${ancho}m.  Alto: ${alto}m.` 
-            console.log("mensaje:  ", mensaje)
+        //    console.log("mensaje:  ", mensaje)
             setComentario(mensaje);
             setBtn(true);
             
@@ -508,8 +523,8 @@ const DetalleProducto   = (props) => {
      }
 
      useEffect(() => {
-        console.log("UseEffect alto", alto);
-        console.log("UseEffect ancho", ancho);
+      //  console.log("UseEffect alto", alto);
+      //  console.log("UseEffect ancho", ancho);
         if(alto>0 && ancho>0){
            
             handleMetroCuadrado(alto, ancho);

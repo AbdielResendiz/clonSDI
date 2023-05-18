@@ -33,7 +33,7 @@ const LoginAbdiel = ()=>{
   
       // responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
       //   console.log(response);
-      });
+      },[]);
        const  registerForPushNotificationsAsync=async()=> {
         let token;
       
@@ -60,7 +60,7 @@ const LoginAbdiel = ()=>{
           token = (await Notifications.getExpoPushTokenAsync()).data;
           console.log(token);
         } else {
-          alert('Must use physical device for Push Notifications');
+          //alert('Must use physical device for Push Notifications');
         }
       
         return token;

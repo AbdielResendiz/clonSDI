@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { NativeBaseProvider, ScrollView, Text, View , Box, Center, HStack, Icon, Divider} from "native-base";
 import colors from '../colors';
 import CarritoComponent from '../components/CarritoComponent';
-import { Pressable } from 'react-native';
+import { Pressable, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons'; 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import URL from '../helper/URL';
@@ -20,6 +20,45 @@ const Carrito = (props) => {
       const [ carrito, setCarrito ] = useState([]);
       const [ total, setTotal ] = useState(null);
       const [ load, setLoad ] = useState(true)
+
+      const getData = async () => {
+        try {
+        const value = await AsyncStorage.getItem('@id_carrito')
+        if(value !== null) {
+            setIdCarrito(value);
+            getCarrito(value);
+        }else{
+          Alert.alert(
+            'Para ver tu carrito de compras debes estar registrado e iniciar sesión.',
+            "Selecciona una opción",
+            
+            [
+              {
+                text: 'Iniciar sesion',
+            onPress: () => { props.navigation.navigate('Welcome', { status: true })},
+              },
+              {
+                text: 'Registrarse',
+            onPress: () => { props.navigation.navigate('Welcome', { status: false } )},
+              },
+    
+              { text: 'Volver',  onPress: () => {props.navigation.navigate("Home")}  },
+            ],
+            { cancelable: false },
+          );
+        }
+        } catch(e) {
+        console.log("error id carrito", e)
+        }
+    }
+
+
+    useEffect(() => {
+        getData();
+      //console.log("id carrito: ", idCarrito)
+      
+    }, []) 
+    
       
 
      
@@ -46,25 +85,7 @@ const Carrito = (props) => {
         //setLoader(false);
         
       }
-      const getData = async () => {
-        try {
-        const value = await AsyncStorage.getItem('@id_carrito')
-        if(value !== null) {
-            setIdCarrito(value);
-            getCarrito(value);
-        }
-        } catch(e) {
-        console.log("error id carrito", e)
-        }
-    }
 
-
-    useEffect(() => {
-        getData();
-      //console.log("id carrito: ", idCarrito)
-      
-    }, [carrito]) 
-    
   
     
 

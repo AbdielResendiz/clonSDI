@@ -13,7 +13,7 @@ import { useState, useEffect } from 'react';
 import Categoria from '../components/Categoria';
 
 export default function DetalleCategoria(props) {
-
+ 
 
 
   const estado = props.route.params.estado;

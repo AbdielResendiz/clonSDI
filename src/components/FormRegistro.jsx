@@ -6,6 +6,7 @@ import CheckBox from "expo-checkbox";
 import { URL } from "./API/useFetch";
 import { Alert } from "react-native";
 import { useNavigation } from '@react-navigation/native';
+
 const FormRegistro = (props) => {
 
     const [sucursales, setSucursales] = useState([]);
@@ -28,13 +29,13 @@ const FormRegistro = (props) => {
 
     //values 
     const [agree, setAgree]                           = useState(false);
-    const [usuario, setUsuario]                       = useState('usuario');
-    const [apellido, setApellido]                     = useState('apellido');
-    const [celular, setCelular]                       = useState('123424242');
-    const [sucursal, setSucursal]                     = useState('9');
-    const [correo, setCorreo]                         = useState('test@gmail.com');
-    const [password, setPassword]                     = useState('12345/');
-    const [passwordConfirmar, setPasswordConfirmar]   = useState('12345/');
+    const [usuario, setUsuario]                       = useState('');
+    const [apellido, setApellido]                     = useState('');
+    const [celular, setCelular]                       = useState('');
+    const [sucursal, setSucursal]                     = useState('');
+    const [correo, setCorreo]                         = useState('');
+    const [password, setPassword]                     = useState('');
+    const [passwordConfirmar, setPasswordConfirmar]   = useState('');
 
     const ChangeTC = () => {
         if(agree == true){
@@ -440,7 +441,7 @@ const FormRegistro = (props) => {
                         style={{ marginTop: 20}}
                         value={agree}
                         onValueChange={() => ChangeTC()}
-                        color={agree ? "#FE308E" : undefined}
+                        color={agree ? "#00BAEA" : undefined}
                         />
                         <Text>
                                 He leído y acepto los terminos y condiciones

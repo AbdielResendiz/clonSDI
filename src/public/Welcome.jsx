@@ -7,9 +7,11 @@ import LoginAbdiel from "../components/LoginAbdiel";
 import FormRegistro from "../components/FormRegistro";
 
 const Welcome = (props)=>{
-    const  state  =props
+    const  state  =props.route.params.status;
+   // console.log("status de prueba: +++", state);
+    
 
-const [ show, setShow ] = useState(true);
+const [ show, setShow ] = useState(state);
 
 useEffect( ()=>{
     console.log(show)

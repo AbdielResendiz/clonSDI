@@ -4,14 +4,18 @@ import React, { useState } from "react";
 import { View, StyleSheet, Button, Alert } from "react-native";
  import { StripeProvider } from '@stripe/stripe-react-native';
  import { CardField, useConfirmPayment } from "@stripe/stripe-react-native";
- import { NativeBaseProvider,  Text, Stack, Image, Center, Input } from "native-base";
+ import { NativeBaseProvider,  Text, Stack, Image, Center, Input, ScrollView } from "native-base";
 import colors from "../../colors";
-
+import URL from "../../helper/URL";
+import fetchPost from "../../helper/fetchPost";
+import { useNavigation } from '@react-navigation/native';
 
 const API_URL = "https://us-central1-sdiqro-594ed.cloudfunctions.net/app";
 
 
 function PasarelaStripe(props) {
+  const navigation =useNavigation();
+  const BASE_URL = URL.BASE_URL;
 
   const idU = props.route.params.id;
   const total = props.route.params.tot;
@@ -22,6 +26,65 @@ function PasarelaStripe(props) {
     const [cardDetails, setCardDetails] = useState();
     const { confirmPayment, loading } = useConfirmPayment();
 
+      ///ALERTS
+
+
+  const alertExito = ()=>{
+    Alert.alert('Pago realizado', 'Se aprobó tu pago, puedes ver información del pedido en el apartado Pedidos ', [
+      // {
+      //   text: 'Ir a Mis Pedidos',
+      //   onPress: () => props.navigation.navigate("Pedidos"),
+        
+      // },
+      {text: 'Aceptar', onPress: () => navigation.reset({
+        index: 0,
+        routes: [{ name: 'Home' }],
+    }),},
+    ],{ cancelable: false },);
+  }
+
+
+  const alertError = ()=>{
+    Alert.alert('Error en pago', 'Ocurrió un error en el pago, intentalo más tarde', [
+      {
+        text: 'Aceptar',
+        onPress: () => navigation.reset({
+          index: 0,
+          routes: [{ name: 'Home' }],
+      }),
+        
+      },
+     // {text: 'OK', onPress: () => console.log('OK Pressed')},
+    ], { cancelable: false },);
+  }
+
+
+
+    //guarda pago en bd
+    const pagarTest = async()=>{
+      const dataPedido= new FormData();
+      dataPedido.append("idU", idU);
+      dataPedido.append("total", total);
+      dataPedido.append("idSuc", idSuc);
+      dataPedido.append("comentario", "testing pago");
+      dataPedido.append("idC", idCarrito);
+      const url = `${BASE_URL}abdiel/pedidos/nuevo_pedido`
+      const options = {
+        method:'POST',
+        body: dataPedido
+      };
+      const res = await fetchPost(url, options);
+      if (res === true){
+         console.log("resultado PAGO: ", res)
+         alertExito();
+         setLoad(false);
+        }else{
+          console.log("resultado PAGO: ", res)
+          alertError();
+        }
+      console.log("res", res.resultado);
+    }
+
   
     const fetchPaymentIntentClientSecret = async () => {
       const response = await fetch(`${API_URL}/create-payment-intent`, {
@@ -31,7 +94,7 @@ function PasarelaStripe(props) {
         },
         body:JSON.stringify({
             
-            cantidad: 200 // cantidad a pagar
+            cantidad: total // cantidad a pagar
         })
 
       });
@@ -70,7 +133,10 @@ function PasarelaStripe(props) {
             console.log("Payment Confirmation Error", error.message);
           } else if (paymentIntent) {
             alert("Payment Successful");
+            pagarTest();
             console.log("Payment successful ", paymentIntent);
+
+            //guardar pago en BD
           }
         }
       } catch (e) {
@@ -83,6 +149,7 @@ function PasarelaStripe(props) {
       <NativeBaseProvider>
         
         <View flex={1} m={20} backgroundColor={"#ffffff"}>
+          <ScrollView>
           <Center my={5}>
             <Text bold fontSize={18}>Paga tu pedido de forma segura con Stripe </Text>
             <Text>idU:{idU} total: {total}, idSuc:{idSuc}, idCarrito:{idCarrito}</Text>
@@ -96,7 +163,7 @@ function PasarelaStripe(props) {
           </Stack>
           <StripeProvider publishableKey='pk_test_51LlFbaDzNrCwCazaGr27Olsh8foLuQ6ZNzIH0onZPzJniMf375y3srnBxcXMRI3Nu21JfCdX5c8h4CWlW700nzvD00enMjqF2E'>
             <Text ml={5} bold>Correo electrónico: </Text>
-          <Input fontSize={20} shadow={6} bg="#ffffff" mx={10}
+          <Input fontSize={20}  bg="#ffffff" mx={10}
             autoCapitalize="none"
             placeholder="E-mail"
             keyboardType="email-address"
@@ -121,7 +188,9 @@ function PasarelaStripe(props) {
         
           <Button onPress={handlePayPress} title="Pagar" disabled={loading}  color={colors.azul} style={styles.button} />
           </StripeProvider>
+          </ScrollView>
         </View>
+
       </NativeBaseProvider>
     );
   };

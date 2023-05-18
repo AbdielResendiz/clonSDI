@@ -2,10 +2,10 @@
   "expo": {
     "name": "SDI",
     "slug": "SDI",
-    "bareWorkflow": true,
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
+  
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
@@ -13,7 +13,6 @@
       "backgroundColor": "#00BAEA"
     },
     "updates": {
-      "enabled": true,
       "fallbackToCacheTimeout": 0
     },
     "assetBundlePatterns": [
@@ -21,16 +20,22 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "store.sdiqro.sdi"
+      "bundleIdentifier": "store.sdiqro.sdi",
+      "buildNumber": "2",
+      "infoPlist": {
+        "NSCameraUsageDescription": "We need access to the camera to take photos and videos for uploading to the app."
+      }
     },
     "android": {
+      
       "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
+      "supportsTablet": true,
       "package": "store.sdiqro.sdi",
-      "versionCode": 1
+      "versionCode": 2
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -39,8 +44,21 @@
       "eas": {
         "projectId": "0be12457-39a3-483f-9481-e994c5fd5603"
       }
-    }
-   
-    
+    },
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "compileSdkVersion": 33,
+            "targetSdkVersion": 33,
+            "buildToolsVersion": "33.0.0"
+          },
+          "ios": {
+            "deploymentTarget": "13.0"
+          }
+        }
+      ]
+    ]
   }
 }

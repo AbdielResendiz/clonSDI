@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Center, Checkbox, NativeBaseProvider, Stack, Text, View, FlatList, Divider, Pressable } from "native-base";
+import { Box, Center, Checkbox, NativeBaseProvider, Stack, Text, View, FlatList, Divider, Pressable, ScrollView } from "native-base";
 import colors from '../colors';
 import Boton from '../components/Boton';
 import { Fontisto } from '@expo/vector-icons'; 
@@ -75,6 +75,7 @@ const Recoleccion = (props) => {
         <NativeBaseProvider>
           { loading ? <Loader/> :
             <View flex={1} bg={colors.blanco}>
+              <ScrollView>
                 <Text bold fontSize={"xl"} ml={5} my={3}>¿Dónde deseas recoger tus productos?</Text>
                 <Box w="90%" mx="5%" bg={colors.blanco} h={96} shadow={6} my={4} borderRadius={20} > 
                     {/* <Sucursal name="Matriz" address="Avenida Siempre Viva #123, Colonia Limitrofe, Sprindfield"/> */}
@@ -132,7 +133,7 @@ const Recoleccion = (props) => {
                 </Pressable>
               
                 }
-
+              </ScrollView>
             </View>
           }   
         </NativeBaseProvider>

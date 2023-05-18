@@ -178,6 +178,7 @@ const CheckOut = (props) => {
         <NativeBaseProvider>
           { load ?  <Loader/> : 
             <Box flex={1} bg={colors.blanco} >
+              <ScrollView>
           
           <Box minH={48} maxH={96}>
             { carrito.length > 0 ? 
@@ -222,8 +223,9 @@ const CheckOut = (props) => {
                     <Text bold fontSize={"lg"}  color={colors.blanco}> Pagar con stripe </Text>
                 
             </Pressable>
-
+            </ScrollView>
             </Box>
+            
 
             
            

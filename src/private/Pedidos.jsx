@@ -1,45 +1,100 @@
 import React, { useState, useEffect } from 'react';
-import { NativeBaseProvider, ScrollView, Text, View, Pressable , Icon} from "native-base";
+import { NativeBaseProvider, ScrollView,  View} from "native-base";
 import colors from '../colors';
-import { FontAwesome } from '@expo/vector-icons'; 
+import { Alert } from 'react-native';
 import PedidoComponent from '../components/PedidoComponent';
 import URL from '../helper/URL';
 import fetchPost from '../helper/fetchPost';
 import Loader from "../components/Loader";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const Pedidos = (props) => {
 // status de pedido
 // 0.Por recoger
 // 1. entregado
 // 2. cancelado
-    const [ load, setLoad] = useState(true);
-    const [ status, setStatus ] = useState(0);
+
+  const [ idU, setIdU ] = useState(null);
+
+  const [ load, setLoad] = useState(true);
+
+  const getData = async () => {
+  try {
+    const value = await AsyncStorage.getItem('@id_user')
+    if(value !== null) {
+      console.log("idU async: ", value);
+      setIdU(value);
+    }else{
+      Alert.alert(
+        'Debes estar registrado e iniciar sesión para ver tu perfil',
+        "Selecciona una opción",
+        
+        [
+          {
+            text: 'Iniciar sesion',
+        onPress: () => { props.navigation.navigate('Welcome', { status: true })},
+          },
+          {
+            text: 'Registrarse',
+        onPress: () => { props.navigation.navigate('Welcome', { status: false } )},
+          },
+
+          { text: 'Volver',  onPress: () => {props.navigation.navigate("Home")}  },
+        ],
+        { cancelable: false },
+      );
+    }
+  } catch(e) {
+    console.log("error async home", e);
+  }
+  }
+  useEffect(() => {
+    getData();
+    console.log("idU: ", idU)
+   
+    
+   
+  },[])
+  useEffect(() => {
+   
+    getPedidos();
+    
+   
+  },[idU])
+
+
+  
     const BASE_URL = URL.BASE_URL;
     const [ pedidos, setPedidos ] = useState([])
     const getPedidos = async()=>{
         const dataPedido= new FormData();
-        dataPedido.append("idU", 57);
+        dataPedido.append("idU", idU);
         const url = `${BASE_URL}abdiel/pedidos/ver_pedidos`
         const options = {
           method:'POST',
           body: dataPedido
         };
         const res = await fetchPost(url, options);
-        if (res !== null){
-          // console.log("pedidos GET: ", res)
+        if (res.length !== 0){
+          console.log("pedidos GET: ", res)
            setPedidos(res)
-           setLoad(false);
+           setTimeout(() => {
+            setLoad(false);
+          }, 1000);
           }else{
-            null
+            Alert.alert(
+              'No tienes pedidos',
+              "Cuando realices una compra, tus pedidos y su estatus aparecerán aquí",
+              
+              [
+                { text: 'Volver',  onPress: () => {props.navigation.navigate("Home")}  },
+              ],
+              { cancelable: false },
+            );
           }
         //console.log("res", res.data);
-        
+       
       }
 
-      useEffect(() => {
-       
-        getPedidos()
-        console.log("pedidos:", pedidos)
-      }, [])
       
 
     
