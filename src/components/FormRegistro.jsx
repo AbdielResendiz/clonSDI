@@ -1,11 +1,13 @@
 import React, { useState,useEffect } from "react";
 import {TouchableOpacity} from "react-native"
 import {  Ionicons,MaterialCommunityIcons,MaterialIcons} from '@expo/vector-icons'; 
-import { Icon, Text, Center,ScrollView, View, Input,FormControl, Box, Select, CheckIcon} from "native-base";
+import { Icon, Text, Center,ScrollView, View, Input,FormControl, Box, Select, CheckIcon, Pressable} from "native-base";
 import CheckBox from "expo-checkbox";
 import { URL } from "./API/useFetch";
 import { Alert } from "react-native";
 import { useNavigation } from '@react-navigation/native';
+
+
 
 const FormRegistro = (props) => {
 
@@ -28,6 +30,8 @@ const FormRegistro = (props) => {
     
 
     //values 
+    const [ show, setShow] = useState(false);
+    const [ show2, setShow2] = useState(false);
     const [agree, setAgree]                           = useState(false);
     const [usuario, setUsuario]                       = useState('');
     const [apellido, setApellido]                     = useState('');
@@ -100,9 +104,15 @@ const FormRegistro = (props) => {
                 }
             }else{
                 setFormPasswordConfirmar(false)
-                setAgree(true)
+                setAgree(false)
             }
-            if((inputNombre == false && inputApellido == false && inputTelefono == false && inputSucursal == false && inputCorreo == false && inputPassword == false && inputPasswordConfirmar == false))
+
+            if((inputNombre == false && 
+                inputApellido == false && 
+                inputTelefono == false && 
+                inputSucursal == false && 
+                agree == true &&
+                inputCorreo == false && inputPassword == false && inputPasswordConfirmar == false))
             {
                 setBandera(false)
                 console.log("inputNombre", usuario)
@@ -393,7 +403,9 @@ const FormRegistro = (props) => {
                      onChangeText={(val) => {setPassword(val)}}
                      autoCapitalize='none'
                      value={password} 
-                     type="password"              
+                     type={show ? "text" : "password"} InputRightElement={<Pressable onPress={() => setShow(!show)}>
+                     <Icon as={<MaterialIcons name={show ? "visibility" : "visibility-off"} />} size={5} mr="2" color="muted.400" />
+                   </Pressable>}         
 
                     InputLeftElement={<Icon as={MaterialIcons} name="lock" size={5} color="#FE308E" m={3}/>} size={5} color="muted.400" />
                  {formPassword == true ? (  <FormControl.ErrorMessage leftIcon={<MaterialIcons name="error-outline" size={24} color="red" />}>
@@ -412,7 +424,9 @@ const FormRegistro = (props) => {
                     onChangeText={(val) => {setPasswordConfirmar(val)}}
                     autoCapitalize='none'
                     value={passwordConfirmar} 
-                    type="password" 
+                    type={show2 ? "text" : "password"} InputRightElement={<Pressable onPress={() => setShow2(!show2)}>
+                    <Icon as={<MaterialIcons name={show2 ? "visibility" : "visibility-off"} />} size={5} mr="2" color="muted.400" />
+                  </Pressable>}   
                     InputLeftElement={<Icon as={MaterialIcons} name="lock" size={5} color="#FE308E" m={3}/>} size={5} color="muted.400" />
                     
 

@@ -191,7 +191,8 @@ const LoginAbdiel = ()=>{
         if (responseFav===true){
           alert("Bienvenido")
         }else{
-          alert("error en Notificaciones")
+         // alert("error en Notificaciones")
+         null
         }
         
        

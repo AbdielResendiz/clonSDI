@@ -25,7 +25,7 @@ const Pedidos = (props) => {
       setIdU(value);
     }else{
       Alert.alert(
-        'Debes estar registrado e iniciar sesión para ver tu perfil',
+        'Para ver tus pedidos, debes estar registrado e iniciar sesión ',
         "Selecciona una opción",
         
         [
@@ -55,8 +55,12 @@ const Pedidos = (props) => {
    
   },[])
   useEffect(() => {
-   
-    getPedidos();
+    if(idU !==null){
+      getPedidos();
+    }else{
+      getData();
+    }
+    
     
    
   },[idU])
