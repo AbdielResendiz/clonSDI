@@ -305,6 +305,18 @@ const DetalleProducto   = (props) => {
 
 
         switch (true) {
+
+            case (count === 0 ):
+                Alert.alert('Error de producto', 'Selecciona una cantidad mayor a 0', [
+                    {
+                      text: 'Volver',
+                      onPress: () => console.log('Cancel Pressed'),
+                        style: 'cancel',
+                    }
+                    
+                  ]);
+                break;
+
             case (productoSelect===null):
                 Alert.alert('Error de producto', 'Selecciona el producto antes de agregarlo a tu carrito.', [
                     {
@@ -416,9 +428,14 @@ const DetalleProducto   = (props) => {
                     setPrecioFinal(producto.precioMayoreo)
                     setSubtotal((count*producto.precioMayoreo))
                     break;
-                case ( count < 1):
+                case ( count < 1 && count >0):
                     setPrecioFinal(producto.precioS)
                     setSubtotal(1 * producto.precioS)
+                case ( count == 0):
+                        setPrecioFinal(producto.precioS)
+                        setSubtotal(1 * producto.precioS)
+                        setBtn(false)
+                        alert("La cantidad debe ser mayor a 0")
                 default:
                     console.log("DEFAULT BREACK ")
                     break;
@@ -440,8 +457,16 @@ const DetalleProducto   = (props) => {
       //  console.log("@@@@@ es numero?", check)
         if (check) {
             const integer = parseInt(value);
-            setCount(integer)
-            setBtn(true);
+            
+            if (integer !== 0){
+                setBtn(true);
+                setCount(integer)
+            }else{
+                setBtn(false);
+                setCount(1)
+                alert("la cantidad debe ser mayor a 0")
+            }
+            
         } else {
             Alert.alert('Cantidad incorrecta', 'Escribe solo números enteros.', [
                
@@ -532,7 +557,116 @@ const DetalleProducto   = (props) => {
             null
         }
     }, [alto, ancho]);
-     
+    const renderCantidad = () => {
+        switch (idUnidad) {
+          case 4:
+            return (
+              <Stack direction={"row"} space={3}>
+                <HStack
+                  ml={5}
+                  my={1}
+                  bg={colors.blanco}
+                  borderRadius={10}
+                  borderWidth={2}
+                  shadow={6}
+                  w={40}
+                  borderColor={colors.azul}
+                >
+                  <Center pl={2}>
+                    <Text bold>Alto (m): </Text>
+                  </Center>
+      
+                  <Center w={20}>
+                    <TextInput
+                      value={alto}
+                      onChangeText={(text) => toDecimalAlto(text)}
+                      keyboardType="numeric"
+                    />
+                  </Center>
+                </HStack>
+      
+                <HStack
+                  ml={3}
+                  my={1}
+                  bg={colors.blanco}
+                  borderRadius={10}
+                  borderWidth={2}
+                  shadow={6}
+                  w={40}
+                  borderColor={colors.azul}
+                >
+                  <Center pl={2}>
+                    <Text bold>Ancho (m): </Text>
+                  </Center>
+      
+                  <Center w={20}>
+                    <TextInput
+                      value={ancho}
+                      onChangeText={(text) => toDecimalAncho(text)}
+                      keyboardType="numeric"
+                    />
+                  </Center>
+                </HStack>
+              </Stack>
+            );
+      
+          case 5:
+            return (
+              <Stack direction={"row"} space={3}>
+                <HStack
+                  ml={5}
+                  my={1}
+                  bg={colors.blanco}
+                  borderRadius={10}
+                  borderWidth={2}
+                  shadow={6}
+                  w={56}
+                  borderColor={colors.azul}
+                >
+                  <Center pl={2}>
+                    <Text bold>{unidad}: </Text>
+                  </Center>
+      
+                  <Center w={20}>
+                    <TextInput
+                      value={count}
+                      onChangeText={(text) => toDecimal(text)}
+                      keyboardType="numeric"
+                    />
+                  </Center>
+                </HStack>
+              </Stack>
+            );
+      
+          default:
+            return (
+              <Stack direction={"row"} space={3}>
+                <HStack
+                  ml={5}
+                  my={1}
+                  bg={colors.blanco}
+                  borderRadius={10}
+                  borderWidth={2}
+                  shadow={6}
+                  w={48}
+                  borderColor={colors.azul}
+                >
+                  <Center pl={2}>
+                    <Text bold>{unidad}: </Text>
+                  </Center>
+      
+                  <Center w={20}>
+                    <TextInput
+                      value={count}
+                      onChangeText={(text) => toInteger(text)}
+                      keyboardType="numeric"
+                    />
+                  </Center>
+                </HStack>
+              </Stack>
+            );
+        }
+      };
  
     return(
         <NativeBaseProvider >
@@ -590,90 +724,14 @@ const DetalleProducto   = (props) => {
                 <Stack direction={"column"} >
                     
                     {/**BOTON CANTIDAD  */}
-                    
-
-                    
-                    {
-                        idUnidad == 4 ? 
-                        (
-                         <Stack direction={"row"} space={3}>
-                            <HStack ml={5} my={1} bg={colors.blanco} borderRadius={10} borderWidth={2} shadow={6} w={40} borderColor={colors.azul}>
-                                <Center pl={2}>
-                                    <Text bold>Alto (m): </Text>
-                                </Center>
-                                
-                                <Center w={20}>
-                                <TextInput
-                                    value={alto}
-                                    onChangeText={(text) => toDecimalAlto(text)}
-                                    keyboardType="numeric"
-                                />
-                                </Center>
-                            </HStack>
-        
-                            <HStack ml={3} my={1} bg={colors.blanco} borderRadius={10} borderWidth={2} shadow={6} w={40} borderColor={colors.azul}>
-                                <Center pl={2}>
-                                    <Text bold>Ancho (m): </Text>
-                                </Center>
-                                
-                                <Center w={20}>
-                                <TextInput
-                                    value={ancho}
-                                    onChangeText={(text) => toDecimalAncho(text)}
-                                    keyboardType="numeric"
-                                />
-                                </Center>
-                            </HStack>
-                         </Stack>
-                        ) 
-                        : 
-                        idUnidad == 5 ?
-                        (
-                         <Stack direction={"row"} space={3}>
-                            <HStack ml={5} my={1} bg={colors.blanco} borderRadius={10} borderWidth={2} shadow={6} w={56} borderColor={colors.azul}>
-                                <Center pl={2}>
-                                    <Text bold>{unidad}: </Text>
-                                </Center>
-                                
-                                <Center w={20}>
-                                <TextInput
-                                    value={count}
-                                    onChangeText={(text) => toDecimal(text)}
-                                    keyboardType="numeric"
-                                />
-                                </Center>
-                            </HStack>
-                         </Stack>
-                        )
-                        :
-                        (
-                         <Stack direction={"row"} space={3}>
-                            <HStack ml={5} my={1} bg={colors.blanco} borderRadius={10} borderWidth={2} shadow={6} w={48} borderColor={colors.azul}>
-                                <Center pl={2}>
-                                    <Text bold>{unidad}: </Text>
-                                </Center>
-                                
-                                <Center w={20}>
-                                <TextInput
-                                    value={count}
-                                    onChangeText={(text) => toInteger(text)}
-                                 
-                                    keyboardType="numeric"
-                                />
-                                </Center>
-                            </HStack>
-                         </Stack>
-                        )
-                    }
-
-                    {
-                    idUnidad==4 ?
-                    (
+                    {productoSelect !== null && sucursal !==null ?  
+                       <> 
+                       {renderCantidad()}
+                        {idUnidad === 4 && (
                         <Text ml={8} mt={2} bold>Metros cuadrados: {count.toFixed(2)}</Text>
-                    ) :
-                    null
-                    }
-
+                        )} 
+                        </>
+                    : <Text mx={5} borderWidth={1} p={2} borderRadius={10} my={3} borderColor={colors.azul}>Selecciona el producto y la sucursal para ingresar la cantidad</Text> }
 
 
                     {/**FIN BOTON CANTIDAD */}

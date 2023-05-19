@@ -50,19 +50,15 @@ const Pedidos = (props) => {
   useEffect(() => {
     getData();
     console.log("idU: ", idU)
-   
-    
-   
   },[])
-  useEffect(() => {
-    if(idU !==null){
-      getPedidos();
-    }else{
-      getData();
-    }
-    
-    
-   
+
+  
+    useEffect(() => {
+      if(idU !==null){
+        getPedidos();
+      }else{
+        getData();
+      }
   },[idU])
 
 

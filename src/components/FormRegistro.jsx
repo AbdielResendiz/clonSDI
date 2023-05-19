@@ -1,7 +1,7 @@
 import React, { useState,useEffect } from "react";
 import {TouchableOpacity} from "react-native"
 import {  Ionicons,MaterialCommunityIcons,MaterialIcons} from '@expo/vector-icons'; 
-import { Icon, Text, Center,ScrollView, View, Input,FormControl, Box, Select, CheckIcon, Pressable} from "native-base";
+import { Icon, Text, Center,ScrollView, View, Input,FormControl, Box, Select, CheckIcon, Pressable, Link} from "native-base";
 import CheckBox from "expo-checkbox";
 import { URL } from "./API/useFetch";
 import { Alert } from "react-native";
