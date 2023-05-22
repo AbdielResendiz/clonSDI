@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Center, NativeBaseProvider, Text, Stack, Pressable, Divider, Box, Image, HStack,  Icon, ScrollView, VStack, Select, CheckIcon} from "native-base";
+import { Center, NativeBaseProvider, Text, Stack, Pressable, 
+  Divider, Box, Image, HStack,  Icon, ScrollView, VStack, Select, CheckIcon} from "native-base";
 import colors from '../colors';
 import {  AntDesign, MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { TextInput } from 'react-native';
@@ -642,24 +643,26 @@ const DetalleProducto   = (props) => {
             return (
               <Stack direction={"row"} space={3}>
                 <HStack
-                  ml={5}
-                  my={1}
+                  ml={10}
+                  my={3}
+                  py={3}
                   bg={colors.blanco}
                   borderRadius={10}
-                  borderWidth={2}
                   shadow={6}
                   w={48}
-                  borderColor={colors.azul}
+                 
                 >
                   <Center pl={2}>
                     <Text bold>{unidad}: </Text>
                   </Center>
       
-                  <Center w={20}>
+                  <Center w={24}    >
                     <TextInput
                       value={count}
+                    
                       onChangeText={(text) => toInteger(text)}
                       keyboardType="numeric"
+                      style={{padding: 3,   color:"black", borderColor:colors.azul, borderWidth:1 , borderRadius:10,  width:100}}
                     />
                   </Center>
                 </HStack>

@@ -20,7 +20,7 @@ useEffect( ()=>{
     return(
         <NativeBaseProvider>
             <View bg={colors.blanco} flex={1}>
-                <ScrollView>
+                
                 {/**LOGO */}
                 <Center >
                     <Box  >
@@ -32,7 +32,7 @@ useEffect( ()=>{
                 </Center>
 
                 {/** Elegir login o registro */}
-                <View flexDirection={"row"} justifyContent={"space-evenly"}>
+                <View flexDirection={"row"} justifyContent={"space-evenly"} mx={10}>
                     <Box >
                         <Pressable  Opacity onPress={() => setShow(false)}>
                             <Center  h={"41px"} w={"80px"}  borderBottomColor={show!==true? colors.rosa : colors.gris} borderBottomWidth={"3px"}> 
@@ -41,8 +41,8 @@ useEffect( ()=>{
                     </Box>
                     <Box>
                         <Pressable  Opacity onPress={() => setShow(true)}>
-                                <Center  h={"41px"} w={"80px"}  borderBottomColor={show===true? colors.rosa : colors.gris} borderBottomWidth={"3px"}> 
-                                    <Text color={show===true? colors.rosa : colors.gris} bold>Login</Text></Center>
+                                <Center  h={"41px"} w={"100px"}  borderBottomColor={show===true? colors.rosa : colors.gris} borderBottomWidth={"3px"}> 
+                                    <Text color={show===true? colors.rosa : colors.gris} bold>Iniciar sesión</Text></Center>
                         </Pressable>
                     </Box>
                 </View>
@@ -56,7 +56,7 @@ useEffect( ()=>{
 
 
 
-                </ScrollView>
+                
             </View>
         </NativeBaseProvider>
     )

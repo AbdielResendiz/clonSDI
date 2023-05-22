@@ -2,7 +2,7 @@
   "expo": {
     "name": "SDI",
     "slug": "SDI",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
   
@@ -35,7 +35,7 @@
       },
       "supportsTablet": true,
       "package": "store.sdiqro.sdi",
-      "versionCode": 2
+      "versionCode": 3
     },
     "web": {
       "favicon": "./assets/favicon.png"
