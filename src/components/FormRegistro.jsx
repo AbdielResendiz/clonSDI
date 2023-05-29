@@ -147,12 +147,12 @@ const FormRegistro = (props) => {
                     if(resultado.resultado == true){
                         Alert.alert('Registro exitoso', 'Ahora puedes iniciar sesión', [
                             
-                            {text: 'Ir a inicio', onPress: () => navigation.reset({
-                                index: 0,
-                                routes: [{ name: 'Home' }],
-                            })},
+                            // {text: 'Ir a inicio', onPress: () => navigation.reset({
+                            //     index: 0,
+                            //     routes: [{ name: 'Home' }],
+                            // })},
                             {
-                              text: 'Iniciar sesión', onPress: () => navigation.navigate("Welcome")  
+                              text: 'Iniciar sesión', onPress: () => navigation.replace("Welcome", { status: true })
                             },
                           ]);
                     
@@ -282,6 +282,8 @@ const FormRegistro = (props) => {
 
 
     }, [usuario,apellido,celular,sucursal,correo,password,passwordConfirmar,bandera,inputNombre,inputApellido,inputTelefono,inputSucursal,inputCorreo,inputPassword,inputPasswordConfirmar,agree]);
+
+
 
  return (
   
@@ -457,9 +459,9 @@ const FormRegistro = (props) => {
                         onValueChange={() => ChangeTC()}
                         color={agree ? "#00BAEA" : undefined}
                         />
-                        <Text>
+                        <Link href="https://drive.google.com/file/d/1Tm_xggjn9gZXc0NeIeagmw0T-nynd2Wo/view?usp=drive_link">
                                 He leído y acepto los terminos y condiciones
-                        </Text>
+                        </Link>
                         </Center> 
              </View>
 
@@ -468,6 +470,7 @@ const FormRegistro = (props) => {
             <Center bg={bandera == true ? ("#6C6C6C"):("#FE308E")} h={"41px"} w={"274px"} borderRadius={20} > 
                 <Text color={"white"}>Registrate</Text></Center>
             </TouchableOpacity>
+
 
 
             </Center>

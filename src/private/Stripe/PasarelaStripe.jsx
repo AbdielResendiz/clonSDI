@@ -10,10 +10,12 @@ import URL from "../../helper/URL";
 import fetchPost from "../../helper/fetchPost";
 import { useNavigation } from '@react-navigation/native';
 
-const API_URL = "https://us-central1-sdiqro-594ed.cloudfunctions.net/app";
+
+
 
 
 function PasarelaStripe(props) {
+  const API_URL = "https://us-central1-sdiqro-594ed.cloudfunctions.net/app";
   const navigation =useNavigation();
   const BASE_URL = URL.BASE_URL;
 
@@ -152,7 +154,7 @@ function PasarelaStripe(props) {
           <ScrollView>
           <Center my={5}>
             <Text bold fontSize={18}>Paga tu pedido de forma segura con Stripe </Text>
-            <Text>idU:{idU} total: {total}, idSuc:{idSuc}, idCarrito:{idCarrito}</Text>
+        
           </Center>
 
           <Stack direction={"row"} alignSelf={"center"} space={10}>

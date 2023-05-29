@@ -79,43 +79,37 @@ const Recoleccion = (props) => {
                 <Text bold fontSize={"xl"} ml={5} my={3}>¿Dónde deseas recoger tus productos?</Text>
                 <Box w="90%" mx="5%" bg={colors.blanco} h={96} shadow={6} my={4} borderRadius={20} > 
                     {/* <Sucursal name="Matriz" address="Avenida Siempre Viva #123, Colonia Limitrofe, Sprindfield"/> */}
-                   {sucursales.length <1 ? null :
-                   <FlatList
-                   data={sucursales}
-                    keyExtractor={(item) => item.idSuc}
-                    renderItem={({ item }) => (
-                        <Stack direction={"row"} space={3}>
-                        <Center>
-                            <Fontisto name="shopping-store" size={24} color="black" />
-                        </Center>
-                        
-                        
-                        <Stack  w="70%">
-                            <Text fontWeight={500} fontSize={"lg"}> 
-                               Sucursal {item.nombreSuc}
-                            </Text>
-                            <Text> 
+                    {sucursales.length < 1 ? null : (
+                        sucursales.map((item) => (
+                          <Stack direction={"row"} space={3} key={item.idSuc}>
+                            <Center>
+                              <Fontisto name="shopping-store" size={24} color="black" />
+                            </Center>
+
+                            <Stack w="70%">
+                              <Text fontWeight={500} fontSize={"lg"}>
+                                Sucursal {item.nombreSuc}
+                              </Text>
+                              <Text>
                                 {item.calleSuc}, {item.numSuc}, {item.coloniaSuc}
-                            </Text>
-                            <Text>
-                               C.P: {item.cpSuc}, {item.nombre_municipio}, {item.nombre_estado}
-                            </Text>
-                            <Divider m={2}/>
-                        </Stack>
+                              </Text>
+                              <Text>
+                                C.P: {item.cpSuc}, {item.nombre_municipio}, {item.nombre_estado}
+                              </Text>
+                              <Divider m={2} />
+                            </Stack>
 
+                            <Center>
+                              <Checkbox
+                                isChecked={isChecked === item.idSuc}
+                                onChange={() => handleClick(item.idSuc, item.nombreSuc)}
+                                accessibilityLabel="This is a dummy checkbox"
+                              />
+                            </Center>
+                          </Stack>
+                        ))
+                      )}
 
-                        <Center>
-                            <Checkbox isChecked={isChecked===item.idSuc } 
-                            onChange={()=>handleClick(item.idSuc, item.nombreSuc)}
-                             accessibilityLabel="This is a dummy checkbox"/>
-                        </Center>
-                       
-                    </Stack>
-                    
-                    )}
-                   />
-                   
-                   }
                 </Box>
                 { isChecked=="" ? 
                   <Pressable justifyContent={"center"} alignItems={"center"} w="80%" mx="10%" bg={"#777777"} h={12} 

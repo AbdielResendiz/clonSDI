@@ -19,7 +19,7 @@ useEffect( ()=>{
 
     return(
         <NativeBaseProvider>
-            <View bg={colors.blanco} flex={1}>
+            <ScrollView bg={colors.blanco} flex={1}>
                 
                 {/**LOGO */}
                 <Center >
@@ -57,7 +57,7 @@ useEffect( ()=>{
 
 
                 
-            </View>
+            </ScrollView>
         </NativeBaseProvider>
     )
 }

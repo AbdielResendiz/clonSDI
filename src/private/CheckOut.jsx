@@ -211,12 +211,6 @@ const CheckOut = (props) => {
                 <Text fontSize={22} bold>Total con IVA: {total}</Text>
                 <Text fontSize={18} >Recolección: Sucursal {nombreSuc} </Text>
             </Center>
-        
-            <Pressable justifyContent={"center"} alignItems={"center"} w="80%" mx="10%" bg={colors.azul} h={12} 
-                borderRadius={50} my={4}  onPress={()=>pagarTest()}>
-                    <Text bold fontSize={"lg"}  color={colors.blanco}> Pagar Testing </Text>
-                
-            </Pressable>
 
             <Pressable justifyContent={"center"} alignItems={"center"} w="80%" mx="10%" bg={colors.azul} h={12} 
                 borderRadius={50} my={4}   onPress={()=> goStripe(idU, total, idSuc, idCarrito)}>

@@ -59,13 +59,6 @@ const Carrito = (props) => {
       //console.log("id carrito: ", idCarrito)
       
     }, [carrito.length]) 
-  //   useEffect(() => {
-  //     getCarrito();
-  //   //console.log("id carrito: ", idCarrito)
-    
-  // }, [carrito.length]) 
-      
-
      
       const getCarrito = async(value)=>{
         
@@ -154,14 +147,14 @@ const Carrito = (props) => {
           {
             load ? <Loader/> :
           
-            <View flex={1} bg={colors.blanco} >
+            <ScrollView flex={1} bg={colors.blanco} >
             
-            <Box h={"78%"}>
+            <Box h={"70%"}>
             { carrito.length > 0 ? 
-                    <ScrollView  >    
+                    <ScrollView minH={72} maxH={"70%"}>    
                         { carrito.map( (producto, index)=>{
                         return(
-                          <Box h={48} w={"90%"} mx={"5%"}  my={2}  key={index}
+                          <Box h={48} w={"96%"} mx={"2%"}  my={2}  key={index}
                           shadow={6} bg="white" borderRadius={20} borderColor={"#dddddd"}
                           borderWidth={2}>
                           <Stack direction={"row"}> 
@@ -180,7 +173,11 @@ const Carrito = (props) => {
                             comentario = {producto.comentario}
                             subtotal={producto.subtotalCarrito}/>
 
-                            <Center >
+                           
+                            
+                        </Stack>
+
+                        <Center ml={10}>
                                 <Pressable bgColor={colors.rosa} p={2} borderRadius={10} 
                                   shadow={6} onPress={()=> previoEliminar(producto.id, producto.nombreS) }>
                                     <Icon as={FontAwesome5} 
@@ -188,8 +185,6 @@ const Carrito = (props) => {
                                    
                                 </Pressable>
                             </Center>
-                            
-                        </Stack>
                         </Box>
                         ) 
                       } )
@@ -213,18 +208,20 @@ const Carrito = (props) => {
             </Box>
             { carrito.length <= 0 ? null : 
 
-            
-            <Pressable alignItems="center" onPress={()=>navegacion("Recoleccion")}>
-                <Center h={12} my={1} w="50%" bg={colors.azul} borderRadius={20} mx={7} >  
-                    <HStack>
-                        <Icon as={Ionicons} name="wallet"  size={6} color={"white"} />
-                        <Text fontSize={16} color={"white"} bold  mx={3}>Pagar</Text>
-                    </HStack>
-                </Center>
-            </Pressable>
+            <Center   >  
+              <Pressable alignItems="center" onPress={()=>navegacion("Recoleccion")} mb={4}
+                 w="50%" bg={colors.azul} borderRadius={20} mx={7} h={10} py={2} >
+                  
+                      <HStack>
+                          <Icon as={Ionicons} name="wallet"  size={6} color={"white"} />
+                          <Text fontSize={16} color={"white"} bold  mx={3}>Pagar</Text>
+                      </HStack>
+                  
+              </Pressable>
+            </Center>
             }
 
-            </View>
+            </ScrollView>
           }
         </NativeBaseProvider>
     );

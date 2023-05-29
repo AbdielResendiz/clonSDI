@@ -342,7 +342,7 @@ const DetalleProducto   = (props) => {
                 Alert.alert('No se encontro tu carrito', 'Favor de registrarse o iniciar sesión para agregar productos a tu carrito', [
                     {
                         text: 'Registrarme o iniciar sesión',
-                        onPress: () => props.navigation.navigate("Welcome"),
+                        onPress: () => props.navigation.navigate("Welcome", { status:true}),
                       
                     },
                     {

@@ -1,5 +1,4 @@
 import 'react-native-gesture-handler';
-import * as Notifications from 'expo-notifications';
 //import * as React from 'react';
 //import messaging from '@react-native-firebase/messaging';
 import * as Font from 'expo-font';
@@ -33,7 +32,6 @@ import FAQ from './src/private/FAQ';
 import Notificaciones from './src/private/Notificaciones';
 import DetalleTarjeta from './src/private/DetalleTarjeta';
 import Recoleccion from './src/private/Recoleccion';
-import SeleccionarTarjeta from './src/private/SeleccionarTarjeta';
 import CheckOut from './src/private/CheckOut';
 import ConfirmaPago from './src/private/ConfirmaPago';
 import DetalleCompra from './src/private/DetalleCompra'
@@ -41,7 +39,6 @@ import ListaFactura from './src/private/ListaFactura';
 import Welcome from './src/public/Welcome';
 import Password from './src/private/Password';
 import DetallePedido from './src/private/DetallePedido';
-import PagoStripe from './src/private/PagoStripe';
 import RecepcionPedidos from './src/private/RecepcionPedidos';
 
 //instrucciones de impresion
@@ -59,6 +56,8 @@ import VinilRegistro from './src/private/instrucciones/viniles/VinilRegistro';
 import VinilTextil from './src/private/instrucciones/viniles/VinilTextil';
 //import messaging from '@react-native-firebase/messaging';
  import PasarelaStripe from './src/private/Stripe/PasarelaStripe';
+
+
 
 
 
@@ -426,16 +425,6 @@ const HeaderLeftCustom = ()=>{
          ),
         }}/>
 
-        <Stack.Screen name="SeleccionarTarjeta" component={SeleccionarTarjeta}  options={{title: 'Pago',
-         headerTintColor:colors.blanco,
-         headerStyle: {
-           backgroundColor: colors.azul,
-         },
-         headerShadowVisible: true,
-         headerRight: () => (
-           <HeaderRightCustom/>
-         ),
-        }}/>
          <Stack.Screen name="CheckOut" component={CheckOut}  options={{title: 'Check out',
          headerTintColor:colors.blanco,
          headerStyle: {
@@ -500,16 +489,6 @@ const HeaderLeftCustom = ()=>{
          ),
         }}/>
 
-      <Stack.Screen name="PagoStripe" component={PagoStripe}  options={{title: 'Pago stripe',
-         headerTintColor:colors.blanco,
-         headerStyle: {
-           backgroundColor: colors.azul,
-         },
-         headerShadowVisible: true,
-         headerRight: () => (
-           <HeaderRightCustom/>
-         ),
-        }}/>  
 
         <Stack.Screen name="RecepcionPedidos" component={RecepcionPedidos}  options={{title: 'Recepcion de pedidos',
          headerTintColor:colors.blanco,

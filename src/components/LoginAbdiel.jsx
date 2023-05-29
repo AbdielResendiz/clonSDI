@@ -188,14 +188,12 @@ const LoginAbdiel = ()=>{
         };
         const responseFav = await fetchPost(url, options);
         console.log("TOKEN?", responseFav);
-        if (responseFav===true){
-          alert("Bienvenido")
-        }else{
-         // alert("error en Notificaciones")
-         null
-        }
-        
-       
+        // if (responseFav===true){
+        //   null
+        // }else{
+        //  // alert("error en Notificaciones")
+        //  null
+        // }
         //console.log("res", responseFav.data);
         //setLoader(false);
         

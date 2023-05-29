@@ -50,7 +50,7 @@ const [loader, setLoader ]= useState(true);
     };
     const res = await fetchPost(url, options);
     setImpresos(res.data);
-    //console.log("res", res.data);
+    console.log("res", res.data);
     
   }
   useEffect(() => {
@@ -114,6 +114,7 @@ const [loader, setLoader ]= useState(true);
           </Pressable>
 
         </Stack>
+        {impresos.length>=1 ? 
 
         <ScrollView horizontal={true}>
           { impresos.map( (impreso, index)=>{
@@ -131,6 +132,7 @@ const [loader, setLoader ]= useState(true);
 
           }
         </ScrollView>
+         : <Text>No hay productos por el momento</Text>}
       </Box>
 
 
@@ -143,6 +145,7 @@ const [loader, setLoader ]= useState(true);
 
         </Stack>
 
+        {noImpresos.length>=1 ? 
         <ScrollView horizontal={true}>
         { noImpresos.map( (noImpreso, index)=>{
             return(
@@ -160,6 +163,7 @@ const [loader, setLoader ]= useState(true);
           }
         
         </ScrollView>
+        : <Text>No hay productos por el momento</Text>}
       </Box>
       </ScrollView>
         

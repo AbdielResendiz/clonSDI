@@ -1,4 +1,4 @@
-import { Box, Divider, Icon, NativeBaseProvider, Pressable, Text, View, Stack } from 'native-base';
+import {  Divider, Icon, NativeBaseProvider, Pressable, Text,  Stack, ScrollView } from 'native-base';
 
 import colors from '../colors';
 import { FontAwesome5, Entypo, MaterialCommunityIcons, AntDesign } from '@expo/vector-icons'; 
@@ -23,6 +23,7 @@ const CuentaMenu=(props)=> {
   const [ idU, setIdU ] = useState(null)
 
       const getData = async () => {
+        console.log(load);
         try {
           const value = await AsyncStorage.getItem('@id_user')
           if(value !== null) {
@@ -41,6 +42,8 @@ const CuentaMenu=(props)=> {
       useEffect(() => {
         getData();
        console.log("id user perfil", idU)
+       
+       
       
       }, [idU])
       
@@ -178,7 +181,7 @@ const CuentaMenu=(props)=> {
         {
           idU === null ? <Loader/> :
 
-          <View bg={colors.blanco} flex={1}  >
+          <ScrollView bg={colors.blanco} flex={1}  >
             <Stack shadow={6} m={8} borderRadius={10} bg={colors.blanco} space={1} mt={10} p={3} borderColor={"#dddddd"} borderWidth={2}>
             
            <PerfilButton as={FontAwesome5} name="user-alt" text="Mi Perfil"  nav="Perfil"/>
@@ -212,7 +215,7 @@ const CuentaMenu=(props)=> {
             
           
             </Stack>
-          </View>
+          </ScrollView>
 
         }
         
