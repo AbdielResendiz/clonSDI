@@ -16,7 +16,7 @@ import baseColor from './src/private/api/baseColor';
 import styles from './src/styles/styles';
 import React, { useState, useEffect } from 'react';
 import Carrito from './src/private/Carrito';
-import Sign from './src/public/Sign';
+
 import colors from './src/colors';
 import Buscar from "./src/public/Buscar";
 import Favoritos from './src/public/Favoritos';
@@ -24,7 +24,7 @@ import DetalleCategoria from "./src/public/DetalleCategoria";
 import DetalleSubCategoria from './src/public/DetalleSubCategoria';
 import ScrollSubCategorias from './src/components/ScrollSubCategorias';
 import DetalleProducto from './src/public/DetalleProducto';
-import TestingLogin from './src/public/TestingLogin';
+
 import CuentaMenu from './src/private/CuentaMenu';
 import Factura from './src/private/Factura';
 import Tarjetas from './src/private/Tarjetas';
@@ -256,7 +256,7 @@ const HeaderLeftCustom = ()=>{
               <HeaderRightCustom/>
             ),
           }}/>
-        <Stack.Screen name="Sign" component={Sign} />
+  
         <Stack.Screen name="Perfil" component={Perfil}   
           options={{title: 'Mi Perfil',
           headerTintColor:colors.blanco,
@@ -637,7 +637,6 @@ const HeaderLeftCustom = ()=>{
 
        
 
-        <Stack.Screen name="TestingLogin" component={TestingLogin} ></Stack.Screen>
       </Stack.Navigator>
 
       

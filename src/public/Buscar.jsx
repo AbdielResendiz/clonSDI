@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { NativeBaseProvider, Input, Box, Text, FlatList , HStack, Image, Center, Divider, Icon} from 'native-base';
 import { Alert } from 'react-native';
@@ -81,6 +81,13 @@ const Buscar = (props) => {
         break;
     }
   }
+
+  useEffect(() => {
+      if ( searchTerm !== ""){
+        handleSearch()
+      }
+  }, [searchTerm]);
+  
 
 
   console.log("busqueda", results);

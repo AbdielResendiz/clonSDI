@@ -25,14 +25,14 @@ useEffect( ()=>{
                 <Center >
                     <Box  >
                         <Container>
-                            <Image source={require("../../assets/icon.png")}
-                            alt="" size="2xl" resizeMode="contain"  my={-10} />
+                            <Image source={require("../../assets/iconT.png")}
+                            alt="SDI logo" size="xl" resizeMode="contain"  mt={-4} />
                         </Container>
                     </Box>
                 </Center>
 
                 {/** Elegir login o registro */}
-                <View flexDirection={"row"} justifyContent={"space-evenly"} mx={10}>
+                <View flexDirection={"row"} justifyContent={"space-evenly"} mx={10}  mb={-1} mt={-8}>
                     <Box >
                         <Pressable  Opacity onPress={() => setShow(false)}>
                             <Center  h={"41px"} w={"80px"}  borderBottomColor={show!==true? colors.rosa : colors.gris} borderBottomWidth={"3px"}> 

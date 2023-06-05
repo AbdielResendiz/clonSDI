@@ -26,9 +26,6 @@ const FormRegistro = (props) => {
                 })
     },[]);
 
-
-    
-
     //values 
     const [ show, setShow] = useState(false);
     const [ show2, setShow2] = useState(false);
@@ -87,12 +84,12 @@ const FormRegistro = (props) => {
             }else{
                 setFormCorreo(false)
             }
-            if(!password == null || password.length <= 5 || !ERPass.test(password)){
+            if(!password == null || password.length < 4  ){
                 setFormPassword(true)
             }else{
                 setFormPassword(false)
             }
-            if(!passwordConfirmar == null || passwordConfirmar.length <= 5 || !ERPass.test(passwordConfirmar)){
+            if(!passwordConfirmar == null || passwordConfirmar.length > 5 ){
                 // console.log("pass", passwordConfirmar)
                 setFormPasswordConfirmar(true)
                 if(passwordConfirmar != password){
@@ -192,15 +189,15 @@ const FormRegistro = (props) => {
     const [inputPassword, setInputPassword] = useState(true);
     const [inputPasswordConfirmar, setInputPasswordConfirmar] = useState(true);
     
-    const ERPass = /[!@#$%^&*()\-_=+{}[\]|\:;"'<>,.?/]/;
+    
 
     const [bandera, setBandera] = useState(false)
 
 
       useEffect(() => {
-        console.log("sucursal", sucursal)
-        console.log("Agree",agree)
-        if(usuario.length <= 0){
+       // console.log("sucursal", sucursal)
+       // console.log("Agree",agree)
+        if(usuario.length <= 2){
             setInputNombre(true)
           
            
@@ -209,7 +206,7 @@ const FormRegistro = (props) => {
             
 
         }
-        if(apellido.length <= 0){
+        if(apellido.length <= 2){
 
            
             setInputApellido(true)
@@ -241,7 +238,7 @@ const FormRegistro = (props) => {
 
            
         }
-        if((!password == null || password.length <= 5 || !ERPass.test(password))){
+        if((!password == null || password.length <= 4 )){
          
             setInputPassword(true)
         }else{
@@ -250,7 +247,7 @@ const FormRegistro = (props) => {
           
         }
            
-        if(!passwordConfirmar == null || passwordConfirmar.length <= 5 || !ERPass.test(passwordConfirmar)){
+        if(!passwordConfirmar == null || passwordConfirmar.length <= 4 ){
           
             setInputPasswordConfirmar(true)
         
@@ -264,7 +261,7 @@ const FormRegistro = (props) => {
            
            
             setInputPasswordConfirmar(true)
-        console.log("no son iguales")
+       // console.log("no son iguales")
         }else {
           
             if(passwordConfirmar == '' || passwordConfirmar == ''){
@@ -304,6 +301,9 @@ const FormRegistro = (props) => {
                 {formNombre == true ? (  <FormControl.ErrorMessage leftIcon={<MaterialIcons name="error-outline" size={24} color="red" />}>
                     El campo nombre es obligatorio
                 </FormControl.ErrorMessage>):(null)}
+                {inputNombre == true ? (  <FormControl.ErrorMessage leftIcon={<MaterialIcons name="error-outline" size={24} color="red" />}>
+                    El nombre debe tener al menos 3 caracteres
+                </FormControl.ErrorMessage>):(null)}
             </FormControl>
              {/*Termina form nombre */}
             
@@ -322,6 +322,10 @@ const FormRegistro = (props) => {
                 {formApellido == true ? (  <FormControl.ErrorMessage leftIcon={<MaterialIcons name="error-outline" size={24} color="red" />}>
                     El campo apellido es obligatorio
                 </FormControl.ErrorMessage>):(null)}  
+
+                {inputApellido == true ? (  <FormControl.ErrorMessage leftIcon={<MaterialIcons name="error-outline" size={24} color="red" />}>
+                    El apellido debe tener al menos 3 caracteres
+                </FormControl.ErrorMessage>):(null)} 
             </FormControl>
              {/*termina form apellido */}
              
@@ -342,6 +346,9 @@ const FormRegistro = (props) => {
 
                 {formCelular == true ? (  <FormControl.ErrorMessage leftIcon={<MaterialIcons name="error-outline" size={24} color="red" />}>
                     El campo celular es obligatorio
+                </FormControl.ErrorMessage>):(null)}  
+                {inputTelefono == true ? (  <FormControl.ErrorMessage leftIcon={<MaterialIcons name="error-outline" size={24} color="red" />}>
+                    El  celular debe tener 10 dígitos
                 </FormControl.ErrorMessage>):(null)}  
             </FormControl>
             {/*termina form celular */}
@@ -412,9 +419,7 @@ const FormRegistro = (props) => {
                     InputLeftElement={<Icon as={MaterialIcons} name="lock" size={5} color="#FE308E" m={3}/>} size={5} color="muted.400" />
                  {formPassword == true ? (  <FormControl.ErrorMessage leftIcon={<MaterialIcons name="error-outline" size={24} color="red" />}>
                     El campo contraseña es obligatorio
-                 </FormControl.ErrorMessage>):(<FormControl.HelperText leftIcon={<MaterialIcons name="error-outline" size={24} color="red" />}>
-                 La contraseña debe tener al menos 5 caracteres y 1 un caracter especial /?&%$/
-                 </FormControl.HelperText>)}  
+                 </FormControl.ErrorMessage>): null}  
 
             </FormControl>
             
