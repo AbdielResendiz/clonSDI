@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from "react";
-import { View, Center, FormControl, Input, Pressable, Icon, Text } from "native-base";
+import { View, Center, FormControl, Input, Pressable, Icon, Text, ScrollView, Link } from "native-base";
 import { MaterialIcons} from '@expo/vector-icons'; 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ProcesandoLoginL from "../components/Componentes/procesando/ProcesandoLoginL.js";
@@ -202,7 +202,7 @@ const LoginAbdiel = ()=>{
       return(
       
         
-        <View mt={5}>
+        <ScrollView mt={5}>
               <Center>
   
              {/*Email */}
@@ -245,15 +245,35 @@ const LoginAbdiel = ()=>{
                 {/*termina form Contaseña*/}
   
               <Pressable onPress={() => {Validarform()}} >
-              <Center bg="white" h={"41px"} w={"274px"} mt={10} borderRadius={20} borderWidth={"1px"} borderColor={"#00BAEA"}> 
+              <Center bg="white" h={"41px"} w={"274px"} my={4} borderRadius={20} borderWidth={"1px"} borderColor={"#00BAEA"}> 
                  {loading == true ? (  <Text Text color={"#00BAEA"}>Validando crendeciales...</Text>) :(  <Text Text color={"#00BAEA"}>Iniciar sesión</Text>)}</Center>
               </Pressable>
+
+              <Link _text={{
+                  fontSize: "md",
+                  _light: {
+                    color: "cyan.500"
+                  },
+                  color: "cyan.300"
+                }} href="http://sdiqro.store/ResetPass" isUnderlined _hover={{
+                  _text: {
+                    _light: {
+                      color: "cyan.600"
+                    },
+                    color: "cyan.400"
+                  }
+                }}>
+                    ¿Olvidaste tu contraseña?
+                </Link>
               
               </Center>
+
+
+
   
   
               {loading == true ? (<ProcesandoLoginL/>) :(null)}
-        </View>
+        </ScrollView>
       
     )
 } 

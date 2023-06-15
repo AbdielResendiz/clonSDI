@@ -114,7 +114,7 @@ const [loader, setLoader ]= useState(true);
           </Pressable>
 
         </Stack>
-        {impresos.length>=1 ? 
+        {impresos.length < 1 ? 
 
         <ScrollView horizontal={true}>
           { impresos.map( (impreso, index)=>{
@@ -145,7 +145,7 @@ const [loader, setLoader ]= useState(true);
 
         </Stack>
 
-        {noImpresos.length>=1 ? 
+        {noImpresos.length < 1 ? 
         <ScrollView horizontal={true}>
         { noImpresos.map( (noImpreso, index)=>{
             return(
