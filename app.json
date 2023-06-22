@@ -2,7 +2,7 @@
   "expo": {
     "name": "SDI",
     "slug": "SDI",
-    "version": "1.0.5",
+    "version": "1.0.6",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
   
@@ -21,7 +21,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "store.sdiqro.sdi",
-      "buildNumber": "5",
+      "buildNumber": "6",
       "infoPlist": {
         "NSCameraUsageDescription": "We need access to the camera to take photos and videos for uploading to the app."
       }
@@ -35,7 +35,7 @@
       },
       "supportsTablet": true,
       "package": "store.sdiqro.sdi",
-      "versionCode": 5
+      "versionCode": 6
     },
     "web": {
       "favicon": "./assets/favicon.png"
