@@ -20,7 +20,7 @@ function PasarelaStripe(props) {
   const BASE_URL = URL.BASE_URL;
 
   const idU = props.route.params.id;
-  const total = props.route.params.tot;
+  const total = parseFloat(props.route.params.tot);
   const idSuc = props.route.params.suc;
   const idCarrito = props.route.params.car;
   
@@ -89,6 +89,10 @@ function PasarelaStripe(props) {
 
   
     const fetchPaymentIntentClientSecret = async () => {
+      console.log("total", total);
+      console.log("total type", typeof(total));
+      
+
       const response = await fetch(`${API_URL}/create-payment-intent`, {
         method: "POST",
         headers: {
@@ -100,7 +104,12 @@ function PasarelaStripe(props) {
         })
 
       });
+    
       const { clientSecret, error } = await response.json();
+     
+      
+      
+      
       return { clientSecret, error };
     };
   
@@ -221,6 +230,7 @@ function PasarelaStripe(props) {
       marginVertical: 30,
       backgroundColor: "#000fff",
       borderRadius: 8,
+      flexDirection: "row"
       
       
     },
