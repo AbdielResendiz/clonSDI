@@ -128,7 +128,7 @@ const Carrito = (props) => {
             {
                 text: 'Cancelar',
                 onPress: () => console.log("btn cancelar ") //props.navigation.navigate("Welcome"),
-              ``
+              
             },
             {
                 text: 'Eliminar del carrito',
@@ -147,14 +147,14 @@ const Carrito = (props) => {
           {
             load ? <Loader/> :
           
-            <ScrollView flex={1} bg={colors.blanco} >
+            <View flex={1} bg={colors.blanco} >
             
-            <Box h={"70%"}>
+     
             { carrito.length > 0 ? 
-                    <ScrollView minH={72} maxH={"70%"}>    
+                    <ScrollView minH={72} maxH={"90%"}>    
                         { carrito.map( (producto, index)=>{
                         return(
-                          <Box h={48} w={"96%"} mx={"2%"}  my={2}  key={index}
+                          <Box h={56} w={"96%"} mx={"2%"}  my={2}  key={index}
                           shadow={6} bg="white" borderRadius={20} borderColor={"#dddddd"}
                           borderWidth={2}>
                           <Stack direction={"row"}> 
@@ -173,18 +173,22 @@ const Carrito = (props) => {
                             comentario = {producto.comentario}
                             subtotal={producto.subtotalCarrito}/>
 
-                           
                             
                         </Stack>
 
-                        <Center ml={10}>
-                                <Pressable bgColor={colors.rosa} p={2} borderRadius={10} 
-                                  shadow={6} onPress={()=> previoEliminar(producto.id, producto.nombreS) }>
-                                    <Icon as={FontAwesome5} 
-                                    name="trash-alt"  size={6} color={colors.blanco} />
-                                   
-                                </Pressable>
-                            </Center>
+                         <Center ml={1}>
+                            <Pressable bgColor={colors.rosa} p={2} borderRadius={10} 
+                              shadow={6} onPress={()=> previoEliminar(producto.id, producto.nombreS) }>
+                                <Stack direction={"row"}>
+                                  <Icon as={FontAwesome5} 
+                                  name="trash-alt"  size={6} color={colors.blanco} />
+                                  <Text color="white" bold fontSize={14}> Eliminar </Text>
+                                </Stack>
+                           
+                              
+                            </Pressable>
+                          </Center>
+                  
                         </Box>
                         ) 
                       } )
@@ -197,7 +201,7 @@ const Carrito = (props) => {
                     <Text alignSelf={"center"} mt={20} fontSize={24}>No tienes productos en tu carrito.</Text>
                     </Center> 
             }
-            </Box>
+            
             <Divider bg={colors.azul} borderRadius={100} h={1} w="80%" alignSelf={"center"} my={1}/>
             <Box mb={4} w="85%"  mx={7} alignItems={"flex-end"} >  
                
@@ -206,22 +210,23 @@ const Carrito = (props) => {
                    
                    </Text>
             </Box>
-            { carrito.length <= 0 ? null : 
+           
 
-            <Center   >  
-              <Pressable alignItems="center" onPress={()=>navegacion("Recoleccion")} mb={4}
-                 w="50%" bg={colors.azul} borderRadius={20} mx={7} h={10} py={2} >
-                  
-                      <HStack>
-                          <Icon as={Ionicons} name="wallet"  size={6} color={"white"} />
-                          <Text fontSize={16} color={"white"} bold  mx={3}>Pagar</Text>
-                      </HStack>
-                  
-              </Pressable>
-            </Center>
-            }
+            </View>
+          }
+           { carrito.length < 0 ? null : 
 
-            </ScrollView>
+          <Center bg={"white"}   >  
+            <Pressable alignItems="center" onPress={()=>navegacion("Recoleccion")} mb={4}
+              w="50%" bg={colors.azul} borderRadius={20} mx={7} h={10} py={2} >
+                
+                    <HStack>
+                        <Icon as={Ionicons} name="wallet"  size={6} color={"white"} />
+                        <Text fontSize={16} color={"white"} bold  mx={3}>Pagar</Text>
+                    </HStack>
+                
+            </Pressable>
+          </Center>
           }
         </NativeBaseProvider>
     );

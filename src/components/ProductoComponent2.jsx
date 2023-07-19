@@ -13,13 +13,14 @@ const ProductoComponent2 = (props)=>{
 
     const { nombre, precio, id, image, impreso, idAS, idU } =props;
 
-    const detalleCategorias= (item, impreso, image,idAS, nombre) => {
+    const detalleCategorias= (item, impreso, image,idAS, nombre, idU) => {
         navigation.navigate("DetalleProducto", {
           id: item,
           impreso: impreso,
           image: image,
           idAS: idAS,
-          nombre: nombre
+          nombre: nombre,
+          idU: idU
           
           
         }); 
@@ -63,7 +64,7 @@ const ProductoComponent2 = (props)=>{
         }
            
         </Pressable>
-        <Pressable onPress={()=>detalleCategorias(id, impreso, image, idAS, nombre)}>
+        <Pressable onPress={()=>detalleCategorias(id, impreso, image, idAS, nombre, idU)}>
             <Center>
                 <Image source={{ 
                 uri: `http://sdiqro.store/static/imgServicios/${image}`

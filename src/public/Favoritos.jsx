@@ -15,13 +15,13 @@ const Favoritos = (props) => {
     const [loader, setLoader ]= useState(true);
 
     const [ favoritos, setFavoritos] = useState([]);
-    const [ idU, setIdU ] = useState(null);
+    const [ idU, setIdU ] = useState("");
 
     const getData = async () => {
         try {
           const value = await AsyncStorage.getItem('@id_user')
           if(value !== null) {
-            //console.log("idU async: ", value);
+            console.log("idU async: ", value);
             setIdU(value);
             getFav(value); 
           }
@@ -42,7 +42,7 @@ const Favoritos = (props) => {
         const responseFav = await fetchPost(url, options);
         if (responseFav !== null){
           setFavoritos(responseFav.data);
-         // console.log(responseFav.data)
+          console.log(responseFav.data)
         }else{
           setFavoritos([]);
         }
@@ -55,13 +55,15 @@ const Favoritos = (props) => {
       useEffect(() => {
         getData();
         
-        //console.log("favoritos: " ,favoritos)
-      }, [idU])
-      useEffect(() => {
+        console.log("idU: " ,idU)
+        getFav(idU);
+        console.log("favoritos: " ,favoritos)
+      }, [idU, favoritos.length ])
+       useEffect(() => {
         getFav(idU);
         
-        console.log("favoritos: " ,favoritos)
-      }, [favoritos.length])
+         console.log("favoritos: " ,favoritos)
+       }, [favoritos.length])
 
   const detalleProducto = (item, impreso, image, idAS, nombre, idU) => {
     props.navigation.navigate("DetalleProducto", {
@@ -128,6 +130,8 @@ const Favoritos = (props) => {
     if (res===true){
       console.log("true eliminado");
       getFav(idU);
+      console.log("fav borrar res: ", favoritos);
+      
     }else{
       console.log("False eliminado");
       

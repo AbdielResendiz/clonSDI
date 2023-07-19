@@ -38,7 +38,7 @@ const CarritoComponent= (props)=>{
                     <Text >Precio unitario: <Text bold> ${precio}</Text></Text>
                     <Text>Cantidad: <Text bold> {cantidad} </Text> </Text>
                     <Text>Subtotal: <Text bold>${subtotal}</Text></Text>
-                    {comentario !==  "null" ? 
+                    {comentario !== null ? 
                      <Text>Medidas: <Text bold>{comentario}</Text></Text>
                      : null
                     }

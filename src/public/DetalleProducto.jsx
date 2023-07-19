@@ -53,6 +53,8 @@ const DetalleProducto   = (props) => {
     }
     useEffect(() => {
       getDataSucursal()
+      console.log("id User detalle producto", idU);
+      
     }, [])
 
 
@@ -167,8 +169,8 @@ const DetalleProducto   = (props) => {
     const AtributoSelector = (props) => { 
         
         return(
-            <Center>
-                <Box maxW="400">
+         
+                <Box ml={"20%"} mr="10%">
                     <Select selectedValue={productoSelect} minWidth="300" accessibilityLabel={productoSelect} placeholder={productoSelect} _selectedItem={{
                     bg: "teal.600",
                     endIcon: <CheckIcon size="4" />
@@ -192,8 +194,8 @@ const DetalleProducto   = (props) => {
                     </Select>
                     
             </Box>
-            {/* <Text>{ "id atributo: " +productoSelect}</Text> */}
-        </Center>
+         
+        
         )
     }
 
@@ -219,7 +221,7 @@ const DetalleProducto   = (props) => {
                                         inventario.map( (sucursal, index)=>{
                                             return(
                                                 <Select.Item key={index}
-                                                label={sucursal.nombreSuc + ". Existencia: " + sucursal.inventario} 
+                                                label={sucursal.nombreSuc + ". Existencia: " + parseInt(sucursal.inventario)} 
                                                 value={sucursal.idSuc} />
                                             )
                                         } )
@@ -564,7 +566,6 @@ const DetalleProducto   = (props) => {
             return (
               <Stack direction={"row"} space={3}>
                 <HStack
-                  ml={5}
                   my={1}
                   bg={colors.blanco}
                   borderRadius={10}
@@ -587,7 +588,6 @@ const DetalleProducto   = (props) => {
                 </HStack>
       
                 <HStack
-                  ml={3}
                   my={1}
                   bg={colors.blanco}
                   borderRadius={10}
@@ -615,7 +615,6 @@ const DetalleProducto   = (props) => {
             return (
               <Stack direction={"row"} space={3}>
                 <HStack
-                  ml={5}
                   my={1}
                   bg={colors.blanco}
                   borderRadius={10}
@@ -643,28 +642,27 @@ const DetalleProducto   = (props) => {
             return (
               <Stack direction={"row"} space={3}>
                 <HStack
-                  ml={10}
                   my={3}
                   py={3}
                   bg={colors.blanco}
                   borderRadius={10}
                   shadow={6}
-                  w={48}
+                  w={"93%"}
                  
                 >
                   <Center pl={2}>
                     <Text bold>{unidad}: </Text>
                   </Center>
       
-                  <Center w={24}    >
+               
                     <TextInput
                       value={count}
                     
                       onChangeText={(text) => toInteger(text)}
                       keyboardType="numeric"
-                      style={{padding: 3,   color:"black", borderColor:colors.azul, borderWidth:1 , borderRadius:10,  width:100}}
+                      style={{padding: 3,   color:"black", borderColor:colors.azul, borderWidth:1 , borderRadius:10,  width:150, marginLeft:5}}
                     />
-                  </Center>
+                 
                 </HStack>
               </Stack>
             );
@@ -674,105 +672,98 @@ const DetalleProducto   = (props) => {
     return(
         <NativeBaseProvider >
             <ScrollView bg={colors.blanco} flex={1}>
-            {/**Titulo */}
-            <Center mt={1}>
-                <Text bold fontSize={18}>{producto===null ? nombre : producto.nombreS}</Text>
-            </Center>
-            {/**IMAGEN */}
-            <Center   w="90%" mx="5%" >
-                <Image source={{
-                uri: `http://sdiqro.store/static/imgServicios/${ producto!== null ? producto.image_url : image}`
-                }} alt="Alternate Text" size="xl" />
-            </Center>
-            <Text bold ml={8}>Selecciona tu producto:</Text>
-            {/** ATRIBUTOS SELECT */}
-                        <AtributoSelector />
-                {/** color, talla y precio */}
-          {producto !== null ? 
-          (
-            <Stack direction={"row"} >
-                <Text bold ml={5}>Precios:</Text>
-                <VStack flex={1} mr="3%" mt={1} p={2} px={4} bg={colors.grisclaro} borderRadius={10} shadow={6} mb={2}>
+             {/**Titulo */}
+              <Center mt={1}>
+                  <Text bold fontSize={18}>{producto===null ? nombre : producto.nombreS}</Text>
+              </Center>
+              {/**IMAGEN */}
+              <Center   w="90%" mx="5%" >
+                  <Image source={{
+                  uri: `http://sdiqro.store/static/imgServicios/${ producto!== null ? producto.image_url : image}`
+                  }} alt="Alternate Text" size="xl" />
+              </Center>
+              <Text bold ml={"10%"}>Selecciona tu producto:</Text>
+              {/** ATRIBUTOS SELECT */}
+                          <AtributoSelector />
+                  {/** color, talla y precio */}
+              {producto !== null ? 
+              (
+                <>
+              <Text bold ml={"10%"}>Precios:</Text>
+                <Stack direction={"row"}  ml={"20%"} mr={3} >
+                    <VStack flex={1} mr="3%" mt={1} p={2} px={4} bg={colors.grisclaro} borderRadius={10} shadow={6} mb={2}>
+                        
                     
-                
-                    <Text>Normal: {producto !==null ? ("$" + producto.precioS) : ""} </Text>
-                    <Text>A partir de {producto.cantidadMedioMayoreo} {unidad}: {producto !==null ? ("$" + producto.precioMedioMayoreo) : ""} </Text>
-                    <Text>A partir de {producto.cantidadMayoreo} {unidad}:  {producto !==null ? ("$" + producto.precioMayoreo) : ""} </Text>
-                </VStack>
-            </Stack>
-          )  :
-            <Text textAlign={"center"} my={3}>Selecciona tipo de producto para ver su precio </Text> 
-            }
-
-
-            <Divider w="90%" mx="5%" bg={colors.azul} h={0.5}/>
-            {/** STOCK */}
-            <Stack direction={"row"} >
-                <Text bold ml={5} mt={1}> Stock:</Text>
-                <Stack direction={"column"}  flex={1} mx="5%" mt={1} p={2} px={4} bg={colors.grisclaro} borderRadius={10} shadow={6} mb={2}> 
-                    
-                    <InventarioRender />
-
+                        <Text>Normal: {producto !==null ? ("$" + producto.precioS) : ""} </Text>
+                        <Text>A partir de {producto.cantidadMedioMayoreo} {unidad}: {producto !==null ? ("$" + producto.precioMedioMayoreo) : ""} </Text>
+                        <Text>A partir de {producto.cantidadMayoreo} {unidad}:  {producto !==null ? ("$" + producto.precioMayoreo) : ""} </Text>
+                    </VStack>
                 </Stack>
+                </>
+              )  :
+                <Text textAlign={"center"} my={3}>Selecciona tipo de producto para ver su precio </Text> 
+                }
 
-            </Stack>
+
+              <Divider w="90%" mx="5%" bg={colors.azul} h={0.5}/>
+              {/** STOCK */}
+              <Text bold ml={"10%"} mt={1}>Stock:</Text>
+                <Stack direction={"column"} p={3}  ml="20%" mr={5} bg={colors.grisclaro} borderRadius={10} shadow={6} mb={2}> 
+                    <InventarioRender />
+                </Stack>
          
-            <Divider w="90%" mx="5%" bg={colors.azul} h={0.5}/>
-            {/** DESCRIPCION */}
-            <Box mx={"5%"} mt={1} mb={1} >
-                <Text bold>Descripción</Text>
-                <Text mx={2}>{ producto !== null ? producto.desS :  desS}</Text>
-            </Box> 
+               <Divider w="90%" mx="5%" bg={colors.azul} h={0.5}/>
+                {/** DESCRIPCION */}
+                <Box  mt={1} mb={1} >
+                    <Text ml="10%"  bold>Descripción:</Text>
+                    <Text mr={5} ml="20%">{ producto !== null ? producto.desS :  desS}</Text>
+                </Box> 
+
                 {/**BOTONES DEL FINAL */}
                 <Stack direction={"column"} >
                     
                     {/**BOTON CANTIDAD  */}
                     {productoSelect !== null && sucursal !==null ?  
-                       <> 
+                       <Box ml="20%"> 
                        {renderCantidad()}
                         {idUnidad === 4 && (
-                        <Text ml={8} mt={2} bold>Metros cuadrados: {count.toFixed(2)}</Text>
+                        <Text ml="10%" mt={2} bold>Metros cuadrados: {count.toFixed(2)}</Text>
                         )} 
-                        </>
+                        </Box>
                     : <Text mx={5} borderWidth={1} p={2} borderRadius={10} my={3} borderColor={colors.azul}>Selecciona el producto y la sucursal para ingresar la cantidad</Text> }
-
-
-                    {/**FIN BOTON CANTIDAD */}
-
-                    <Stack direction={"column"} mx={10} borderRadius={10} borderWidth={1} shadow={6}  borderColor={colors.rosa} bg={colors.blanco} py={1}>
-                            <Text fontSize={"md"} bold mx={4}>Precio {nombrePrecio}: ${precioFinal}</Text>
-                            <Text fontSize={"md"} bold mx={4}>Subtotal: ${subtotal.toFixed(2)}</Text>
-
-                    </Stack>
+                      {/**FIN BOTON CANTIDAD */}
+                      <Stack direction={"column"} ml={"20%"} mr={"5%"} borderRadius={10} borderWidth={1} shadow={6}  borderColor={colors.rosa} bg={colors.blanco} py={1}>
+                              <Text fontSize={"md"} bold mx={4}>Precio {nombrePrecio}: ${precioFinal}</Text>
+                              <Text fontSize={"md"} bold mx={4}>Subtotal: ${subtotal.toFixed(2)}</Text>
+                      </Stack>
                     
 
                         {/**BOTON AGREGAR */}
-                <Stack direction={"row"} justifyContent="space-around" mt={2} >   
-                    <Pressable bg={colors.azul} borderRadius={10} shadow={6}mb={4}  p={2} onPress={()=>agregarCarrito()} >
-                        
-                        <Stack direction={"row"} >
-                            <Center p={1}>
-                                <Icon as={MaterialCommunityIcons} name="cart-plus" size={6}    color="white"/>
-                            </Center>
+                    <Stack direction={"column"} justifyContent="space-around" mt={2} ml="20%" mr="5%">   
 
-                            <Center>
-                                <Text bold color={"white"} >Agregar al carrito</Text>
-                            </Center>
-                        </Stack>
-                        
-                    </Pressable>
                     {/**FAVORITO */}
-                   <Pressable onPress={()=>handleIconPress(idAS, idU)}  borderWidth={1} borderRadius={10} borderColor={colors.rosa} shadow={7}  bgColor={colors.blanco} mb={4} p={2} >
-                    <Stack direction={"row"} >
-                        <Center px={1}>
-                            { selected===true ?
-                            <Icon as={AntDesign} name="heart"    size={6} color={colors.rosa}/> :
-                            <Icon as={AntDesign} name="hearto"    size={6} />
-                        }
-                        </Center>
-                        <Center>Agregar a favoritos</Center>
+                    <Pressable onPress={()=>handleIconPress(idAS, idU)}  borderWidth={1} borderRadius={10} borderColor={colors.rosa} shadow={7}  bgColor={colors.blanco} mb={4} p={2} >
+                        <Stack direction={"row"} >
+                            <Center px={1}>
+                                { selected===true ?
+                                <Icon as={AntDesign} name="heart"    size={6} color={colors.rosa}/> :
+                                <Icon as={AntDesign} name="hearto"    size={6} />
+                            }
+                            </Center>
+                            <Center>Agregar a favoritos</Center>
                         </Stack>
-                    </Pressable>
+                      </Pressable>
+                      <Pressable bg={colors.azul} borderRadius={10} shadow={6} mb={10}  p={2} onPress={()=>agregarCarrito()} >
+                          <Stack direction={"row"} >
+                              <Center p={1}>
+                                  <Icon as={MaterialCommunityIcons} name="cart-plus" size={6}    color="white"/>
+                              </Center>
+                              <Center>
+                                  <Text bold color={"white"} >Agregar al carrito</Text>
+                              </Center>
+                          </Stack>
+                      </Pressable>
+                      
                     </Stack>
                 </Stack>
             </ScrollView>

@@ -114,7 +114,7 @@ const [loader, setLoader ]= useState(true);
           </Pressable>
 
         </Stack>
-        {impresos.length < 1 ? 
+        {impresos.length > 0 ? 
 
         <ScrollView horizontal={true}>
           { impresos.map( (impreso, index)=>{
@@ -132,7 +132,7 @@ const [loader, setLoader ]= useState(true);
 
           }
         </ScrollView>
-         : <Text>No hay productos por el momento</Text>}
+         : <Text alignSelf={"center"} my={8}>No hay productos por el momento</Text>}
       </Box>
 
 
@@ -145,7 +145,7 @@ const [loader, setLoader ]= useState(true);
 
         </Stack>
 
-        {noImpresos.length < 1 ? 
+        {noImpresos.length > 0 ? 
         <ScrollView horizontal={true}>
         { noImpresos.map( (noImpreso, index)=>{
             return(
@@ -163,7 +163,7 @@ const [loader, setLoader ]= useState(true);
           }
         
         </ScrollView>
-        : <Text>No hay productos por el momento</Text>}
+        : <Text alignSelf={"center"} my={8}>No hay productos por el momento</Text>}
       </Box>
       </ScrollView>
         

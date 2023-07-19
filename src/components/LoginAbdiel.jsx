@@ -115,8 +115,7 @@ const LoginAbdiel = ()=>{
                          storeCarrito(resultado.idC.id)
                         storeSucursal(resultado.idC.idSuc)
                         
-                        alert(`Inicio de sesión exitoso. ID: ${resultado.idU} 
-                        Carrito: ${resultado.idC.id}`);
+                        alert(`Bienvenido`);
 
                         navigation.reset({
                           index: 0,
@@ -133,7 +132,7 @@ const LoginAbdiel = ()=>{
                       console.log("Error login",error)
                   })
               }
-              setTimeout(miFuncion, 2000);
+              setTimeout(miFuncion, 1000);
         }
         else{
            
