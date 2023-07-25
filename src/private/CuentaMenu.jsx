@@ -1,4 +1,4 @@
-import {  Divider, Icon, NativeBaseProvider, Pressable, Text,  Stack, ScrollView } from 'native-base';
+import {  Divider, Icon, NativeBaseProvider, Pressable, Text,  Stack, ScrollView, Image } from 'native-base';
 
 import colors from '../colors';
 import { FontAwesome5, Entypo, MaterialCommunityIcons, AntDesign } from '@expo/vector-icons'; 
@@ -120,11 +120,9 @@ const CuentaMenu=(props)=> {
     
 
     const borrarAviso = () =>{
-      
       Alert.alert(
         '¿Seguro que deseas borrar tu cuenta?',
         "Esta acción no se puede deshacer",
-        
         [
           {
             text: 'Volver',
@@ -150,16 +148,12 @@ const CuentaMenu=(props)=> {
       console.log("RESPONSE: ", res);
       console.log("id USUARIO" , idU) ;
       
-      
       if (res != true){
         alert("Error al borrar cuenta, intentelo más tarde.")
-         
         }else{
-          
           Alert.alert(
             'Se eliminó tu cuenta.',
             "Esperamos verte pronto",
-            
             [
     
               { text: 'Volver',  onPress: () => { logOut();},
@@ -168,11 +162,7 @@ const CuentaMenu=(props)=> {
             { cancelable: false },
           );
         }
-      
-      
     }
-
-
 
   return (
     <NativeBaseProvider>
@@ -182,7 +172,10 @@ const CuentaMenu=(props)=> {
           idU === null ? <Loader/> :
 
           <ScrollView bg={colors.blanco} flex={1}  >
-            <Stack shadow={6} m={8} borderRadius={10} bg={colors.blanco} space={1} mt={10} p={3} borderColor={"#dddddd"} borderWidth={2}>
+
+            <Image source={require("../../assets/iconT.png")}
+             alt="Alternate Text" size={48} alignSelf={'center'} resizeMode="contain" />
+            <Stack shadow={6} mx={8} mb={3} borderRadius={10} bg={colors.blanco} space={1}  p={3} borderColor={"#dddddd"} borderWidth={2}>
             
            <PerfilButton as={FontAwesome5} name="user-alt" text="Mi Perfil"  nav="Perfil"/>
            <Divider h={0.5} bg={colors.gris} w="90%" mx="5%"/>
@@ -205,12 +198,10 @@ const CuentaMenu=(props)=> {
             
 
 
-            <Pressable w="90%" mx="5%" flexDirection={"row"} my={3} onPress={()=> borrarAviso()}>
+            {/* <Pressable w="90%" mx="5%" flexDirection={"row"} my={3} onPress={()=> borrarAviso()}>
               <Icon as={AntDesign} name="deleteuser" mx={2} mt={1} size="lg"  color="black"  />
-              
               <Text bold color={colors.gris}  ml={2} fontSize="xl">Eliminar cuenta</Text>
-                    
-            </Pressable>
+            </Pressable> */}
 
             
           

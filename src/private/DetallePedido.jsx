@@ -49,10 +49,10 @@ const DetallePedido = (props) => {
     return(
         <NativeBaseProvider>
           { load ?  <Loader/> : 
-            <Box flex={1} bg={colors.blanco} >
+            <ScrollView flex={1} bg={colors.blanco} showsVerticalScrollIndicator={true} persistentScrollbar={true} >
           
             
-           <ScrollView  showsVerticalScrollIndicator={true} persistentScrollbar={true}>  
+           <Box  >  
              {
              
                 pedidos.map( (p, index)=>{
@@ -71,15 +71,15 @@ const DetallePedido = (props) => {
             
                 
                 
-            </ScrollView>
+            </Box>
             
-            <Divider bg={colors.azul} borderRadius={100} h={1} w="80%" alignSelf={"center"} my={1}/>
+            <Divider bg={colors.azul} borderRadius={100} mt={4} h={1} w="80%" alignSelf={"center"} my={1}/>
             <Center h="70" w="85%"  mx={7} >  
                 <Text fontSize={22} bold>Total con IVA: ${total}</Text>
                 <Text fontSize={18} >Recolección: Sucursal {sucursal} </Text>
             </Center>
 
-            </Box>
+            </ScrollView>
            
           }
         </NativeBaseProvider>

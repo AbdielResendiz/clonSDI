@@ -28,7 +28,7 @@ const DetalleProducto   = (props) => {
     const [ idCarrito, setIdCarrito ] = useState(null);
     const [ unidad, setUnidad ] = useState("Cantidad");
     const [ idUnidad, setIdUnidad ] = useState(null)
-    const [ comentario, setComentario ] = useState(null);
+    const [ comentario, setComentario ] = useState("");
 
     const getData = async () => {
         try {

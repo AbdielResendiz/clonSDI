@@ -9,8 +9,6 @@ import URL from '../helper/URL';
 import fetchPost from '../helper/fetchPost';
 import Loader from '../components/Loader';
 
-
-
 const Carrito = (props) => {
     const BASE_URL = URL.BASE_URL;
     const navegacion= (item) => {
@@ -32,7 +30,6 @@ const Carrito = (props) => {
           Alert.alert(
             'Para ver tu carrito de compras debes estar registrado e iniciar sesión.',
             "Selecciona una opción",
-            
             [
               {
                 text: 'Iniciar sesion',
@@ -42,7 +39,6 @@ const Carrito = (props) => {
                 text: 'Registrarse',
             onPress: () => { props.navigation.navigate('Welcome', { status: false } )},
               },
-    
               { text: 'Volver',  onPress: () => {props.navigation.navigate("Home")}  },
             ],
             { cancelable: false },
@@ -52,7 +48,6 @@ const Carrito = (props) => {
         console.log("error id carrito", e)
         }
     }
-
 
     useEffect(() => {
         getData();
@@ -78,7 +73,6 @@ const Carrito = (props) => {
         }else{
           setCarrito([]);
         }
-       
         //console.log("res", responseFav.data);
         //setLoader(false);
         
@@ -102,7 +96,6 @@ const Carrito = (props) => {
                 {
                     text: 'Volver',
                     onPress: () => console.log("btn volver error") //props.navigation.navigate("Welcome"),
-                  
                 }
               ])
         }else{
@@ -111,14 +104,11 @@ const Carrito = (props) => {
                 {
                     text: 'Volver al carrito',
                     onPress: () => console.log("btn volver ") //props.navigation.navigate("Welcome"),
-                  
                 },
                 {
                     text: 'Ir a inicio',
                     onPress: () => navegacion("Home") //props.navigation.navigate("Welcome"),
-                  
                 }
-
               ])
         }
       }
@@ -128,30 +118,23 @@ const Carrito = (props) => {
             {
                 text: 'Cancelar',
                 onPress: () => console.log("btn cancelar ") //props.navigation.navigate("Welcome"),
-              
             },
             {
                 text: 'Eliminar del carrito',
                 onPress: () => eliminarItem(id) //props.navigation.navigate("Welcome"),
-              
             }
-
           ])
       }
 
-  
-    
-
     return(
         <NativeBaseProvider>
-          {
-            load ? <Loader/> :
+          <ScrollView flex={1}>
+          { load ? <Loader/> :
           
             <View flex={1} bg={colors.blanco} >
             
-     
             { carrito.length > 0 ? 
-                    <ScrollView minH={72} maxH={"90%"}>    
+                    <Box flex={1}>    
                         { carrito.map( (producto, index)=>{
                         return(
                           <Box h={56} w={"96%"} mx={"2%"}  my={2}  key={index}
@@ -194,7 +177,7 @@ const Carrito = (props) => {
                       } )
 
                       }
-                    </ScrollView>
+                    </Box>
 
                     :
                     <Center>
@@ -228,6 +211,7 @@ const Carrito = (props) => {
             </Pressable>
           </Center>
           }
+          </ScrollView>
         </NativeBaseProvider>
     );
 };

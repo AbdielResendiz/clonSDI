@@ -14,8 +14,6 @@ import Categoria from '../components/Categoria';
 
 export default function DetalleCategoria(props) {
  
-
-
   const estado = props.route.params.estado;
   const urlCat = props.route.params.url;
   const idU = props.route.params.user;
@@ -24,9 +22,6 @@ export default function DetalleCategoria(props) {
   console.log("ESTADO ===", estado);
   const [ loader, setLoader ] = useState(true);
 
- 
-
-  
   const [ categorias, setCategorias ] = useState([]);
 //PRODUCTOS MAPEO
   const [ productos, setProductos ] = useState([]);
@@ -79,13 +74,12 @@ export default function DetalleCategoria(props) {
             <SwiperList/>
         </Box>
         
-        <Box ml={3}>
-            <Text bold>  {estado === true ? "Categorias de impresos" : "Categorias de no impresos"}</Text>
+        <Box ml={3} my={3}>
+            <Text bold fontSize={'md'}>  {estado === true ? "Categorias de impresos" : "Categorias de no impresos"}</Text>
         </Box>
         <Center w={"95%"} ml={3}>
 
         <ScrollView horizontal={true} >
-
             { categorias.map( (item,index) => {
               return(
                 <Pressable mx={1} key={index} onPress={()=>detalleCategorias(item.idCS, estado, item.nombreCS)}>
@@ -93,16 +87,8 @@ export default function DetalleCategoria(props) {
                 </Pressable>
               )
             }
-
             )
-
             }
-            
-        
-
-
-
-
         </ScrollView>
 
 

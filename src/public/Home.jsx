@@ -85,21 +85,21 @@ const [loader, setLoader ]= useState(true);
         </Box>
         
         <Box ml={3}>
-        <Text bold> Categorías</Text>
+        <Text bold fontSize={'md'} my={2}> Categorías</Text>
         </Box>
         <Center w={"95%"} ml={3}>
         <Stack direction={"row"}>
-          <Pressable h={10} w={"40%"} bg={colors.blanco} shadow={6} 
+          <Pressable h={10} w={"40%"} bg={colors.azul} shadow={6} 
           borderRadius={10} m={3} onPress={()=>detalleCategorias(true, "http://sdiqro.store/abdiel/Productos/ver_impresos", idU)}>
             <Center h={"100%"} w={"100%"}>
-              <Text bold>Impresos</Text>
+              <Text bold color={"white"} letterSpacing={1} fontSize={'md'}>Impresos</Text>
             </Center>
           </Pressable>
 
-          <Pressable h={10} w={"40%"} bg={colors.blanco} shadow={6} 
+          <Pressable h={10} w={"40%"} bg={colors.azul} shadow={6} 
           borderRadius={10} m={3} onPress={()=>detalleCategorias(false, "http://sdiqro.store/abdiel/Productos/ver_noimpresos", idU)}>
             <Center h={"100%"} w={"100%"}>
-              <Text bold>No Impresos</Text>
+              <Text bold color="white" letterSpacing={1} fontSize={'md'}>No Impresos</Text>
             </Center>
           </Pressable>
       </Stack>

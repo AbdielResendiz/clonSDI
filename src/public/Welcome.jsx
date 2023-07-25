@@ -2,7 +2,7 @@ import { NativeBaseProvider, Text, View, Center, Box, Container, Image, Pressabl
 import { useEffect, useState } from "react";
 //import { TouchableOpacity } from "react-native";
 import colors from "../colors";
-import LoginAbdiel from "../components/LoginAbdiel";
+import Login from "../components/Login";
 //import RegistroAbdiel from "../components/RegistroAbdiel";
 import FormRegistro from "../components/FormRegistro";
 
@@ -48,7 +48,7 @@ useEffect( ()=>{
                 </View>
 
                 { show===true ? 
-                  <LoginAbdiel/>
+                  <Login/>
               
                 :
                   <FormRegistro/>
