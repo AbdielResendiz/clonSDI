@@ -209,8 +209,8 @@ export default function App(props) {
 const HeaderLeftCustom = ()=>{
   return(
         <NativeBaseProvider>
-             <Image source={require("./assets/iconT.png")}
-             alt="Alternate Text" w={100} h={12} resizeMode="contain" />
+             <Image source={require("./assets/laptopfix_logo.png")}
+             alt="Alternate Text" w={260} ml={3} mt={-4} resizeMode="contain" />
 
               
             </NativeBaseProvider>

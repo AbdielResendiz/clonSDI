@@ -1,19 +1,19 @@
 {
   "expo": {
-    "name": "SDI",
-    "slug": "SDI",
+    "name": "Laptopfix",
+    "slug": "Laptopfix",
     "version": "1.0.8",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-  
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#00BAEA"
+      "backgroundColor": "#ffffff"
     },
     "updates": {
-      "fallbackToCacheTimeout": 0
+      "fallbackToCacheTimeout": 0,
+      "url": "https://u.expo.dev/e484596d-43fe-47dc-a93a-a441f909083b"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -21,21 +21,20 @@
     "ios": {
       "googleServicesFile": "./GoogleService-Info.plist",
       "supportsTablet": true,
-      "bundleIdentifier": "store.sdiqro.sdi",
+      "bundleIdentifier": "mx.com.laptopfix",
       "buildNumber": "8",
       "infoPlist": {
         "NSCameraUsageDescription": "We need access to the camera to take photos and videos for uploading to the app."
       }
     },
     "android": {
-      
       "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#000000"
       },
       "supportsTablet": true,
-      "package": "store.sdiqro.sdi",
+      "package": "mx.com.laptopfix",
       "versionCode": 8
     },
     "web": {
@@ -43,7 +42,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "0be12457-39a3-483f-9481-e994c5fd5603"
+        "projectId": "e484596d-43fe-47dc-a93a-a441f909083b"
       }
     },
     "plugins": [
@@ -60,6 +59,9 @@
           }
         }
       ]
-    ]
+    ],
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    }
   }
 }

@@ -13,7 +13,7 @@ import { useState, useEffect } from 'react';
 import Categoria from '../components/Categoria';
 
 export default function DetalleCategoria(props) {
- 
+  const BASE_URL = URL.BASE_URL;
   const estado = props.route.params.estado;
   const urlCat = props.route.params.url;
   const idU = props.route.params.user;
@@ -42,7 +42,7 @@ export default function DetalleCategoria(props) {
 
   const getCategorias= async()=>{
 
-    const url = "http://sdiqro.store/abdiel/Productos/categorias"
+    const url = `${BASE_URL}abdiel/Productos/categorias`;
     const options = {
       method:'POST',
     };

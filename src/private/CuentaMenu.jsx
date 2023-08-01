@@ -175,7 +175,7 @@ const CuentaMenu=(props)=> {
 
             <Image source={require("../../assets/iconT.png")}
              alt="Alternate Text" size={48} alignSelf={'center'} resizeMode="contain" />
-            <Stack shadow={6} mx={8} mb={3} borderRadius={10} bg={colors.blanco} space={1}  p={3} borderColor={"#dddddd"} borderWidth={2}>
+            <Stack shadow={6} mx={8} mb={3} borderRadius={10} bg={colors.blanco} space={1}  p={3} borderColor={"#dcdcdc"} borderWidth={1.5}>
             
            <PerfilButton as={FontAwesome5} name="user-alt" text="Mi Perfil"  nav="Perfil"/>
            <Divider h={0.5} bg={colors.gris} w="90%" mx="5%"/>
@@ -194,7 +194,7 @@ const CuentaMenu=(props)=> {
               <Text bold color={colors.gris}  ml={2} fontSize="xl">Cerrar Sesión</Text>
                     
             </Pressable>
-            <Divider h={0.5} bg={colors.gris} w="90%" mx="5%"/>
+            {/* <Divider h={0.5} bg={colors.gris} w="90%" mx="5%"/> */}
             
 
 

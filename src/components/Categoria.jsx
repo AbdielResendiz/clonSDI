@@ -10,7 +10,7 @@ const{ image, titulo} = props;
             <Center  bg="#cfcfcf" h={24} w={24} borderRadius={16} shadow={6}>
                 <Image
                 source={{
-                    uri: `http://sdiqro.store/static/img/categoriasServ/${image}`
+                    uri: `http://sdiqro.store/respaldo/static/img/categoriasServ/${image}`
                     }} alt="Alternate Text" size="lg"  borderRadius={16}/>
            
             </Center>

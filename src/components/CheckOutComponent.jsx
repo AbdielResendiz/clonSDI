@@ -82,7 +82,7 @@ const CheckOutComponent= (props)=>{
             <Stack direction={"row"}> 
              
                 <Image source={{
-                uri: `http://sdiqro.store/static/imgServicios/${image}`
+                uri: `http://sdiqro.store/respaldo/static/imgServicios/${image}`
                 }} alt="Alternate Text" size="xl" mt={2} mx={2} resizeMode="contain"/>
                 <Stack direction={"column"} justifyContent={"center"}  w="150" mt={2}>
                     <Text bold> {nombre}</Text>

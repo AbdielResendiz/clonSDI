@@ -166,11 +166,11 @@ function PasarelaStripe(props) {
         
           </Center>
 
-          <Stack direction={"row"} alignSelf={"center"} space={10}>
-          <Image source={require("../../images/logo.png")}
-             alt="Alternate Text" size="xl" resizeMode="contain" />
+          <Stack direction={"column"} alignSelf={"center"} space={1}>
+          <Image source={require("../../../assets/laptopfix_logo.png")}
+             alt="Alternate Text" w={72} resizeMode="contain"  mt={-5}/>
               <Image source={require("../../images/stripe.jpeg")}
-             alt="Alternate Text" size="xl" resizeMode="contain" />
+             alt="Alternate Text" size="xl" resizeMode="contain"  alignSelf={'center'} mt={-10} />
           </Stack>
           <StripeProvider publishableKey='pk_test_51LlFbaDzNrCwCazaGr27Olsh8foLuQ6ZNzIH0onZPzJniMf375y3srnBxcXMRI3Nu21JfCdX5c8h4CWlW700nzvD00enMjqF2E'>
             <Text ml={5} bold>Correo electrónico: </Text>

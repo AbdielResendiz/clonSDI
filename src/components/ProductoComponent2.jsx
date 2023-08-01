@@ -67,7 +67,7 @@ const ProductoComponent2 = (props)=>{
         <Pressable onPress={()=>detalleCategorias(id, impreso, image, idAS, nombre, idU)}>
             <Center>
                 <Image source={{ 
-                uri: `http://sdiqro.store/static/imgServicios/${image}`
+                uri: `http://sdiqro.store/respaldo/static/imgServicios/${image}`
                 }} alt="Alternate Text" size="lg" />
             </Center>
             <Center w="92%" h={10} mx="4%">

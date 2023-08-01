@@ -679,7 +679,7 @@ const DetalleProducto   = (props) => {
               {/**IMAGEN */}
               <Center   w="90%" mx="5%" >
                   <Image source={{
-                  uri: `http://sdiqro.store/static/imgServicios/${ producto!== null ? producto.image_url : image}`
+                  uri: `http://sdiqro.store/respaldo/static/imgServicios/${ producto!== null ? producto.image_url : image}`
                   }} alt="Alternate Text" size="xl" />
               </Center>
               <Text bold ml={"10%"}>Selecciona tu producto:</Text>

@@ -2,7 +2,7 @@
 
 const URL ={
     // BASE_URL : "https://v-csoft.com/leappi/"
-     BASE_URL : "http://sdiqro.store/"
+     BASE_URL : "http://sdiqro.store/respaldo/"
   }
   
   

@@ -11,7 +11,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Home(props) {
   const BASE_URL =URL.BASE_URL;
- // console.log(BASE_URL)
+  console.log(BASE_URL)
 
  const [ idU, setIdU ] = useState(null);
 
@@ -90,16 +90,16 @@ const [loader, setLoader ]= useState(true);
         <Center w={"95%"} ml={3}>
         <Stack direction={"row"}>
           <Pressable h={10} w={"40%"} bg={colors.azul} shadow={6} 
-          borderRadius={10} m={3} onPress={()=>detalleCategorias(true, "http://sdiqro.store/abdiel/Productos/ver_impresos", idU)}>
+          borderRadius={10} m={3} onPress={()=>detalleCategorias(true, "http://sdiqro.store/respaldo/abdiel/Productos/ver_impresos", idU)}>
             <Center h={"100%"} w={"100%"}>
-              <Text bold color={"white"} letterSpacing={1} fontSize={'md'}>Impresos</Text>
+              <Text bold color={"white"} letterSpacing={1} fontSize={'md'}>Hardware</Text>
             </Center>
           </Pressable>
 
           <Pressable h={10} w={"40%"} bg={colors.azul} shadow={6} 
-          borderRadius={10} m={3} onPress={()=>detalleCategorias(false, "http://sdiqro.store/abdiel/Productos/ver_noimpresos", idU)}>
+          borderRadius={10} m={3} onPress={()=>detalleCategorias(false, "http://sdiqro.store/respaldo/abdiel/Productos/ver_noimpresos", idU)}>
             <Center h={"100%"} w={"100%"}>
-              <Text bold color="white" letterSpacing={1} fontSize={'md'}>No Impresos</Text>
+              <Text bold color="white" letterSpacing={1} fontSize={'md'}>Software</Text>
             </Center>
           </Pressable>
       </Stack>
@@ -109,7 +109,7 @@ const [loader, setLoader ]= useState(true);
       <Box> 
         <Stack direction={"row"} justifyContent={"space-between"} mx={9} my={1}>
           <Text bold >Más vendidos impresos</Text>
-          <Pressable onPress={()=>detalleCategorias(false, "http://sdiqro.store/abdiel/Productos/ver_impresos", idU)}>
+          <Pressable onPress={()=>detalleCategorias(false, "http://sdiqro.store/respaldo/abdiel/Productos/ver_impresos", idU)}>
             <Text color={"#ff0000"}> Ver más</Text>
           </Pressable>
 
@@ -139,7 +139,7 @@ const [loader, setLoader ]= useState(true);
       <Box my={3}>
         <Stack direction={"row"} justifyContent={"space-between"} mx={9} my={1}>
           <Text bold >Más vendidos no impresos</Text>
-          <Pressable onPress={()=>detalleCategorias(false, "http://sdiqro.store/abdiel/Productos/ver_noimpresos", idU)}>
+          <Pressable onPress={()=>detalleCategorias(false, "http://sdiqro.store/respaldo/abdiel/Productos/ver_noimpresos", idU)}>
             <Text color={"#ff0000"}> Ver más</Text>
           </Pressable>
 

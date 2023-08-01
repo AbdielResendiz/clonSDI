@@ -46,13 +46,13 @@ const SwiperList = () => {
             source={{ uri: `${BASE_URL}static/img/banners/${banner.imagen}` }}
             alt={`banner${index + 1}`}
             w={Dimensions.get('window').width}
-            h={"100%"}
+           
             resizeMode="contain"
           />
         )))
       
      : (
-      <Box w={Dimensions.get('window').width}>
+     
         <Image
           source={{
             uri: 'https://shop.marypymes.es/BANNER-PAPELERIA.png',
@@ -62,7 +62,7 @@ const SwiperList = () => {
           h={"100%"}
           resizeMode="contain"
         />
-      </Box>
+      
     )}
     
 
